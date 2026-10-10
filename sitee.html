@@ -1,0 +1,466 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Muaz — advertising for medical practices</title><meta name="description" content="Advertising for medical and dental practices. Campaign setup, message scripts and weekly reporting. Start with a free initial audit and a paid test."><meta name="theme-color" content="#F1F3F1"><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"><style>
+  :root{
+    --bg:#F1F3F1;
+    --bg-panel:#E7ECE8;
+    --ink:#12201B;
+    --ink-soft:#4B5A54;
+    --line:#CBD3CE;
+    --mint:#1E8A5A;
+    --mint-soft:#DCEDE3;
+    --coral:#C1443A;
+    --coral-soft:#F3DEDB;
+    --max:1080px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+  a{color:inherit;}
+
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Space Grotesk', sans-serif;}
+
+  /* ---- NAV ---- */
+  header{
+    padding:26px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
+  .brand{display:flex; flex-direction:column; gap:2px;}
+  .brand-name{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.05rem; letter-spacing:0.02em;}
+  .brand-tag{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft);}
+  .nav-cta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    padding:10px 18px;
+    border:1px solid var(--ink);
+    border-radius:2px;
+    text-decoration:none;
+    color:var(--ink);
+    white-space:nowrap;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  .nav-cta:hover{background:var(--ink); color:var(--bg);}
+
+  /* ---- HERO ---- */
+  .hero{padding:70px 0 40px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--mint);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px; border-radius:50%;
+    background:var(--mint);
+    display:inline-block;
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2rem, 4.4vw, 3.4rem);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    max-width:15ch;
+  }
+  h1 .accent{color:var(--coral);}
+  .sub{
+    margin-top:22px;
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    max-width:52ch;
+    line-height:1.6;
+  }
+  .hero-actions{
+    margin-top:32px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .btn-primary{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.85rem;
+    background:var(--ink);
+    color:var(--bg);
+    padding:14px 26px;
+    border-radius:2px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform 0.15s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost-note{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---- FEED (signature element) ---- */
+  .feed-wrap{
+    margin-top:56px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:#fff;
+    overflow:hidden;
+  }
+  .feed-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:var(--bg-panel);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .feed-body{
+    padding:8px 0;
+    min-height:290px;
+  }
+  .feed-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding:13px 20px;
+    border-bottom:1px solid #EEF1EE;
+    opacity:0;
+    transform:translateY(6px);
+    animation:rise 0.5s ease forwards;
+  }
+  .feed-item:last-child{border-bottom:none;}
+  .feed-msg{font-size:0.92rem;}
+  .feed-msg .who{color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; display:block; margin-bottom:3px;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem;
+    padding:5px 10px;
+    border-radius:20px;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .tag.out{background:var(--coral-soft); color:var(--coral);}
+  .tag.in{background:var(--mint-soft); color:var(--mint);}
+  .feed-item.filtered .feed-msg{color:#9AA5A0; text-decoration:line-through; text-decoration-color:#C7CDC9;}
+  @keyframes rise{to{opacity:1; transform:translateY(0);}}
+
+  /* ---- BIG NUMBER SECTION ---- */
+  .result{
+    padding:70px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  .result-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:18px;
+  }
+  .result-figure{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:clamp(2rem, 7vw, 4.6rem);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .result-figure .from{color:var(--ink-soft);}
+  .result-figure .arrow{color:var(--coral); font-size:0.5em;}
+  .result-figure .to{color:var(--mint);}
+  .result-note{
+    margin-top:16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+  }
+  .result-note strong{color:var(--ink);}
+
+  /* ---- PAIN ---- */
+  .pain{padding:70px 0;}
+  .section-head{max-width:44ch; margin-bottom:40px;}
+  .section-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:clamp(1.5rem, 2.6vw, 2.1rem);
+  }
+  .pain-list{display:flex; flex-direction:column; border-top:1px solid var(--line);}
+  .pain-item{
+    display:flex;
+    gap:20px;
+    padding:24px 0;
+    border-bottom:1px solid var(--line);
+    align-items:flex-start;
+  }
+  .pain-mark{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--coral);
+    font-size:0.85rem;
+    padding-top:3px;
+    flex-shrink:0;
+    width:22px;
+  }
+  .pain-item p{font-size:1.02rem; max-width:56ch;}
+
+  /* ---- FUNNEL ---- */
+  .funnel{padding:70px 0; background:var(--bg-panel);}
+  .funnel-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:8px;
+  }
+  .funnel-cell{
+    background:var(--bg-panel);
+    padding:30px 26px;
+  }
+  .funnel-num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    color:var(--mint);
+    margin-bottom:14px;
+  }
+  .funnel-cell h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.15rem;
+    margin-bottom:10px;
+  }
+  .funnel-cell p{font-size:0.94rem; color:var(--ink-soft);}
+
+  .cases-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:26px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.85rem;
+    color:var(--ink);
+    text-decoration:underline;
+    text-underline-offset:3px;
+    text-decoration-color:var(--line);
+  }
+  .cases-link:hover{text-decoration-color:var(--ink);}
+  .result .cases-link{display:block;}
+
+  /* ---- PROCESS ---- */
+  .process{padding:70px 0;}
+  .process-list{display:flex; flex-direction:column; margin-top:8px; border-top:1px solid var(--line);}
+  .process-item{display:flex; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); align-items:flex-start;}
+  .process-num{font-family:'IBM Plex Mono',monospace; font-size:0.85rem; color:var(--mint); width:34px; flex-shrink:0; padding-top:2px;}
+  .process-item h3{font-family:'Space Grotesk',sans-serif; font-size:1.05rem; margin-bottom:6px;}
+  .process-item p{font-size:0.95rem; color:var(--ink-soft); max-width:56ch;}
+  .process-note{
+    margin-top:24px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.8rem;
+    color:var(--ink);
+    background:var(--mint-soft);
+    display:inline-block;
+    padding:12px 18px;
+    border-radius:4px;
+  }
+
+  /* ---- TRUST STRIP ---- */
+  .trust-strip{
+    display:flex;
+    gap:24px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:26px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+  }
+  .trust-strip span{display:flex; align-items:center; gap:8px;}
+  .trust-strip span::before{content:"✓"; color:var(--mint);}
+
+  /* ---- AUTOMATION ---- */
+  .automation{padding:70px 0; background:var(--bg-panel);}
+  .automation-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+    margin-top:34px;
+  }
+  .auto-item{background:#fff; border:1px solid var(--line); border-radius:6px; padding:26px;}
+  .auto-icon{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:1.1rem;
+    color:var(--mint);
+    width:36px; height:36px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--mint-soft);
+    background:var(--mint-soft);
+    border-radius:50%;
+    margin-bottom:16px;
+  }
+  .auto-item h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.05rem;
+    margin-bottom:8px;
+  }
+  .auto-item p{font-size:0.92rem; color:var(--ink-soft);}
+
+  /* ---- ABOUT ---- */
+  .about{padding:70px 0; border-top:1px solid var(--line);}
+  .about-grid{display:grid; grid-template-columns:1fr 1.6fr; gap:50px; align-items:start;}
+  .about-grid h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(1.5rem, 2.6vw, 2.1rem);
+    font-weight:600;
+  }
+  .about-body p{margin-bottom:16px; font-size:1.02rem; color:var(--ink-soft); max-width:58ch;}
+  .about-body strong{color:var(--ink);}
+  .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;
+    padding:7px 12px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    color:var(--ink-soft);
+  }
+
+  /* ---- CTA ---- */
+  .cta{
+    padding:80px 0 90px;
+    text-align:center;
+    border-top:1px solid var(--line);
+  }
+  .cta h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(1.7rem, 3.6vw, 2.6rem);
+    max-width:20ch;
+    margin:0 auto 18px;
+  }
+  .cta p{color:var(--ink-soft); max-width:46ch; margin:0 auto 32px;}
+  .cta-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .btn-outline{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.85rem;
+    padding:14px 26px;
+    border:1px solid var(--ink);
+    border-radius:2px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  .btn-outline:hover{background:var(--ink); color:var(--bg);}
+
+  footer{
+    padding:26px 0;
+    border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  @media (max-width:760px){
+    .funnel-grid, .automation-grid{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .result-figure{gap:10px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .feed-item{animation:none; opacity:1; transform:none;}
+    html{scroll-behavior:auto;}
+  }
+
+button{font:inherit} .languages{display:flex;gap:3px;border:1px solid var(--line);padding:3px;border-radius:3px}
+.languages button{background:transparent;border:0;padding:7px 9px;color:var(--ink-soft);cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.languages button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.nav-tools{display:flex;align-items:center;gap:16px} .brand{text-decoration:none} .skip{position:absolute;top:-100px;left:20px;z-index:100;background:var(--ink);color:white;padding:12px}.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--mint);outline-offset:5px} .hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:60px;align-items:center}
+h1{max-width:18ch} .hero{padding:65px 0} .hero .sub{font-size:1.04rem} .hero-actions{gap:12px} .hero-actions .btn-outline,.hero-actions .btn-primary{padding:13px 17px}
+.hero-case{border:1px solid var(--line);background:var(--bg-panel);padding:28px;border-radius:4px}.hero-case h2{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;margin:10px 0 4px}.small{font-size:.86rem;color:var(--ink-soft);line-height:1.65}
+.case-metrics{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin:20px 0;background:var(--bg)}.case-metrics>div{padding:18px 14px;border-bottom:1px solid var(--line)}.case-metrics>div:nth-child(odd){border-right:1px solid var(--line)}.case-metrics>div:nth-last-child(-n+2){border-bottom:0}.case-metrics dt{font-size:.77rem;color:var(--ink-soft)}.case-metrics dd{overflow-wrap:anywhere;font-family:'IBM Plex Mono',monospace;font-size:1.2rem;margin-top:5px}.case-metrics .revenue{color:var(--mint)}
+.kicker{font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;font-size:.73rem;color:var(--mint)}.hero-case .cases-link{margin:14px 0 0}.hint{margin-top:14px;max-width:57ch}
+.section-intro{margin:-22px 0 28px;max-width:68ch;color:var(--ink-soft)}.services{padding:65px 0;background:var(--bg-panel);border-top:1px solid var(--line)}.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.service{background:var(--bg-panel);padding:26px}.service .number{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--mint)}.service h3{font-size:1.1rem;margin:12px 0 8px}.service p{color:var(--ink-soft);font-size:.95rem}
+.scope-note{margin-top:22px;padding:16px 20px;border-left:2px solid var(--mint);background:var(--mint-soft);font-size:.92rem}.prep{padding:65px 0}.prep-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}.prep h3{font-size:1.1rem;margin-bottom:14px}.checklist{padding-left:20px;color:var(--ink-soft)}.checklist li{padding:6px 0}.boundaries{margin:28px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:20px}.boundary{padding:24px;border:1px solid var(--line)}.boundary p{color:var(--ink-soft);margin-top:8px;font-size:.95rem}
+.faq{padding:65px 0;border-top:1px solid var(--line)}details{border-top:1px solid var(--line)}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;padding:21px 36px 21px 0;font-size:1rem;font-weight:500;position:relative;list-style:none}summary::-webkit-details-marker{display:none}summary::after{content:'+';position:absolute;right:6px;font-family:'IBM Plex Mono',monospace;color:var(--mint)}details[open] summary::after{content:'−'}details p{padding:0 32px 23px 0;max-width:80ch;color:var(--ink-soft);font-size:.96rem;line-height:1.7}.faq-link{margin:22px 0}
+.case-wide{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}.case-wide h2{font-size:1.6rem;font-family:'Space Grotesk',sans-serif;margin:10px 0 15px}.result{text-align:left;padding:65px 0}.result .cases-link{display:inline-flex}.result .case-metrics{margin:0}.result-label{text-align:left}.result-footnote{margin-top:23px;max-width:84ch}.result .result-figure{justify-content:flex-start;font-size:2rem}
+.automation .section-head{max-width:none}.auto-item h3{font-size:1.15rem}.automation-grid{gap:18px}.about .chips{font-size:.8rem}.contact-note{margin-top:18px!important;font-size:.9rem}.contact-note a{text-underline-offset:3px}.mini-link{font-family:'IBM Plex Mono',monospace;font-size:.82rem}.footer-inner{max-width:1080px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;width:100%;padding:0 28px}
+@media(max-width:950px){.hero-grid{gap:28px;grid-template-columns:1.2fr 1fr}.hero-case{padding:20px}h1{font-size:2.65rem}}
+@media(max-width:760px){.wrap{padding:0 20px}.hero-grid,.services-grid,.prep-grid,.boundaries,.case-wide{grid-template-columns:1fr}.hero{padding:36px 0 48px}.hero-grid{gap:30px}h1{font-size:2.4rem;max-width:20ch}.hero .sub{font-size:1rem}.nav-tools{gap:8px}.nav-cta{padding:9px;font-size:.7rem}.brand-tag{font-size:.6rem}.hero-case{padding:24px}.section-head{margin-bottom:30px}.services,.prep,.process,.automation,.about,.faq,.result{padding:48px 0}.case-wide{gap:22px}.prep-grid{gap:26px}.about-grid{gap:22px}.cta{padding:54px 0}.process-note{font-family:inherit}.small{font-size:.88rem}.result .case-metrics{margin-top:0}}
+@media(max-width:380px){.brand-tag{display:none}.nav-row{gap:8px}.nav-tools{gap:7px}.languages button{padding:7px}.nav-cta{font-size:.65rem}h1{font-size:2.2rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Design comparison: simpler first screen, clear process, readable conditions. */
+.mobile-proof{display:none}
+.hero .sub{max-width:47ch;font-size:1.15rem;line-height:1.6}
+.hero-actions{margin-top:26px}.hero .hint{margin-top:20px}
+.journey{padding:42px 0 50px;border-top:1px solid var(--line)}
+.journey-heading{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-bottom:26px}
+.journey-heading h2{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;letter-spacing:-.02em}
+.journey-heading>p{font-size:.9rem;color:var(--ink-soft)}
+.journey-steps{display:grid;grid-template-columns:repeat(4,1fr);list-style:none;border:1px solid var(--line);background:var(--bg-panel);padding:0;margin:0}
+.journey-steps li{padding:24px 20px;border-right:1px solid var(--line)}.journey-steps li:last-child{border:0}
+.journey-top{display:flex;flex-direction:column;gap:10px;color:var(--ink-soft);font-size:.76rem;line-height:1.4;min-height:60px}
+.journey-top>span:first-child{font-family:'IBM Plex Mono',monospace;font-size:.85rem;color:var(--mint)}
+.journey-steps h3{font-size:1.08rem;margin:15px 0 9px}.journey-steps p{font-size:.9rem;color:var(--ink-soft);line-height:1.6}
+.journey-note{font-size:.88rem;color:var(--ink-soft);margin-top:18px;max-width:88ch}
+.quick-terms{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:var(--bg-panel);margin:0 0 30px}
+.quick-terms>div{padding:24px;border-right:1px solid var(--line)}.quick-terms>div:last-child{border:0}
+.quick-terms strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:1.65rem;color:var(--ink)}
+.quick-terms span{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:8px}
+.service h3{margin-top:12px}.service p{line-height:1.7;max-width:48ch}.service{padding:26px 30px}
+@media(max-width:900px){.journey-heading{display:block}.journey-heading>p{margin-top:8px}.journey-steps{grid-template-columns:1fr 1fr}.journey-steps li:nth-child(2){border-right:0}.journey-steps li:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media(max-width:760px){.hero-grid{gap:0}.hero-case{display:none}.mobile-proof{display:block;margin-top:25px;padding:18px 20px;background:var(--bg-panel);border:1px solid var(--line)}.mobile-proof>div{display:flex;gap:26px;margin:12px 0 10px}.mobile-proof>div>span{font-size:.86rem;color:var(--ink-soft)}.mobile-proof strong{display:block;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:1.45rem;margin-bottom:4px}.mobile-proof>a{font-size:.82rem;text-underline-offset:4px}.hero .sub{font-size:1.02rem;line-height:1.6;margin-top:18px}.hero{padding:30px 0 35px}h1{font-size:2.25rem;max-width:20ch}.hero-actions{margin-top:22px;gap:10px}.hero-actions .btn-primary,.hero-actions .btn-outline{font-size:.76rem;padding:12px 14px}.hero .hint{font-size:.8rem;margin-top:17px}.journey{padding:35px 0}.journey-heading h2{font-size:1.45rem}.journey-steps li{padding:18px 14px}.journey-top{min-height:57px;font-size:.7rem}.journey-steps h3{font-size:1rem}.journey-steps p{font-size:.83rem}.quick-terms{grid-template-columns:1fr;margin-bottom:24px}.quick-terms>div{padding:17px 20px;border-right:0;border-bottom:1px solid var(--line)}.quick-terms strong{font-size:1.35rem}.quick-terms span{font-size:.85rem;margin-top:4px}.service{padding:24px}.journey-note{font-size:.84rem}}
+@media(max-width:360px){h1{font-size:2.1rem}.hero-actions{display:grid;grid-template-columns:1fr}.hero-actions a{justify-content:center}.mobile-proof>div{gap:16px}.journey-steps{grid-template-columns:1fr}.journey-steps li{border-right:0;border-bottom:1px solid var(--line)}.journey-top{min-height:0;flex-direction:row;gap:14px}.journey-steps h3{margin-top:12px}}
+</style></head><body>
+<a class="skip" href="#main"><span data-i18n="t0">Skip to content</span></a>
+<header><div class="wrap nav-row"><a class="brand" href="#main"><span class="brand-name">MUAZ</span><span data-i18n="t1" class="brand-tag">Medical advertising</span></a><div class="nav-tools"><div class="languages" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="ru" aria-pressed="false">RU</button></div><a href="https://t.me/abumuazmtaz" class="nav-cta" target="_blank" rel="noopener noreferrer"><span data-i18n="t2">Discuss your clinic</span></a></div></div></header>
+<main id="main">
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow"><span data-i18n="t3">Medical & dental practices</span></div><h1 data-i18n="t4">Lots of inquiries.<br><span class="accent">Too few appointments?</span></h1><p data-i18n="t5" class="sub">I set up and manage ads for medical practices, improve offers and help your team turn relevant inquiries into appointments. Your administrator handles the conversation and booking.</p><div class="hero-actions"><a href="https://t.me/abumuazmtaz" class="btn-primary" target="_blank" rel="noopener noreferrer"><span data-i18n="t6">Get a free initial audit →</span></a><a data-works-link href="https://a66531136-arch.github.io/myworks/" class="btn-outline" target="_blank" rel="noopener noreferrer"><span data-i18n="t7">View case studies</span></a></div><p data-i18n="t8" class="small hint">3.5 years in advertising · Direct work with me</p></div><div class="mobile-proof"><p data-i18n="design115" class="kicker">Selected month / DRC Bala</p><div><span data-i18n="design116"><strong>1,862</strong> inquiries</span><span data-i18n="design117"><strong>458</strong> bookings</span></div><a data-works-link href="https://a66531136-arch.github.io/myworks/?case=bala"><span data-i18n="design118">Read the case →</span></a></div><aside class="hero-case" aria-label="Case study"><div data-i18n="t10" class="kicker">From the medical portfolio</div><h2>DRC Bala</h2><p data-i18n="t11" class="small">Rehabilitation center · 9-month collaboration</p><dl class="case-metrics"><div><dt><span data-i18n="t12">Ad spend</span></dt><dd class=""><span data-i18n="t13">475,000 ₸</span></dd></div><div><dt><span data-i18n="t14">Revenue</span></dt><dd class="revenue"><span data-i18n="t15">18,320,000 ₸</span></dd></div><div><dt><span data-i18n="t16">Inquiries</span></dt><dd class=""><span data-i18n="t17">1,862</span></dd></div><div><dt><span data-i18n="t18">Bookings</span></dt><dd class=""><span data-i18n="t19">458</span></dd></div></dl><p data-i18n="t20" class="small">All four figures refer to the same selected month. This is not an average over the full collaboration.</p><a data-works-link href="https://a66531136-arch.github.io/myworks/?case=bala" class="cases-link" target="_blank" rel="noopener noreferrer"><span data-i18n="t21">Read the full case →</span></a></aside></div></section>
+<section class="journey"><div class="wrap"><div class="journey-heading"><h2 data-i18n="design119">From an ad to an appointment</h2><p data-i18n="design120">A clear role at every step.</p></div><ol class="journey-steps"><li><div class="journey-top"><span>01</span><span data-i18n="design121">My role</span></div><h3 data-i18n="design122">Advertising</h3><p data-i18n="design123">Audience, offer and ad campaign.</p></li><li><div class="journey-top"><span>02</span><span data-i18n="design124">Agreed inquiry criteria</span></div><h3 data-i18n="design125">Patient inquiry</h3><p data-i18n="design126">A message via the website, Instagram or WhatsApp.</p></li><li><div class="journey-top"><span>03</span><span data-i18n="design127">Your administrator</span></div><h3 data-i18n="design128">Conversation</h3><p data-i18n="design129">Answers questions using the agreed script.</p></li><li><div class="journey-top"><span>04</span><span data-i18n="design130">Your clinic</span></div><h3 data-i18n="design131">Appointment</h3><p data-i18n="design132">Confirms the appointment and records the outcome.</p></li></ol><p data-i18n="design133" class="journey-note">I manage the campaign and help with the response script. Your administrator handles patient conversations and bookings.</p></div></section><section class="services" id="services"><div class="wrap"><div class="section-head"><h2 data-i18n="t22">What I take care of</h2></div><p data-i18n="t23" class="section-intro">A clear scope before launch. Your service, local market and inquiry criteria guide the campaign.</p><div class="services-grid"><article class="service"><span class="number">01</span><h3 data-i18n="t24">Audit & campaign plan</h3><p data-i18n="t25">I review your services, patient audience, existing ads, website and Instagram. We choose the service to promote and agree on a measurable goal.</p></article><article class="service"><span class="number">02</span><h3 data-i18n="t26">Ad setup & optimization</h3><p data-i18n="t27">I set up and manage campaigns, test audiences and offers, and adjust the strategy using inquiry data. Ad spend is separate from my fee.</p></article><article class="service"><span class="number">03</span><h3 data-i18n="t28">Creative briefs & message scripts</h3><p data-i18n="t29">I prepare briefs for your designer or social media team and advise on the first response to an inquiry. Graphic design and video editing are not included.</p></article><article class="service"><span class="number">04</span><h3 data-i18n="t30">Reports & a clear next step</h3><p data-i18n="t31">We track inquiries and, where your team provides data, bookings and sales. Weekly reports, inquiry updates and recommendations for the next stage are included in ad management.</p></article></div><p data-i18n="t32" class="scope-note">The goal is relevant inquiries, not a promise that every message becomes a sale. Campaign criteria and reporting are agreed before work begins.</p></div></section>
+<section class="process"><div class="wrap"><div class="section-head"><h2 data-i18n="t33">A small start. A clear decision.</h2></div><div class="quick-terms"><div><strong data-i18n="design134">2–3 days</strong><span data-i18n="design135">Preparation with ready materials</span></div><div><strong data-i18n="design136">7 days</strong><span data-i18n="design137">Paid campaign test</span></div><div><strong data-i18n="design138">Every week</strong><span data-i18n="design139">Report included in the service</span></div></div><div class="process-list"><article class="process-item"><span class="process-num">01</span><div><h3 data-i18n="t34">Free initial audit</h3><p data-i18n="t35">Send your clinic’s page, location and the service you want to promote. I review the situation and outline possible improvements. A detailed implementation plan is a separate consultation or part of campaign work.</p></div></article><article class="process-item"><span class="process-num">02</span><div><h3 data-i18n="t36">Preparation · usually 2–3 days</h3><p data-i18n="t37">After receiving the information, access and ready-to-use creative materials, I prepare the campaign. Creative production and account review can take additional time.</p></div></article><article class="process-item"><span class="process-num">03</span><div><h3 data-i18n="t38">Paid 7-day test</h3><p data-i18n="t39">We agree on the fee, ad budget, target audience and inquiry criteria before launch. During the test I check the results and change the approach if needed.</p></div></article><article class="process-item"><span class="process-num">04</span><div><h3 data-i18n="t40">Review & decide together</h3><p data-i18n="t41">We discuss the results on a call and decide whether to continue. If the agreed goals are not met, I explain what happened. A week may provide early signals rather than a complete picture of revenue.</p></div></article></div><p data-i18n="t42" class="process-note">Fees are discussed on a call. Ad spend is separate. No long-term commitment is needed to start the test.</p></div></section>
+<section class="result"><div class="wrap"><div data-i18n="t43" class="result-label">Case study / DRC Bala</div><div class="case-wide"><div><h2 data-i18n="t44">Rehabilitation.<br>A month of results.</h2><p data-i18n="t45" class="small">The task was to fill the rehabilitation center’s schedule. Ads directed inquiries to WhatsApp; first-response scripts and inquiry-to-booking tracking supported the process.</p><a data-works-link href="https://a66531136-arch.github.io/myworks/?case=bala" class="cases-link" target="_blank" rel="noopener noreferrer"><span data-i18n="t46">Read the full case →</span></a></div><div><dl class="case-metrics"><div><dt><span data-i18n="t47">Ad spend</span></dt><dd class=""><span data-i18n="t48">475,000 ₸</span></dd></div><div><dt><span data-i18n="t49">Revenue</span></dt><dd class="revenue"><span data-i18n="t50">18,320,000 ₸</span></dd></div><div><dt><span data-i18n="t51">Inquiries</span></dt><dd class=""><span data-i18n="t52">1,862</span></dd></div><div><dt><span data-i18n="t53">Bookings</span></dt><dd class=""><span data-i18n="t54">458</span></dd></div></dl></div></div><p data-i18n="t55" class="small result-footnote">Recorded figures are based on my own project records; original ad-platform and CRM reports are not available. Revenue ÷ ad spend = 38.57× (3,856.8% ROAS). This measures revenue relative to advertising spend, not profit, and excludes other business costs.</p></div></section>
+<section class="prep"><div class="wrap"><div class="section-head"><h2 data-i18n="t56">What we need before launch</h2></div><div class="prep-grid"><div><h3 data-i18n="t57">From your clinic</h3><ul class="checklist"><li data-i18n="t58">Services, prices, location and available appointment slots.</li><li data-i18n="t59">Information about your audience, previous ads and business goals.</li><li data-i18n="t60">Agreed access to your advertising accounts and Instagram.</li><li data-i18n="t61">Ready images and videos, or a designer who can follow a brief.</li><li data-i18n="t62">An administrator who responds and records inquiry outcomes.</li></ul></div><div><h3 data-i18n="t63">You can start without a website</h3><p data-i18n="t64" class="small">If suitable, campaigns can lead to Instagram messages or WhatsApp. We can keep your existing website if it serves the task. A new website, CRM integration or a bot is a separate project.</p><div class="scope-note"><span data-i18n="t65">For the first conversation, send information about your clinic and business goals.</span></div></div></div><div class="boundaries"><article class="boundary"><h3 data-i18n="t66">My role</h3><p data-i18n="t67">Ad strategy, setup, testing, optimization, creative briefs and campaign reporting. I can review how inquiries are handled and give your administrator recommendations.</p></article><article class="boundary"><h3 data-i18n="t68">Your team’s role</h3><p data-i18n="t69">Produce creative materials, respond to patients, arrange appointments and provide booking and sales data. Patient decisions and clinic operations also affect results.</p></article></div></div></section>
+<section class="automation"><div class="wrap"><div class="section-head"><h2 data-i18n="t70">Optional services, when you need them</h2></div><p data-i18n="t71" class="section-intro">Quoted separately. We choose what is useful after reviewing your current process.</p><div class="automation-grid"><article class="auto-item"><h3 data-i18n="t72">A website for your campaign</h3><p data-i18n="t73">A focused service page with a clear route to an inquiry. We agree on the content, scope and fee before development.</p></article><article class="auto-item"><h3 data-i18n="t74">A message bot</h3><p data-i18n="t75">An agreed scenario for first questions and handoff to your administrator. Built separately from the ad campaign.</p></article><article class="auto-item"><h3 data-i18n="t76">CRM automation</h3><p data-i18n="t77">Automatic transfer of inquiries and updates to your CRM. We agree on the integration scope and fee separately. Regular campaign reports and inquiry updates are included in ad management.</p></article></div></div></section>
+<section class="about"><div class="wrap about-grid"><h2 data-i18n="t78">You work<br>directly with me.</h2><div class="about-body"><p data-i18n="t79"><strong>I’m Muaz.</strong> I have 3.5 years of advertising experience. I have learned and worked in teams, but I manage my client projects independently.</p><p data-i18n="t80">My focus is medical and dental practices, rehabilitation and treatment-focused dermatology. I do not promote cosmetology services.</p><p data-i18n="t81">I work with clinics in different countries. Before launch, I review the local audience and adapt the campaign to your market. We can discuss your project on a Zoom call.</p><div class="chips"><span class="chip">Meta Ads</span><span data-i18n="t82" class="chip">Inquiry strategy</span><span data-i18n="t83" class="chip">Medical practices</span><span data-i18n="t84" class="chip">Weekly reports</span></div></div></div></section>
+<section class="faq"><div class="wrap"><div class="section-head"><h2 data-i18n="t85">Before you message me</h2></div><div><details><summary><span data-i18n="t86">What does it cost?</span></summary><p data-i18n="t87">Pricing is agreed on a call after I understand the clinic and scope. My fee, ad spend and any additional services are separate. The test is paid; all amounts and the terms for continuing or stopping are agreed before launch.</p></details><details><summary><span data-i18n="t88">Do you guarantee bookings or revenue?</span></summary><p data-i18n="t89">No fixed number of bookings or revenue is promised. My role is campaign management and improving the relevance of inquiries against agreed criteria. Bookings also depend on your administrator, pricing, availability and patient decisions.</p></details><details><summary><span data-i18n="t90">Can we start without a website or CRM?</span></summary><p data-i18n="t91">Yes. If appropriate for the clinic and market, ads can direct people to Instagram messages or WhatsApp. We choose the route during the audit. A new website is an optional, separately priced project.</p></details><details><summary><span data-i18n="t92">Who answers patient inquiries?</span></summary><p data-i18n="t93">Your administrator. I can provide a message script and review the handling of inquiries using the access we agree on. A bot is an optional separate service, not part of basic ad management.</p></details><details><summary><span data-i18n="t94">Who makes the ad images and videos?</span></summary><p data-i18n="t95">Your designer, social media team or another specialist. I prepare the brief and review materials for the campaign. I do not provide graphic design or video editing as part of the ad service.</p></details><details><summary><span data-i18n="t96">What happens if the test underperforms?</span></summary><p data-i18n="t97">I share the results openly and explain what was tested. We agree whether to stop or run another stage. Continuation requires a joint decision. Payment and stopping terms are agreed before launch; a break-even result is not guaranteed.</p></details><details><summary><span data-i18n="t98">Who owns the accounts and campaign materials?</span></summary><p data-i18n="t99">We primarily work in your advertising accounts with the access needed for the project. At the end you retain your accounts, commissioned materials and agreed project assets. Any additional setup costs are agreed in advance.</p></details><details><summary><span data-i18n="t100">Will these results apply to my market?</span></summary><p data-i18n="t101">The medical example uses KZT and comes from my previous work. It shows an approach and a recorded result. Outcomes depend on the local market, clinic and offer, so we test your campaign separately.</p></details><details><summary><span data-i18n="t102">Which medical projects do you take on?</span></summary><p data-i18n="t103">Medical and dental practices, rehabilitation and treatment-focused dermatology. I do not take projects promoting cosmetology services. We confirm the fit during the initial conversation.</p></details><details><summary><span data-i18n="t104">Can I speak to a previous client?</span></summary><p data-i18n="t105">The portfolio links to public project pages where available. A personal introduction can be considered after work begins and only with the former client’s permission. I do not share private contacts without consent.</p></details></div></div></section>
+<section class="cta"><div class="wrap"><h2 data-i18n="t106">Let’s look at<br>your clinic’s situation.</h2><p data-i18n="t107">Send your clinic’s page, location and the service you want to promote. I’ll outline what we can improve and whether we are a good fit.</p><div class="cta-actions"><a href="https://t.me/abumuazmtaz" class="btn-primary" target="_blank" rel="noopener noreferrer"><span data-i18n="t108">Request a free audit →</span></a><a data-works-link href="https://a66531136-arch.github.io/myworks/" class="btn-outline" target="_blank" rel="noopener noreferrer"><span data-i18n="t109">Browse case studies</span></a></div><p class="contact-note">Telegram: <a href="https://t.me/abumuazmtaz" target="_blank" rel="noopener noreferrer">@abumuazmtaz</a> · <a href="https://t.me/trafficm123_bot/traffic" class="mini-link" target="_blank" rel="noopener noreferrer"><span data-i18n="t110">Open the portfolio in Telegram</span></a></p><div class="trust-strip"><span data-i18n="t111">Agreed scope before launch</span><span data-i18n="t112">Paid test before ongoing work</span><span data-i18n="t113">Weekly reporting</span></div></div></section>
+</main><footer><div class="footer-inner"><span>© 2026 Muaz</span><span data-i18n="t114">Medical advertising · Project inquiries only</span></div></footer><script>const TEXT={"t0": {"en": "Skip to content", "ru": "К содержанию"}, "t1": {"en": "Medical advertising", "ru": "Реклама для медицины"}, "t2": {"en": "Discuss your clinic", "ru": "Обсудить клинику"}, "t3": {"en": "Medical & dental practices", "ru": "Медицина и стоматология"}, "t4": {"en": "Lots of inquiries.<br><span class=\"accent\">Too few appointments?</span>", "ru": "Обращений много.<br><span class=\"accent\">Записей мало?</span>"}, "t5": {"en": "I run ads for medical practices and help your team turn relevant inquiries into appointments.", "ru": "Настраиваю рекламу клиник и помогаю вашей команде доводить целевые обращения до записи."}, "t6": {"en": "Get a free initial audit →", "ru": "Получить бесплатный аудит →"}, "t7": {"en": "View case studies", "ru": "Смотреть кейсы"}, "t8": {"en": "3.5 years in advertising · Direct work with me", "ru": "3,5 года в рекламе · Работа напрямую со мной"}, "t9": {"en": "For clinic owners and decision-makers. Send your clinic’s page, location and the service you want to promote.", "ru": "Для владельцев и руководителей клиник. Пришлите страницу клиники, город и услугу для продвижения."}, "t10": {"en": "From the medical portfolio", "ru": "Из медицинского портфолио"}, "t11": {"en": "Rehabilitation center · 9-month collaboration", "ru": "Реабилитационный центр · 9 месяцев сотрудничества"}, "t12": {"en": "Ad spend", "ru": "Рекламный бюджет"}, "t13": {"en": "475,000 ₸", "ru": "475 000 ₸"}, "t14": {"en": "Revenue", "ru": "Выручка"}, "t15": {"en": "18,320,000 ₸", "ru": "18 320 000 ₸"}, "t16": {"en": "Inquiries", "ru": "Обращения"}, "t17": {"en": "1,862", "ru": "1 862"}, "t18": {"en": "Bookings", "ru": "Записи"}, "t19": {"en": "458", "ru": "458"}, "t20": {"en": "All four figures refer to the same selected month. This is not an average over the full collaboration.", "ru": "Все четыре показателя относятся к одному выбранному месяцу, а не к среднему результату за весь срок."}, "t21": {"en": "Read the full case →", "ru": "Смотреть кейс целиком →"}, "t22": {"en": "What I take care of", "ru": "Что я беру на себя"}, "t23": {"en": "A clear scope before launch. Your service, local market and inquiry criteria guide the campaign.", "ru": "Понятный объём работы до запуска. Кампанию строим вокруг услуги, вашего рынка и критериев целевого обращения."}, "t24": {"en": "Audit & campaign plan", "ru": "Аудит и план рекламы"}, "t25": {"en": "I review your clinic, services and audience. We choose an offer and agree on the campaign goal.", "ru": "Изучаю клинику, услуги и аудиторию. Выбираем предложение и согласовываем цель кампании."}, "t26": {"en": "Ad setup & optimization", "ru": "Настройка и оптимизация"}, "t27": {"en": "I launch campaigns, test audiences and offers, and optimize using inquiry data. Ad spend is separate.", "ru": "Запускаю кампании, тестирую аудитории и предложения, оптимизирую по данным обращений. Рекламный бюджет отдельно."}, "t28": {"en": "Creative briefs & message scripts", "ru": "ТЗ для креативов и сценарии"}, "t29": {"en": "Creative briefs for your designer or social media team, plus a first-response script for your administrator.", "ru": "ТЗ вашему дизайнеру или SMM-специалисту и сценарий первого ответа для администратора."}, "t30": {"en": "Reports & a clear next step", "ru": "Отчётность и следующие шаги"}, "t31": {"en": "Inquiries, bookings and sales where data is available. Weekly reports and recommendations are included.", "ru": "Обращения, записи и продажи при наличии данных. Еженедельные отчёты и рекомендации входят в работу."}, "t32": {"en": "The goal is relevant inquiries, not a promise that every message becomes a sale. Campaign criteria and reporting are agreed before work begins.", "ru": "Цель — целевые обращения, а не обещание, что каждое сообщение станет продажей. Критерии и отчётность согласовываем до начала работы."}, "t33": {"en": "A small start. A clear decision.", "ru": "Начинаем с теста. Решаем по данным."}, "t34": {"en": "Free initial audit", "ru": "Бесплатный первичный аудит"}, "t35": {"en": "Send your clinic’s page, location and the service you want to promote. I review the situation and outline possible improvements. A detailed implementation plan is a separate consultation or part of campaign work.", "ru": "Пришлите страницу клиники, город и услугу для продвижения. Разберу ситуацию и обозначу возможные улучшения. Подробный план внедрения — отдельная консультация или часть работы над рекламой."}, "t36": {"en": "Preparation · usually 2–3 days", "ru": "Подготовка · обычно 2–3 дня"}, "t37": {"en": "After receiving the information, access and ready-to-use creative materials, I prepare the campaign. Creative production and account review can take additional time.", "ru": "После получения информации, доступов и готовых креативов подготавливаю кампанию. Создание материалов и проверка рекламного аккаунта могут потребовать дополнительного времени."}, "t38": {"en": "Paid 7-day test", "ru": "Платный тест · 7 дней"}, "t39": {"en": "We agree on the fee, ad budget, target audience and inquiry criteria before launch. During the test I check the results and change the approach if needed.", "ru": "До запуска согласовываем оплату, рекламный бюджет, аудиторию и критерии подходящего обращения. Во время теста проверяю результаты и при необходимости меняю подход."}, "t40": {"en": "Review & decide together", "ru": "Разбор и совместное решение"}, "t41": {"en": "We discuss the results on a call and decide whether to continue. If the agreed goals are not met, I explain what happened. A week may provide early signals rather than a complete picture of revenue.", "ru": "Обсуждаем результаты на созвоне и решаем, продолжать ли работу. Если цели не достигнуты, объясняю, что произошло. Неделя может дать первые данные, а не полную картину выручки."}, "t42": {"en": "Fees are discussed on a call. Ad spend is separate. No long-term commitment is needed to start the test.", "ru": "Стоимость обсуждаем на созвоне. Рекламный бюджет отдельно. Для начала теста не нужны долгосрочные обязательства."}, "t43": {"en": "Case study / DRC Bala", "ru": "Кейс / DRC Bala"}, "t44": {"en": "Rehabilitation.<br>A month of results.", "ru": "Реабилитация.<br>Результат за месяц."}, "t45": {"en": "The task was to fill the rehabilitation center’s schedule. Ads directed inquiries to WhatsApp; first-response scripts and inquiry-to-booking tracking supported the process.", "ru": "Задача — заполнить расписание реабилитационного центра. Реклама приводила обращения в WhatsApp; работу поддерживали сценарии первого ответа и учёт обращений до записи."}, "t46": {"en": "Read the full case →", "ru": "Смотреть кейс целиком →"}, "t47": {"en": "Ad spend", "ru": "Рекламный бюджет"}, "t48": {"en": "475,000 ₸", "ru": "475 000 ₸"}, "t49": {"en": "Revenue", "ru": "Выручка"}, "t50": {"en": "18,320,000 ₸", "ru": "18 320 000 ₸"}, "t51": {"en": "Inquiries", "ru": "Обращения"}, "t52": {"en": "1,862", "ru": "1 862"}, "t53": {"en": "Bookings", "ru": "Записи"}, "t54": {"en": "458", "ru": "458"}, "t55": {"en": "Recorded figures are based on my own project records; original ad-platform and CRM reports are not available. Revenue ÷ ad spend = 38.57× (3,856.8% ROAS). This measures revenue relative to advertising spend, not profit, and excludes other business costs.", "ru": "Показатели приведены по моим записям о проекте; исходные отчёты кабинета и CRM не сохранились. Выручка ÷ рекламный бюджет = 38,57× (ROAS 3 856,8%). Это отношение выручки к расходам на рекламу, а не прибыль; другие расходы бизнеса в расчёт не входят."}, "t56": {"en": "What we need before launch", "ru": "Что нужно до запуска"}, "t57": {"en": "From your clinic", "ru": "От вашей клиники"}, "t58": {"en": "Services, prices, location and available appointment slots.", "ru": "Услуги, цены, география и свободные места в расписании."}, "t59": {"en": "Information about your audience, previous ads and business goals.", "ru": "Информация об аудитории, прошлой рекламе и целях бизнеса."}, "t60": {"en": "Agreed access to your advertising accounts and Instagram.", "ru": "Согласованные доступы к рекламным аккаунтам и Instagram."}, "t61": {"en": "Ready images and videos, or a designer who can follow a brief.", "ru": "Готовые фото и видео или дизайнер, который работает по ТЗ."}, "t62": {"en": "An administrator who responds and records inquiry outcomes.", "ru": "Администратор, который отвечает и фиксирует результат обращения."}, "t63": {"en": "You can start without a website", "ru": "Можно начать без сайта"}, "t64": {"en": "If suitable, campaigns can lead to Instagram messages or WhatsApp. We can keep your existing website if it serves the task. A new website, CRM integration or a bot is a separate project.", "ru": "Если это подходит задаче, кампании можно вести в сообщения Instagram или WhatsApp. Хороший существующий сайт используем в работе. Новый сайт, интеграция с CRM или бот — отдельный проект."}, "t65": {"en": "For the first conversation, send information about your clinic and business goals.", "ru": "Для первого знакомства достаточно информации о вашей клинике и целях бизнеса."}, "t66": {"en": "My role", "ru": "Моя ответственность"}, "t67": {"en": "Ad strategy, setup, testing, optimization, creative briefs and campaign reporting. I can review how inquiries are handled and give your administrator recommendations.", "ru": "Стратегия, настройка, тесты, оптимизация, ТЗ для креативов и отчётность. Могу проверить обработку обращений и дать администратору рекомендации."}, "t68": {"en": "Your team’s role", "ru": "Ответственность клиники"}, "t69": {"en": "Produce creative materials, respond to patients, arrange appointments and provide booking and sales data. Patient decisions and clinic operations also affect results.", "ru": "Подготовить креативы, отвечать пациентам, организовывать записи и предоставлять данные о записях и продажах. Решения пациентов и работа клиники также влияют на результат."}, "t70": {"en": "Optional services, when you need them", "ru": "Дополнительные услуги — по задаче"}, "t71": {"en": "Quoted separately. We choose what is useful after reviewing your current process.", "ru": "Оплачиваются отдельно. Выбираем полезные решения после разбора вашего текущего процесса."}, "t72": {"en": "A website for your campaign", "ru": "Сайт под рекламную кампанию"}, "t73": {"en": "A focused service page with a clear route to an inquiry. We agree on the content, scope and fee before development.", "ru": "Страница услуги с понятным путём до обращения. Содержание, объём и стоимость согласовываем до разработки."}, "t74": {"en": "A message bot", "ru": "Бот для сообщений"}, "t75": {"en": "An agreed scenario for first questions and handoff to your administrator. Built separately from the ad campaign.", "ru": "Согласованный сценарий первых вопросов и передачи администратору. Разрабатывается отдельно от рекламной кампании."}, "t76": {"en": "CRM automation", "ru": "Автоматизация CRM"}, "t77": {"en": "Automatic transfer of inquiries and updates to your CRM. We agree on the integration scope and fee separately. Regular campaign reports and inquiry updates are included in ad management.", "ru": "Автоматическая передача заявок и обновлений в вашу CRM. Объём интеграции и стоимость обсуждаем отдельно. Обычные отчёты и информация о заявках входят в ведение рекламы."}, "t78": {"en": "You work<br>directly with me.", "ru": "Работаете<br>напрямую со мной."}, "t79": {"en": "<strong>I’m Muaz.</strong> I have 3.5 years of advertising experience. I have learned and worked in teams, but I manage my client projects independently.", "ru": "<strong>Я Муаз.</strong> В рекламе 3,5 года. Получал опыт в командах, а клиентские проекты веду самостоятельно."}, "t80": {"en": "My focus is medical and dental practices, rehabilitation and treatment-focused dermatology. I do not promote cosmetology services.", "ru": "Моя специализация — медицинские клиники, стоматология, реабилитация и лечебная дерматология. Не продвигаю косметологию."}, "t81": {"en": "I work with clinics in different countries. Before launch, I review the local audience and adapt the campaign to your market. We can discuss your project on a Zoom call.", "ru": "Работаю с клиниками в разных странах. Перед запуском изучаю местную аудиторию и адаптирую рекламу под ваш рынок. Проект можем обсудить на созвоне в Zoom."}, "t82": {"en": "Inquiry strategy", "ru": "Стратегия обращений"}, "t83": {"en": "Medical practices", "ru": "Медицина"}, "t84": {"en": "Weekly reports", "ru": "Еженедельные отчёты"}, "t85": {"en": "Before you message me", "ru": "Ответы до первого сообщения"}, "t86": {"en": "What does it cost?", "ru": "Сколько стоит работа?"}, "t87": {"en": "Pricing is agreed on a call after I understand the clinic and scope. My fee, ad spend and any additional services are separate. The test is paid; all amounts and the terms for continuing or stopping are agreed before launch.", "ru": "Стоимость согласовываем на созвоне после знакомства с клиникой и объёмом задачи. Моя работа, рекламный бюджет и дополнительные услуги оплачиваются отдельно. Тест платный; суммы и условия продолжения или остановки обсуждаем до запуска."}, "t88": {"en": "Do you guarantee bookings or revenue?", "ru": "Ты гарантируешь записи и выручку?"}, "t89": {"en": "No fixed number of bookings or revenue is promised. My role is campaign management and improving the relevance of inquiries against agreed criteria. Bookings also depend on your administrator, pricing, availability and patient decisions.", "ru": "Фиксированное количество записей и выручку не обещаю. Моя зона работы — ведение рекламы и повышение качества обращений по согласованным критериям. Записи также зависят от администратора, цен, расписания и решений пациентов."}, "t90": {"en": "Can we start without a website or CRM?", "ru": "Можно начать без сайта и CRM?"}, "t91": {"en": "Yes. If appropriate for the clinic and market, ads can direct people to Instagram messages or WhatsApp. We choose the route during the audit. A new website is an optional, separately priced project.", "ru": "Да. Если это подходит клинике и рынку, рекламу можно вести в сообщения Instagram или WhatsApp. Путь выбираем на аудите. Новый сайт — дополнительный проект с отдельной стоимостью."}, "t92": {"en": "Who answers patient inquiries?", "ru": "Кто отвечает пациентам?"}, "t93": {"en": "Your administrator. I can provide a message script and review the handling of inquiries using the access we agree on. A bot is an optional separate service, not part of basic ad management.", "ru": "Ваш администратор. Я могу дать сценарий общения и проверить обработку обращений в рамках согласованных доступов. Бот — отдельная дополнительная услуга, а не часть базового ведения рекламы."}, "t94": {"en": "Who makes the ad images and videos?", "ru": "Кто делает изображения и видео для рекламы?"}, "t95": {"en": "Your designer, social media team or another specialist. I prepare the brief and review materials for the campaign. I do not provide graphic design or video editing as part of the ad service.", "ru": "Ваш дизайнер, SMM-команда или другой специалист. Я готовлю ТЗ и оцениваю материалы для кампании. Дизайн и монтаж видео в услугу рекламы не входят."}, "t96": {"en": "What happens if the test underperforms?", "ru": "Что будет, если тест не даст результата?"}, "t97": {"en": "I share the results openly and explain what was tested. We agree whether to stop or run another stage. Continuation requires a joint decision. Payment and stopping terms are agreed before launch; a break-even result is not guaranteed.", "ru": "Прозрачно показываю результат и объясняю, что тестировали. Вместе решаем, остановиться или провести следующий этап. Автоматического продления и обещания выхода в ноль нет; оплату и условия остановки согласовываем до запуска."}, "t98": {"en": "Who owns the accounts and campaign materials?", "ru": "Кому принадлежат аккаунты и материалы?"}, "t99": {"en": "We primarily work in your advertising accounts with the access needed for the project. At the end you retain your accounts, commissioned materials and agreed project assets. Any additional setup costs are agreed in advance.", "ru": "В основном работаем в ваших рекламных аккаунтах с необходимыми для проекта доступами. После завершения у вас остаются ваши аккаунты, оплаченные материалы и согласованные результаты проекта. Дополнительные расходы на настройку обсуждаем заранее."}, "t100": {"en": "Will these results apply to my market?", "ru": "Можно ожидать такие же результаты на моём рынке?"}, "t101": {"en": "The medical example uses KZT and comes from my previous work. It shows an approach and a recorded result. Outcomes depend on the local market, clinic and offer, so we test your campaign separately.", "ru": "Медицинский пример приведён в тенге и относится к моему прошлому опыту. Он показывает подход и зафиксированный результат. Итог зависит от рынка, клиники и предложения, поэтому вашу кампанию проверяем отдельным тестом."}, "t102": {"en": "Which medical projects do you take on?", "ru": "С какими медицинскими проектами ты работаешь?"}, "t103": {"en": "Medical and dental practices, rehabilitation and treatment-focused dermatology. I do not take projects promoting cosmetology services. We confirm the fit during the initial conversation.", "ru": "Медицинские клиники, стоматологии, реабилитация и лечебная дерматология. Не беру продвижение косметологии. Соответствие проекта обсуждаем при знакомстве."}, "t104": {"en": "Can I speak to a previous client?", "ru": "Можно поговорить с бывшим клиентом?"}, "t105": {"en": "The portfolio links to public project pages where available. A personal introduction can be considered after work begins and only with the former client’s permission. I do not share private contacts without consent.", "ru": "В портфолио есть ссылки на публичные страницы проектов, где они доступны. Личное знакомство можно обсудить после начала работы и только с разрешения бывшего клиента. Частные контакты без согласия не передаю."}, "t106": {"en": "Let’s look at<br>your clinic’s situation.", "ru": "Разберём ситуацию<br>вашей клиники."}, "t107": {"en": "Send your clinic’s page, location and the service you want to promote. I’ll outline what we can improve and whether we are a good fit.", "ru": "Пришлите страницу клиники, город и услугу для продвижения. Обозначу, что можно улучшить и подходим ли мы друг другу."}, "t108": {"en": "Request a free audit →", "ru": "Запросить бесплатный аудит →"}, "t109": {"en": "Browse case studies", "ru": "Кейсы в браузере"}, "t110": {"en": "Open the portfolio in Telegram", "ru": "Открыть портфолио в Telegram"}, "t111": {"en": "Agreed scope before launch", "ru": "Согласованный объём до запуска"}, "t112": {"en": "Paid test before ongoing work", "ru": "Платный тест перед продолжением"}, "t113": {"en": "Weekly reporting", "ru": "Еженедельная отчётность"}, "t114": {"en": "Medical advertising · Project inquiries only", "ru": "Реклама для медицины · Для обращений по проектам"}, "design115": {"en": "Selected month / DRC Bala", "ru": "Выбранный месяц / DRC Bala"}, "design116": {"en": "<strong>1,862</strong> inquiries", "ru": "<strong>1 862</strong> обращения"}, "design117": {"en": "<strong>458</strong> bookings", "ru": "<strong>458</strong> записей"}, "design118": {"en": "Read the case →", "ru": "Смотреть кейс →"}, "design119": {"en": "From an ad to an appointment", "ru": "От рекламы до записи"}, "design120": {"en": "A clear role at every step.", "ru": "На каждом этапе понятно, кто отвечает."}, "design121": {"en": "My role", "ru": "Моя работа"}, "design122": {"en": "Advertising", "ru": "Реклама"}, "design123": {"en": "Audience, offer and ad campaign.", "ru": "Аудитория, предложение и рекламная кампания."}, "design124": {"en": "Agreed inquiry criteria", "ru": "Согласованные критерии"}, "design125": {"en": "Patient inquiry", "ru": "Обращение"}, "design126": {"en": "A message via the website, Instagram or WhatsApp.", "ru": "Сообщение через сайт, Instagram или WhatsApp."}, "design127": {"en": "Your administrator", "ru": "Ваш администратор"}, "design128": {"en": "Conversation", "ru": "Общение"}, "design129": {"en": "Answers questions using the agreed script.", "ru": "Отвечает на вопросы по согласованному сценарию."}, "design130": {"en": "Your clinic", "ru": "Ваша клиника"}, "design131": {"en": "Appointment", "ru": "Запись"}, "design132": {"en": "Confirms the appointment and records the outcome.", "ru": "Подтверждает запись и фиксирует результат."}, "design133": {"en": "I manage the campaign and help with the response script. Your administrator handles patient conversations and bookings.", "ru": "Я веду рекламу и помогаю со сценарием ответа. Общение с пациентами и запись ведёт ваш администратор."}, "design134": {"en": "2–3 days", "ru": "2–3 дня"}, "design135": {"en": "Preparation with ready materials", "ru": "Подготовка при готовых материалах"}, "design136": {"en": "7 days", "ru": "7 дней"}, "design137": {"en": "Paid campaign test", "ru": "Платный тест рекламы"}, "design138": {"en": "Every week", "ru": "Каждую неделю"}, "design139": {"en": "Report included in the service", "ru": "Отчёт входит в услугу"}}; const PAGE_TITLES={en:'Muaz — advertising for medical practices',ru:'Муаз — реклама для медицины'};
+let lang = new URLSearchParams(location.search).get('lang') === 'ru' ? 'ru' : 'en';
+function setLanguage(next) {
+  lang = next;
+  document.documentElement.lang = next;
+  document.querySelectorAll('[data-i18n]').forEach(el => { const d = TEXT[el.dataset.i18n]; if(d) el.innerHTML = d[next]; });
+  document.querySelectorAll('[data-lang]').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.lang === next)));
+  document.title = next === 'ru' ? PAGE_TITLES.ru : PAGE_TITLES.en;
+  const url = new URL(location.href); url.searchParams.set('lang',next); history.replaceState(null,'',url);
+  document.querySelectorAll('[data-works-link], [data-main-link]').forEach(el => { let u = new URL(el.href); if(['localhost','127.0.0.1'].includes(location.hostname)){ const previous=u; u=new URL(el.hasAttribute('data-works-link')?'/mini-app/':'/website/',location.origin); u.search=previous.search; } u.searchParams.set('lang',next); el.href=u.href; });
+  if(typeof refreshCase === 'function') refreshCase();
+}
+document.querySelectorAll('[data-lang]').forEach(el => el.addEventListener('click',()=>setLanguage(el.dataset.lang)));
+setLanguage(lang);
+</script></body></html>
