@@ -1,466 +1,618 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Muaz — advertising for medical practices</title><meta name="description" content="Advertising for medical and dental practices. Campaign setup, message scripts and weekly reporting. Start with a free initial audit and a paid test."><meta name="theme-color" content="#F1F3F1"><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"><style>
-  :root{
-    --bg:#F1F3F1;
-    --bg-panel:#E7ECE8;
-    --ink:#12201B;
-    --ink-soft:#4B5A54;
-    --line:#CBD3CE;
-    --mint:#1E8A5A;
-    --mint-soft:#DCEDE3;
-    --coral:#C1443A;
-    --coral-soft:#F3DEDB;
-    --max:1080px;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
-  a{color:inherit;}
-
-  .mono{font-family:'IBM Plex Mono', monospace;}
-  .display{font-family:'Space Grotesk', sans-serif;}
-
-  /* ---- NAV ---- */
-  header{
-    padding:26px 0;
-    border-bottom:1px solid var(--line);
-  }
-  .nav-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
-  .brand{display:flex; flex-direction:column; gap:2px;}
-  .brand-name{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.05rem; letter-spacing:0.02em;}
-  .brand-tag{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft);}
-  .nav-cta{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.78rem;
-    padding:10px 18px;
-    border:1px solid var(--ink);
-    border-radius:2px;
-    text-decoration:none;
-    color:var(--ink);
-    white-space:nowrap;
-    transition:background 0.15s ease, color 0.15s ease;
-  }
-  .nav-cta:hover{background:var(--ink); color:var(--bg);}
-
-  /* ---- HERO ---- */
-  .hero{padding:70px 0 40px;}
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.75rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--mint);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:22px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:7px; height:7px; border-radius:50%;
-    background:var(--mint);
-    display:inline-block;
-  }
-  h1{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:clamp(2rem, 4.4vw, 3.4rem);
-    line-height:1.12;
-    letter-spacing:-0.01em;
-    max-width:15ch;
-  }
-  h1 .accent{color:var(--coral);}
-  .sub{
-    margin-top:22px;
-    font-size:1.08rem;
-    color:var(--ink-soft);
-    max-width:52ch;
-    line-height:1.6;
-  }
-  .hero-actions{
-    margin-top:32px;
-    display:flex;
-    gap:16px;
-    flex-wrap:wrap;
-    align-items:center;
-  }
-  .btn-primary{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.85rem;
-    background:var(--ink);
-    color:var(--bg);
-    padding:14px 26px;
-    border-radius:2px;
-    text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    transition:transform 0.15s ease;
-  }
-  .btn-primary:hover{transform:translateY(-2px);}
-  .btn-ghost-note{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.78rem;
-    color:var(--ink-soft);
-  }
-
-  /* ---- FEED (signature element) ---- */
-  .feed-wrap{
-    margin-top:56px;
-    border:1px solid var(--line);
-    border-radius:4px;
-    background:#fff;
-    overflow:hidden;
-  }
-  .feed-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px 20px;
-    border-bottom:1px solid var(--line);
-    background:var(--bg-panel);
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.72rem;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-  }
-  .feed-body{
-    padding:8px 0;
-    min-height:290px;
-  }
-  .feed-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:14px;
-    padding:13px 20px;
-    border-bottom:1px solid #EEF1EE;
-    opacity:0;
-    transform:translateY(6px);
-    animation:rise 0.5s ease forwards;
-  }
-  .feed-item:last-child{border-bottom:none;}
-  .feed-msg{font-size:0.92rem;}
-  .feed-msg .who{color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; display:block; margin-bottom:3px;}
-  .tag{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.7rem;
-    padding:5px 10px;
-    border-radius:20px;
-    white-space:nowrap;
-    flex-shrink:0;
-  }
-  .tag.out{background:var(--coral-soft); color:var(--coral);}
-  .tag.in{background:var(--mint-soft); color:var(--mint);}
-  .feed-item.filtered .feed-msg{color:#9AA5A0; text-decoration:line-through; text-decoration-color:#C7CDC9;}
-  @keyframes rise{to{opacity:1; transform:translateY(0);}}
-
-  /* ---- BIG NUMBER SECTION ---- */
-  .result{
-    padding:70px 0;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    text-align:center;
-  }
-  .result-label{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.75rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    margin-bottom:18px;
-  }
-  .result-figure{
-    font-family:'IBM Plex Mono',monospace;
-    font-weight:600;
-    font-size:clamp(2rem, 7vw, 4.6rem);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:wrap;
-  }
-  .result-figure .from{color:var(--ink-soft);}
-  .result-figure .arrow{color:var(--coral); font-size:0.5em;}
-  .result-figure .to{color:var(--mint);}
-  .result-note{
-    margin-top:16px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.85rem;
-    color:var(--ink-soft);
-  }
-  .result-note strong{color:var(--ink);}
-
-  /* ---- PAIN ---- */
-  .pain{padding:70px 0;}
-  .section-head{max-width:44ch; margin-bottom:40px;}
-  .section-head h2{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:600;
-    font-size:clamp(1.5rem, 2.6vw, 2.1rem);
-  }
-  .pain-list{display:flex; flex-direction:column; border-top:1px solid var(--line);}
-  .pain-item{
-    display:flex;
-    gap:20px;
-    padding:24px 0;
-    border-bottom:1px solid var(--line);
-    align-items:flex-start;
-  }
-  .pain-mark{
-    font-family:'IBM Plex Mono',monospace;
-    color:var(--coral);
-    font-size:0.85rem;
-    padding-top:3px;
-    flex-shrink:0;
-    width:22px;
-  }
-  .pain-item p{font-size:1.02rem; max-width:56ch;}
-
-  /* ---- FUNNEL ---- */
-  .funnel{padding:70px 0; background:var(--bg-panel);}
-  .funnel-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-    margin-top:8px;
-  }
-  .funnel-cell{
-    background:var(--bg-panel);
-    padding:30px 26px;
-  }
-  .funnel-num{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.78rem;
-    color:var(--mint);
-    margin-bottom:14px;
-  }
-  .funnel-cell h3{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:1.15rem;
-    margin-bottom:10px;
-  }
-  .funnel-cell p{font-size:0.94rem; color:var(--ink-soft);}
-
-  .cases-link{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    margin-top:26px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.85rem;
-    color:var(--ink);
-    text-decoration:underline;
-    text-underline-offset:3px;
-    text-decoration-color:var(--line);
-  }
-  .cases-link:hover{text-decoration-color:var(--ink);}
-  .result .cases-link{display:block;}
-
-  /* ---- PROCESS ---- */
-  .process{padding:70px 0;}
-  .process-list{display:flex; flex-direction:column; margin-top:8px; border-top:1px solid var(--line);}
-  .process-item{display:flex; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); align-items:flex-start;}
-  .process-num{font-family:'IBM Plex Mono',monospace; font-size:0.85rem; color:var(--mint); width:34px; flex-shrink:0; padding-top:2px;}
-  .process-item h3{font-family:'Space Grotesk',sans-serif; font-size:1.05rem; margin-bottom:6px;}
-  .process-item p{font-size:0.95rem; color:var(--ink-soft); max-width:56ch;}
-  .process-note{
-    margin-top:24px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.8rem;
-    color:var(--ink);
-    background:var(--mint-soft);
-    display:inline-block;
-    padding:12px 18px;
-    border-radius:4px;
-  }
-
-  /* ---- TRUST STRIP ---- */
-  .trust-strip{
-    display:flex;
-    gap:24px;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:26px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.78rem;
-    color:var(--ink-soft);
-  }
-  .trust-strip span{display:flex; align-items:center; gap:8px;}
-  .trust-strip span::before{content:"✓"; color:var(--mint);}
-
-  /* ---- AUTOMATION ---- */
-  .automation{padding:70px 0; background:var(--bg-panel);}
-  .automation-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:24px;
-    margin-top:34px;
-  }
-  .auto-item{background:#fff; border:1px solid var(--line); border-radius:6px; padding:26px;}
-  .auto-icon{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:1.1rem;
-    color:var(--mint);
-    width:36px; height:36px;
-    display:flex; align-items:center; justify-content:center;
-    border:1px solid var(--mint-soft);
-    background:var(--mint-soft);
-    border-radius:50%;
-    margin-bottom:16px;
-  }
-  .auto-item h3{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:1.05rem;
-    margin-bottom:8px;
-  }
-  .auto-item p{font-size:0.92rem; color:var(--ink-soft);}
-
-  /* ---- ABOUT ---- */
-  .about{padding:70px 0; border-top:1px solid var(--line);}
-  .about-grid{display:grid; grid-template-columns:1fr 1.6fr; gap:50px; align-items:start;}
-  .about-grid h2{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(1.5rem, 2.6vw, 2.1rem);
-    font-weight:600;
-  }
-  .about-body p{margin-bottom:16px; font-size:1.02rem; color:var(--ink-soft); max-width:58ch;}
-  .about-body strong{color:var(--ink);}
-  .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;}
-  .chip{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.75rem;
-    padding:7px 12px;
-    border:1px solid var(--line);
-    border-radius:20px;
-    color:var(--ink-soft);
-  }
-
-  /* ---- CTA ---- */
-  .cta{
-    padding:80px 0 90px;
-    text-align:center;
-    border-top:1px solid var(--line);
-  }
-  .cta h2{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:clamp(1.7rem, 3.6vw, 2.6rem);
-    max-width:20ch;
-    margin:0 auto 18px;
-  }
-  .cta p{color:var(--ink-soft); max-width:46ch; margin:0 auto 32px;}
-  .cta-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
-  .btn-outline{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.85rem;
-    padding:14px 26px;
-    border:1px solid var(--ink);
-    border-radius:2px;
-    text-decoration:none;
-    color:var(--ink);
-    transition:background 0.15s ease, color 0.15s ease;
-  }
-  .btn-outline:hover{background:var(--ink); color:var(--bg);}
-
-  footer{
-    padding:26px 0;
-    border-top:1px solid var(--line);
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.72rem;
-    color:var(--ink-soft);
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
-  }
-
-  @media (max-width:760px){
-    .funnel-grid, .automation-grid{grid-template-columns:1fr;}
-    .about-grid{grid-template-columns:1fr;}
-    .result-figure{gap:10px;}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .feed-item{animation:none; opacity:1; transform:none;}
-    html{scroll-behavior:auto;}
-  }
-
-button{font:inherit} .languages{display:flex;gap:3px;border:1px solid var(--line);padding:3px;border-radius:3px}
-.languages button{background:transparent;border:0;padding:7px 9px;color:var(--ink-soft);cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px}
-.languages button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
-.nav-tools{display:flex;align-items:center;gap:16px} .brand{text-decoration:none} .skip{position:absolute;top:-100px;left:20px;z-index:100;background:var(--ink);color:white;padding:12px}.skip:focus{top:12px}
-:focus-visible{outline:3px solid var(--mint);outline-offset:5px} .hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:60px;align-items:center}
-h1{max-width:18ch} .hero{padding:65px 0} .hero .sub{font-size:1.04rem} .hero-actions{gap:12px} .hero-actions .btn-outline,.hero-actions .btn-primary{padding:13px 17px}
-.hero-case{border:1px solid var(--line);background:var(--bg-panel);padding:28px;border-radius:4px}.hero-case h2{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;margin:10px 0 4px}.small{font-size:.86rem;color:var(--ink-soft);line-height:1.65}
-.case-metrics{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin:20px 0;background:var(--bg)}.case-metrics>div{padding:18px 14px;border-bottom:1px solid var(--line)}.case-metrics>div:nth-child(odd){border-right:1px solid var(--line)}.case-metrics>div:nth-last-child(-n+2){border-bottom:0}.case-metrics dt{font-size:.77rem;color:var(--ink-soft)}.case-metrics dd{overflow-wrap:anywhere;font-family:'IBM Plex Mono',monospace;font-size:1.2rem;margin-top:5px}.case-metrics .revenue{color:var(--mint)}
-.kicker{font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;font-size:.73rem;color:var(--mint)}.hero-case .cases-link{margin:14px 0 0}.hint{margin-top:14px;max-width:57ch}
-.section-intro{margin:-22px 0 28px;max-width:68ch;color:var(--ink-soft)}.services{padding:65px 0;background:var(--bg-panel);border-top:1px solid var(--line)}.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.service{background:var(--bg-panel);padding:26px}.service .number{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--mint)}.service h3{font-size:1.1rem;margin:12px 0 8px}.service p{color:var(--ink-soft);font-size:.95rem}
-.scope-note{margin-top:22px;padding:16px 20px;border-left:2px solid var(--mint);background:var(--mint-soft);font-size:.92rem}.prep{padding:65px 0}.prep-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}.prep h3{font-size:1.1rem;margin-bottom:14px}.checklist{padding-left:20px;color:var(--ink-soft)}.checklist li{padding:6px 0}.boundaries{margin:28px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:20px}.boundary{padding:24px;border:1px solid var(--line)}.boundary p{color:var(--ink-soft);margin-top:8px;font-size:.95rem}
-.faq{padding:65px 0;border-top:1px solid var(--line)}details{border-top:1px solid var(--line)}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;padding:21px 36px 21px 0;font-size:1rem;font-weight:500;position:relative;list-style:none}summary::-webkit-details-marker{display:none}summary::after{content:'+';position:absolute;right:6px;font-family:'IBM Plex Mono',monospace;color:var(--mint)}details[open] summary::after{content:'−'}details p{padding:0 32px 23px 0;max-width:80ch;color:var(--ink-soft);font-size:.96rem;line-height:1.7}.faq-link{margin:22px 0}
-.case-wide{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}.case-wide h2{font-size:1.6rem;font-family:'Space Grotesk',sans-serif;margin:10px 0 15px}.result{text-align:left;padding:65px 0}.result .cases-link{display:inline-flex}.result .case-metrics{margin:0}.result-label{text-align:left}.result-footnote{margin-top:23px;max-width:84ch}.result .result-figure{justify-content:flex-start;font-size:2rem}
-.automation .section-head{max-width:none}.auto-item h3{font-size:1.15rem}.automation-grid{gap:18px}.about .chips{font-size:.8rem}.contact-note{margin-top:18px!important;font-size:.9rem}.contact-note a{text-underline-offset:3px}.mini-link{font-family:'IBM Plex Mono',monospace;font-size:.82rem}.footer-inner{max-width:1080px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;width:100%;padding:0 28px}
-@media(max-width:950px){.hero-grid{gap:28px;grid-template-columns:1.2fr 1fr}.hero-case{padding:20px}h1{font-size:2.65rem}}
-@media(max-width:760px){.wrap{padding:0 20px}.hero-grid,.services-grid,.prep-grid,.boundaries,.case-wide{grid-template-columns:1fr}.hero{padding:36px 0 48px}.hero-grid{gap:30px}h1{font-size:2.4rem;max-width:20ch}.hero .sub{font-size:1rem}.nav-tools{gap:8px}.nav-cta{padding:9px;font-size:.7rem}.brand-tag{font-size:.6rem}.hero-case{padding:24px}.section-head{margin-bottom:30px}.services,.prep,.process,.automation,.about,.faq,.result{padding:48px 0}.case-wide{gap:22px}.prep-grid{gap:26px}.about-grid{gap:22px}.cta{padding:54px 0}.process-note{font-family:inherit}.small{font-size:.88rem}.result .case-metrics{margin-top:0}}
-@media(max-width:380px){.brand-tag{display:none}.nav-row{gap:8px}.nav-tools{gap:7px}.languages button{padding:7px}.nav-cta{font-size:.65rem}h1{font-size:2.2rem}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-
-/* Design comparison: simpler first screen, clear process, readable conditions. */
-.mobile-proof{display:none}
-.hero .sub{max-width:47ch;font-size:1.15rem;line-height:1.6}
-.hero-actions{margin-top:26px}.hero .hint{margin-top:20px}
-.journey{padding:42px 0 50px;border-top:1px solid var(--line)}
-.journey-heading{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-bottom:26px}
-.journey-heading h2{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;letter-spacing:-.02em}
-.journey-heading>p{font-size:.9rem;color:var(--ink-soft)}
-.journey-steps{display:grid;grid-template-columns:repeat(4,1fr);list-style:none;border:1px solid var(--line);background:var(--bg-panel);padding:0;margin:0}
-.journey-steps li{padding:24px 20px;border-right:1px solid var(--line)}.journey-steps li:last-child{border:0}
-.journey-top{display:flex;flex-direction:column;gap:10px;color:var(--ink-soft);font-size:.76rem;line-height:1.4;min-height:60px}
-.journey-top>span:first-child{font-family:'IBM Plex Mono',monospace;font-size:.85rem;color:var(--mint)}
-.journey-steps h3{font-size:1.08rem;margin:15px 0 9px}.journey-steps p{font-size:.9rem;color:var(--ink-soft);line-height:1.6}
-.journey-note{font-size:.88rem;color:var(--ink-soft);margin-top:18px;max-width:88ch}
-.quick-terms{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:var(--bg-panel);margin:0 0 30px}
-.quick-terms>div{padding:24px;border-right:1px solid var(--line)}.quick-terms>div:last-child{border:0}
-.quick-terms strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:1.65rem;color:var(--ink)}
-.quick-terms span{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:8px}
-.service h3{margin-top:12px}.service p{line-height:1.7;max-width:48ch}.service{padding:26px 30px}
-@media(max-width:900px){.journey-heading{display:block}.journey-heading>p{margin-top:8px}.journey-steps{grid-template-columns:1fr 1fr}.journey-steps li:nth-child(2){border-right:0}.journey-steps li:nth-child(-n+2){border-bottom:1px solid var(--line)}}
-@media(max-width:760px){.hero-grid{gap:0}.hero-case{display:none}.mobile-proof{display:block;margin-top:25px;padding:18px 20px;background:var(--bg-panel);border:1px solid var(--line)}.mobile-proof>div{display:flex;gap:26px;margin:12px 0 10px}.mobile-proof>div>span{font-size:.86rem;color:var(--ink-soft)}.mobile-proof strong{display:block;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:1.45rem;margin-bottom:4px}.mobile-proof>a{font-size:.82rem;text-underline-offset:4px}.hero .sub{font-size:1.02rem;line-height:1.6;margin-top:18px}.hero{padding:30px 0 35px}h1{font-size:2.25rem;max-width:20ch}.hero-actions{margin-top:22px;gap:10px}.hero-actions .btn-primary,.hero-actions .btn-outline{font-size:.76rem;padding:12px 14px}.hero .hint{font-size:.8rem;margin-top:17px}.journey{padding:35px 0}.journey-heading h2{font-size:1.45rem}.journey-steps li{padding:18px 14px}.journey-top{min-height:57px;font-size:.7rem}.journey-steps h3{font-size:1rem}.journey-steps p{font-size:.83rem}.quick-terms{grid-template-columns:1fr;margin-bottom:24px}.quick-terms>div{padding:17px 20px;border-right:0;border-bottom:1px solid var(--line)}.quick-terms strong{font-size:1.35rem}.quick-terms span{font-size:.85rem;margin-top:4px}.service{padding:24px}.journey-note{font-size:.84rem}}
-@media(max-width:360px){h1{font-size:2.1rem}.hero-actions{display:grid;grid-template-columns:1fr}.hero-actions a{justify-content:center}.mobile-proof>div{gap:16px}.journey-steps{grid-template-columns:1fr}.journey-steps li{border-right:0;border-bottom:1px solid var(--line)}.journey-top{min-height:0;flex-direction:row;gap:14px}.journey-steps h3{margin-top:12px}}
-</style></head><body>
-<a class="skip" href="#main"><span data-i18n="t0">Skip to content</span></a>
-<header><div class="wrap nav-row"><a class="brand" href="#main"><span class="brand-name">MUAZ</span><span data-i18n="t1" class="brand-tag">Medical advertising</span></a><div class="nav-tools"><div class="languages" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="ru" aria-pressed="false">RU</button></div><a href="https://t.me/abumuazmtaz" class="nav-cta" target="_blank" rel="noopener noreferrer"><span data-i18n="t2">Discuss your clinic</span></a></div></div></header>
-<main id="main">
-<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow"><span data-i18n="t3">Medical & dental practices</span></div><h1 data-i18n="t4">Lots of inquiries.<br><span class="accent">Too few appointments?</span></h1><p data-i18n="t5" class="sub">I set up and manage ads for medical practices, improve offers and help your team turn relevant inquiries into appointments. Your administrator handles the conversation and booking.</p><div class="hero-actions"><a href="https://t.me/abumuazmtaz" class="btn-primary" target="_blank" rel="noopener noreferrer"><span data-i18n="t6">Get a free initial audit →</span></a><a data-works-link href="https://a66531136-arch.github.io/myworks/" class="btn-outline" target="_blank" rel="noopener noreferrer"><span data-i18n="t7">View case studies</span></a></div><p data-i18n="t8" class="small hint">3.5 years in advertising · Direct work with me</p></div><div class="mobile-proof"><p data-i18n="design115" class="kicker">Selected month / DRC Bala</p><div><span data-i18n="design116"><strong>1,862</strong> inquiries</span><span data-i18n="design117"><strong>458</strong> bookings</span></div><a data-works-link href="https://a66531136-arch.github.io/myworks/?case=bala"><span data-i18n="design118">Read the case →</span></a></div><aside class="hero-case" aria-label="Case study"><div data-i18n="t10" class="kicker">From the medical portfolio</div><h2>DRC Bala</h2><p data-i18n="t11" class="small">Rehabilitation center · 9-month collaboration</p><dl class="case-metrics"><div><dt><span data-i18n="t12">Ad spend</span></dt><dd class=""><span data-i18n="t13">475,000 ₸</span></dd></div><div><dt><span data-i18n="t14">Revenue</span></dt><dd class="revenue"><span data-i18n="t15">18,320,000 ₸</span></dd></div><div><dt><span data-i18n="t16">Inquiries</span></dt><dd class=""><span data-i18n="t17">1,862</span></dd></div><div><dt><span data-i18n="t18">Bookings</span></dt><dd class=""><span data-i18n="t19">458</span></dd></div></dl><p data-i18n="t20" class="small">All four figures refer to the same selected month. This is not an average over the full collaboration.</p><a data-works-link href="https://a66531136-arch.github.io/myworks/?case=bala" class="cases-link" target="_blank" rel="noopener noreferrer"><span data-i18n="t21">Read the full case →</span></a></aside></div></section>
-<section class="journey"><div class="wrap"><div class="journey-heading"><h2 data-i18n="design119">From an ad to an appointment</h2><p data-i18n="design120">A clear role at every step.</p></div><ol class="journey-steps"><li><div class="journey-top"><span>01</span><span data-i18n="design121">My role</span></div><h3 data-i18n="design122">Advertising</h3><p data-i18n="design123">Audience, offer and ad campaign.</p></li><li><div class="journey-top"><span>02</span><span data-i18n="design124">Agreed inquiry criteria</span></div><h3 data-i18n="design125">Patient inquiry</h3><p data-i18n="design126">A message via the website, Instagram or WhatsApp.</p></li><li><div class="journey-top"><span>03</span><span data-i18n="design127">Your administrator</span></div><h3 data-i18n="design128">Conversation</h3><p data-i18n="design129">Answers questions using the agreed script.</p></li><li><div class="journey-top"><span>04</span><span data-i18n="design130">Your clinic</span></div><h3 data-i18n="design131">Appointment</h3><p data-i18n="design132">Confirms the appointment and records the outcome.</p></li></ol><p data-i18n="design133" class="journey-note">I manage the campaign and help with the response script. Your administrator handles patient conversations and bookings.</p></div></section><section class="services" id="services"><div class="wrap"><div class="section-head"><h2 data-i18n="t22">What I take care of</h2></div><p data-i18n="t23" class="section-intro">A clear scope before launch. Your service, local market and inquiry criteria guide the campaign.</p><div class="services-grid"><article class="service"><span class="number">01</span><h3 data-i18n="t24">Audit & campaign plan</h3><p data-i18n="t25">I review your services, patient audience, existing ads, website and Instagram. We choose the service to promote and agree on a measurable goal.</p></article><article class="service"><span class="number">02</span><h3 data-i18n="t26">Ad setup & optimization</h3><p data-i18n="t27">I set up and manage campaigns, test audiences and offers, and adjust the strategy using inquiry data. Ad spend is separate from my fee.</p></article><article class="service"><span class="number">03</span><h3 data-i18n="t28">Creative briefs & message scripts</h3><p data-i18n="t29">I prepare briefs for your designer or social media team and advise on the first response to an inquiry. Graphic design and video editing are not included.</p></article><article class="service"><span class="number">04</span><h3 data-i18n="t30">Reports & a clear next step</h3><p data-i18n="t31">We track inquiries and, where your team provides data, bookings and sales. Weekly reports, inquiry updates and recommendations for the next stage are included in ad management.</p></article></div><p data-i18n="t32" class="scope-note">The goal is relevant inquiries, not a promise that every message becomes a sale. Campaign criteria and reporting are agreed before work begins.</p></div></section>
-<section class="process"><div class="wrap"><div class="section-head"><h2 data-i18n="t33">A small start. A clear decision.</h2></div><div class="quick-terms"><div><strong data-i18n="design134">2–3 days</strong><span data-i18n="design135">Preparation with ready materials</span></div><div><strong data-i18n="design136">7 days</strong><span data-i18n="design137">Paid campaign test</span></div><div><strong data-i18n="design138">Every week</strong><span data-i18n="design139">Report included in the service</span></div></div><div class="process-list"><article class="process-item"><span class="process-num">01</span><div><h3 data-i18n="t34">Free initial audit</h3><p data-i18n="t35">Send your clinic’s page, location and the service you want to promote. I review the situation and outline possible improvements. A detailed implementation plan is a separate consultation or part of campaign work.</p></div></article><article class="process-item"><span class="process-num">02</span><div><h3 data-i18n="t36">Preparation · usually 2–3 days</h3><p data-i18n="t37">After receiving the information, access and ready-to-use creative materials, I prepare the campaign. Creative production and account review can take additional time.</p></div></article><article class="process-item"><span class="process-num">03</span><div><h3 data-i18n="t38">Paid 7-day test</h3><p data-i18n="t39">We agree on the fee, ad budget, target audience and inquiry criteria before launch. During the test I check the results and change the approach if needed.</p></div></article><article class="process-item"><span class="process-num">04</span><div><h3 data-i18n="t40">Review & decide together</h3><p data-i18n="t41">We discuss the results on a call and decide whether to continue. If the agreed goals are not met, I explain what happened. A week may provide early signals rather than a complete picture of revenue.</p></div></article></div><p data-i18n="t42" class="process-note">Fees are discussed on a call. Ad spend is separate. No long-term commitment is needed to start the test.</p></div></section>
-<section class="result"><div class="wrap"><div data-i18n="t43" class="result-label">Case study / DRC Bala</div><div class="case-wide"><div><h2 data-i18n="t44">Rehabilitation.<br>A month of results.</h2><p data-i18n="t45" class="small">The task was to fill the rehabilitation center’s schedule. Ads directed inquiries to WhatsApp; first-response scripts and inquiry-to-booking tracking supported the process.</p><a data-works-link href="https://a66531136-arch.github.io/myworks/?case=bala" class="cases-link" target="_blank" rel="noopener noreferrer"><span data-i18n="t46">Read the full case →</span></a></div><div><dl class="case-metrics"><div><dt><span data-i18n="t47">Ad spend</span></dt><dd class=""><span data-i18n="t48">475,000 ₸</span></dd></div><div><dt><span data-i18n="t49">Revenue</span></dt><dd class="revenue"><span data-i18n="t50">18,320,000 ₸</span></dd></div><div><dt><span data-i18n="t51">Inquiries</span></dt><dd class=""><span data-i18n="t52">1,862</span></dd></div><div><dt><span data-i18n="t53">Bookings</span></dt><dd class=""><span data-i18n="t54">458</span></dd></div></dl></div></div><p data-i18n="t55" class="small result-footnote">Recorded figures are based on my own project records; original ad-platform and CRM reports are not available. Revenue ÷ ad spend = 38.57× (3,856.8% ROAS). This measures revenue relative to advertising spend, not profit, and excludes other business costs.</p></div></section>
-<section class="prep"><div class="wrap"><div class="section-head"><h2 data-i18n="t56">What we need before launch</h2></div><div class="prep-grid"><div><h3 data-i18n="t57">From your clinic</h3><ul class="checklist"><li data-i18n="t58">Services, prices, location and available appointment slots.</li><li data-i18n="t59">Information about your audience, previous ads and business goals.</li><li data-i18n="t60">Agreed access to your advertising accounts and Instagram.</li><li data-i18n="t61">Ready images and videos, or a designer who can follow a brief.</li><li data-i18n="t62">An administrator who responds and records inquiry outcomes.</li></ul></div><div><h3 data-i18n="t63">You can start without a website</h3><p data-i18n="t64" class="small">If suitable, campaigns can lead to Instagram messages or WhatsApp. We can keep your existing website if it serves the task. A new website, CRM integration or a bot is a separate project.</p><div class="scope-note"><span data-i18n="t65">For the first conversation, send information about your clinic and business goals.</span></div></div></div><div class="boundaries"><article class="boundary"><h3 data-i18n="t66">My role</h3><p data-i18n="t67">Ad strategy, setup, testing, optimization, creative briefs and campaign reporting. I can review how inquiries are handled and give your administrator recommendations.</p></article><article class="boundary"><h3 data-i18n="t68">Your team’s role</h3><p data-i18n="t69">Produce creative materials, respond to patients, arrange appointments and provide booking and sales data. Patient decisions and clinic operations also affect results.</p></article></div></div></section>
-<section class="automation"><div class="wrap"><div class="section-head"><h2 data-i18n="t70">Optional services, when you need them</h2></div><p data-i18n="t71" class="section-intro">Quoted separately. We choose what is useful after reviewing your current process.</p><div class="automation-grid"><article class="auto-item"><h3 data-i18n="t72">A website for your campaign</h3><p data-i18n="t73">A focused service page with a clear route to an inquiry. We agree on the content, scope and fee before development.</p></article><article class="auto-item"><h3 data-i18n="t74">A message bot</h3><p data-i18n="t75">An agreed scenario for first questions and handoff to your administrator. Built separately from the ad campaign.</p></article><article class="auto-item"><h3 data-i18n="t76">CRM automation</h3><p data-i18n="t77">Automatic transfer of inquiries and updates to your CRM. We agree on the integration scope and fee separately. Regular campaign reports and inquiry updates are included in ad management.</p></article></div></div></section>
-<section class="about"><div class="wrap about-grid"><h2 data-i18n="t78">You work<br>directly with me.</h2><div class="about-body"><p data-i18n="t79"><strong>I’m Muaz.</strong> I have 3.5 years of advertising experience. I have learned and worked in teams, but I manage my client projects independently.</p><p data-i18n="t80">My focus is medical and dental practices, rehabilitation and treatment-focused dermatology. I do not promote cosmetology services.</p><p data-i18n="t81">I work with clinics in different countries. Before launch, I review the local audience and adapt the campaign to your market. We can discuss your project on a Zoom call.</p><div class="chips"><span class="chip">Meta Ads</span><span data-i18n="t82" class="chip">Inquiry strategy</span><span data-i18n="t83" class="chip">Medical practices</span><span data-i18n="t84" class="chip">Weekly reports</span></div></div></div></section>
-<section class="faq"><div class="wrap"><div class="section-head"><h2 data-i18n="t85">Before you message me</h2></div><div><details><summary><span data-i18n="t86">What does it cost?</span></summary><p data-i18n="t87">Pricing is agreed on a call after I understand the clinic and scope. My fee, ad spend and any additional services are separate. The test is paid; all amounts and the terms for continuing or stopping are agreed before launch.</p></details><details><summary><span data-i18n="t88">Do you guarantee bookings or revenue?</span></summary><p data-i18n="t89">No fixed number of bookings or revenue is promised. My role is campaign management and improving the relevance of inquiries against agreed criteria. Bookings also depend on your administrator, pricing, availability and patient decisions.</p></details><details><summary><span data-i18n="t90">Can we start without a website or CRM?</span></summary><p data-i18n="t91">Yes. If appropriate for the clinic and market, ads can direct people to Instagram messages or WhatsApp. We choose the route during the audit. A new website is an optional, separately priced project.</p></details><details><summary><span data-i18n="t92">Who answers patient inquiries?</span></summary><p data-i18n="t93">Your administrator. I can provide a message script and review the handling of inquiries using the access we agree on. A bot is an optional separate service, not part of basic ad management.</p></details><details><summary><span data-i18n="t94">Who makes the ad images and videos?</span></summary><p data-i18n="t95">Your designer, social media team or another specialist. I prepare the brief and review materials for the campaign. I do not provide graphic design or video editing as part of the ad service.</p></details><details><summary><span data-i18n="t96">What happens if the test underperforms?</span></summary><p data-i18n="t97">I share the results openly and explain what was tested. We agree whether to stop or run another stage. Continuation requires a joint decision. Payment and stopping terms are agreed before launch; a break-even result is not guaranteed.</p></details><details><summary><span data-i18n="t98">Who owns the accounts and campaign materials?</span></summary><p data-i18n="t99">We primarily work in your advertising accounts with the access needed for the project. At the end you retain your accounts, commissioned materials and agreed project assets. Any additional setup costs are agreed in advance.</p></details><details><summary><span data-i18n="t100">Will these results apply to my market?</span></summary><p data-i18n="t101">The medical example uses KZT and comes from my previous work. It shows an approach and a recorded result. Outcomes depend on the local market, clinic and offer, so we test your campaign separately.</p></details><details><summary><span data-i18n="t102">Which medical projects do you take on?</span></summary><p data-i18n="t103">Medical and dental practices, rehabilitation and treatment-focused dermatology. I do not take projects promoting cosmetology services. We confirm the fit during the initial conversation.</p></details><details><summary><span data-i18n="t104">Can I speak to a previous client?</span></summary><p data-i18n="t105">The portfolio links to public project pages where available. A personal introduction can be considered after work begins and only with the former client’s permission. I do not share private contacts without consent.</p></details></div></div></section>
-<section class="cta"><div class="wrap"><h2 data-i18n="t106">Let’s look at<br>your clinic’s situation.</h2><p data-i18n="t107">Send your clinic’s page, location and the service you want to promote. I’ll outline what we can improve and whether we are a good fit.</p><div class="cta-actions"><a href="https://t.me/muazclinics_bot/projects" class="btn-primary" target="_blank" rel="noopener noreferrer"><span data-i18n="t108">Request a free audit →</span></a><a data-works-link href="https://a66531136-arch.github.io/myworks/" class="btn-outline" target="_blank" rel="noopener noreferrer"><span data-i18n="t109">Browse case studies</span></a></div><p class="contact-note">Telegram: <a href="https://t.me/abumuazmtaz" target="_blank" rel="noopener noreferrer">@abumuazmtaz</a> · <a href="https://t.me/muazclinics_bot/projects" class="mini-link" target="_blank" rel="noopener noreferrer"><span data-i18n="t110">Open the portfolio in Telegram</span></a></p><div class="trust-strip"><span data-i18n="t111">Agreed scope before launch</span><span data-i18n="t112">Paid test before ongoing work</span><span data-i18n="t113">Weekly reporting</span></div></div></section>
-</main><footer><div class="footer-inner"><span>© 2026 Muaz</span><span data-i18n="t114">Medical advertising · Project inquiries only</span></div></footer><script>const TEXT={"t0": {"en": "Skip to content", "ru": "К содержанию"}, "t1": {"en": "Medical advertising", "ru": "Реклама для медицины"}, "t2": {"en": "Discuss your clinic", "ru": "Обсудить клинику"}, "t3": {"en": "Medical & dental practices", "ru": "Медицина и стоматология"}, "t4": {"en": "Lots of inquiries.<br><span class=\"accent\">Too few appointments?</span>", "ru": "Обращений много.<br><span class=\"accent\">Записей мало?</span>"}, "t5": {"en": "I run ads for medical practices and help your team turn relevant inquiries into appointments.", "ru": "Настраиваю рекламу клиник и помогаю вашей команде доводить целевые обращения до записи."}, "t6": {"en": "Get a free initial audit →", "ru": "Получить бесплатный аудит →"}, "t7": {"en": "View case studies", "ru": "Смотреть кейсы"}, "t8": {"en": "3.5 years in advertising · Direct work with me", "ru": "3,5 года в рекламе · Работа напрямую со мной"}, "t9": {"en": "For clinic owners and decision-makers. Send your clinic’s page, location and the service you want to promote.", "ru": "Для владельцев и руководителей клиник. Пришлите страницу клиники, город и услугу для продвижения."}, "t10": {"en": "From the medical portfolio", "ru": "Из медицинского портфолио"}, "t11": {"en": "Rehabilitation center · 9-month collaboration", "ru": "Реабилитационный центр · 9 месяцев сотрудничества"}, "t12": {"en": "Ad spend", "ru": "Рекламный бюджет"}, "t13": {"en": "475,000 ₸", "ru": "475 000 ₸"}, "t14": {"en": "Revenue", "ru": "Выручка"}, "t15": {"en": "18,320,000 ₸", "ru": "18 320 000 ₸"}, "t16": {"en": "Inquiries", "ru": "Обращения"}, "t17": {"en": "1,862", "ru": "1 862"}, "t18": {"en": "Bookings", "ru": "Записи"}, "t19": {"en": "458", "ru": "458"}, "t20": {"en": "All four figures refer to the same selected month. This is not an average over the full collaboration.", "ru": "Все четыре показателя относятся к одному выбранному месяцу, а не к среднему результату за весь срок."}, "t21": {"en": "Read the full case →", "ru": "Смотреть кейс целиком →"}, "t22": {"en": "What I take care of", "ru": "Что я беру на себя"}, "t23": {"en": "A clear scope before launch. Your service, local market and inquiry criteria guide the campaign.", "ru": "Понятный объём работы до запуска. Кампанию строим вокруг услуги, вашего рынка и критериев целевого обращения."}, "t24": {"en": "Audit & campaign plan", "ru": "Аудит и план рекламы"}, "t25": {"en": "I review your clinic, services and audience. We choose an offer and agree on the campaign goal.", "ru": "Изучаю клинику, услуги и аудиторию. Выбираем предложение и согласовываем цель кампании."}, "t26": {"en": "Ad setup & optimization", "ru": "Настройка и оптимизация"}, "t27": {"en": "I launch campaigns, test audiences and offers, and optimize using inquiry data. Ad spend is separate.", "ru": "Запускаю кампании, тестирую аудитории и предложения, оптимизирую по данным обращений. Рекламный бюджет отдельно."}, "t28": {"en": "Creative briefs & message scripts", "ru": "ТЗ для креативов и сценарии"}, "t29": {"en": "Creative briefs for your designer or social media team, plus a first-response script for your administrator.", "ru": "ТЗ вашему дизайнеру или SMM-специалисту и сценарий первого ответа для администратора."}, "t30": {"en": "Reports & a clear next step", "ru": "Отчётность и следующие шаги"}, "t31": {"en": "Inquiries, bookings and sales where data is available. Weekly reports and recommendations are included.", "ru": "Обращения, записи и продажи при наличии данных. Еженедельные отчёты и рекомендации входят в работу."}, "t32": {"en": "The goal is relevant inquiries, not a promise that every message becomes a sale. Campaign criteria and reporting are agreed before work begins.", "ru": "Цель — целевые обращения, а не обещание, что каждое сообщение станет продажей. Критерии и отчётность согласовываем до начала работы."}, "t33": {"en": "A small start. A clear decision.", "ru": "Начинаем с теста. Решаем по данным."}, "t34": {"en": "Free initial audit", "ru": "Бесплатный первичный аудит"}, "t35": {"en": "Send your clinic’s page, location and the service you want to promote. I review the situation and outline possible improvements. A detailed implementation plan is a separate consultation or part of campaign work.", "ru": "Пришлите страницу клиники, город и услугу для продвижения. Разберу ситуацию и обозначу возможные улучшения. Подробный план внедрения — отдельная консультация или часть работы над рекламой."}, "t36": {"en": "Preparation · usually 2–3 days", "ru": "Подготовка · обычно 2–3 дня"}, "t37": {"en": "After receiving the information, access and ready-to-use creative materials, I prepare the campaign. Creative production and account review can take additional time.", "ru": "После получения информации, доступов и готовых креативов подготавливаю кампанию. Создание материалов и проверка рекламного аккаунта могут потребовать дополнительного времени."}, "t38": {"en": "Paid 7-day test", "ru": "Платный тест · 7 дней"}, "t39": {"en": "We agree on the fee, ad budget, target audience and inquiry criteria before launch. During the test I check the results and change the approach if needed.", "ru": "До запуска согласовываем оплату, рекламный бюджет, аудиторию и критерии подходящего обращения. Во время теста проверяю результаты и при необходимости меняю подход."}, "t40": {"en": "Review & decide together", "ru": "Разбор и совместное решение"}, "t41": {"en": "We discuss the results on a call and decide whether to continue. If the agreed goals are not met, I explain what happened. A week may provide early signals rather than a complete picture of revenue.", "ru": "Обсуждаем результаты на созвоне и решаем, продолжать ли работу. Если цели не достигнуты, объясняю, что произошло. Неделя может дать первые данные, а не полную картину выручки."}, "t42": {"en": "Fees are discussed on a call. Ad spend is separate. No long-term commitment is needed to start the test.", "ru": "Стоимость обсуждаем на созвоне. Рекламный бюджет отдельно. Для начала теста не нужны долгосрочные обязательства."}, "t43": {"en": "Case study / DRC Bala", "ru": "Кейс / DRC Bala"}, "t44": {"en": "Rehabilitation.<br>A month of results.", "ru": "Реабилитация.<br>Результат за месяц."}, "t45": {"en": "The task was to fill the rehabilitation center’s schedule. Ads directed inquiries to WhatsApp; first-response scripts and inquiry-to-booking tracking supported the process.", "ru": "Задача — заполнить расписание реабилитационного центра. Реклама приводила обращения в WhatsApp; работу поддерживали сценарии первого ответа и учёт обращений до записи."}, "t46": {"en": "Read the full case →", "ru": "Смотреть кейс целиком →"}, "t47": {"en": "Ad spend", "ru": "Рекламный бюджет"}, "t48": {"en": "475,000 ₸", "ru": "475 000 ₸"}, "t49": {"en": "Revenue", "ru": "Выручка"}, "t50": {"en": "18,320,000 ₸", "ru": "18 320 000 ₸"}, "t51": {"en": "Inquiries", "ru": "Обращения"}, "t52": {"en": "1,862", "ru": "1 862"}, "t53": {"en": "Bookings", "ru": "Записи"}, "t54": {"en": "458", "ru": "458"}, "t55": {"en": "Recorded figures are based on my own project records; original ad-platform and CRM reports are not available. Revenue ÷ ad spend = 38.57× (3,856.8% ROAS). This measures revenue relative to advertising spend, not profit, and excludes other business costs.", "ru": "Показатели приведены по моим записям о проекте; исходные отчёты кабинета и CRM не сохранились. Выручка ÷ рекламный бюджет = 38,57× (ROAS 3 856,8%). Это отношение выручки к расходам на рекламу, а не прибыль; другие расходы бизнеса в расчёт не входят."}, "t56": {"en": "What we need before launch", "ru": "Что нужно до запуска"}, "t57": {"en": "From your clinic", "ru": "От вашей клиники"}, "t58": {"en": "Services, prices, location and available appointment slots.", "ru": "Услуги, цены, география и свободные места в расписании."}, "t59": {"en": "Information about your audience, previous ads and business goals.", "ru": "Информация об аудитории, прошлой рекламе и целях бизнеса."}, "t60": {"en": "Agreed access to your advertising accounts and Instagram.", "ru": "Согласованные доступы к рекламным аккаунтам и Instagram."}, "t61": {"en": "Ready images and videos, or a designer who can follow a brief.", "ru": "Готовые фото и видео или дизайнер, который работает по ТЗ."}, "t62": {"en": "An administrator who responds and records inquiry outcomes.", "ru": "Администратор, который отвечает и фиксирует результат обращения."}, "t63": {"en": "You can start without a website", "ru": "Можно начать без сайта"}, "t64": {"en": "If suitable, campaigns can lead to Instagram messages or WhatsApp. We can keep your existing website if it serves the task. A new website, CRM integration or a bot is a separate project.", "ru": "Если это подходит задаче, кампании можно вести в сообщения Instagram или WhatsApp. Хороший существующий сайт используем в работе. Новый сайт, интеграция с CRM или бот — отдельный проект."}, "t65": {"en": "For the first conversation, send information about your clinic and business goals.", "ru": "Для первого знакомства достаточно информации о вашей клинике и целях бизнеса."}, "t66": {"en": "My role", "ru": "Моя ответственность"}, "t67": {"en": "Ad strategy, setup, testing, optimization, creative briefs and campaign reporting. I can review how inquiries are handled and give your administrator recommendations.", "ru": "Стратегия, настройка, тесты, оптимизация, ТЗ для креативов и отчётность. Могу проверить обработку обращений и дать администратору рекомендации."}, "t68": {"en": "Your team’s role", "ru": "Ответственность клиники"}, "t69": {"en": "Produce creative materials, respond to patients, arrange appointments and provide booking and sales data. Patient decisions and clinic operations also affect results.", "ru": "Подготовить креативы, отвечать пациентам, организовывать записи и предоставлять данные о записях и продажах. Решения пациентов и работа клиники также влияют на результат."}, "t70": {"en": "Optional services, when you need them", "ru": "Дополнительные услуги — по задаче"}, "t71": {"en": "Quoted separately. We choose what is useful after reviewing your current process.", "ru": "Оплачиваются отдельно. Выбираем полезные решения после разбора вашего текущего процесса."}, "t72": {"en": "A website for your campaign", "ru": "Сайт под рекламную кампанию"}, "t73": {"en": "A focused service page with a clear route to an inquiry. We agree on the content, scope and fee before development.", "ru": "Страница услуги с понятным путём до обращения. Содержание, объём и стоимость согласовываем до разработки."}, "t74": {"en": "A message bot", "ru": "Бот для сообщений"}, "t75": {"en": "An agreed scenario for first questions and handoff to your administrator. Built separately from the ad campaign.", "ru": "Согласованный сценарий первых вопросов и передачи администратору. Разрабатывается отдельно от рекламной кампании."}, "t76": {"en": "CRM automation", "ru": "Автоматизация CRM"}, "t77": {"en": "Automatic transfer of inquiries and updates to your CRM. We agree on the integration scope and fee separately. Regular campaign reports and inquiry updates are included in ad management.", "ru": "Автоматическая передача заявок и обновлений в вашу CRM. Объём интеграции и стоимость обсуждаем отдельно. Обычные отчёты и информация о заявках входят в ведение рекламы."}, "t78": {"en": "You work<br>directly with me.", "ru": "Работаете<br>напрямую со мной."}, "t79": {"en": "<strong>I’m Muaz.</strong> I have 3.5 years of advertising experience. I have learned and worked in teams, but I manage my client projects independently.", "ru": "<strong>Я Муаз.</strong> В рекламе 3,5 года. Получал опыт в командах, а клиентские проекты веду самостоятельно."}, "t80": {"en": "My focus is medical and dental practices, rehabilitation and treatment-focused dermatology. I do not promote cosmetology services.", "ru": "Моя специализация — медицинские клиники, стоматология, реабилитация и лечебная дерматология. Не продвигаю косметологию."}, "t81": {"en": "I work with clinics in different countries. Before launch, I review the local audience and adapt the campaign to your market. We can discuss your project on a Zoom call.", "ru": "Работаю с клиниками в разных странах. Перед запуском изучаю местную аудиторию и адаптирую рекламу под ваш рынок. Проект можем обсудить на созвоне в Zoom."}, "t82": {"en": "Inquiry strategy", "ru": "Стратегия обращений"}, "t83": {"en": "Medical practices", "ru": "Медицина"}, "t84": {"en": "Weekly reports", "ru": "Еженедельные отчёты"}, "t85": {"en": "Before you message me", "ru": "Ответы до первого сообщения"}, "t86": {"en": "What does it cost?", "ru": "Сколько стоит работа?"}, "t87": {"en": "Pricing is agreed on a call after I understand the clinic and scope. My fee, ad spend and any additional services are separate. The test is paid; all amounts and the terms for continuing or stopping are agreed before launch.", "ru": "Стоимость согласовываем на созвоне после знакомства с клиникой и объёмом задачи. Моя работа, рекламный бюджет и дополнительные услуги оплачиваются отдельно. Тест платный; суммы и условия продолжения или остановки обсуждаем до запуска."}, "t88": {"en": "Do you guarantee bookings or revenue?", "ru": "Ты гарантируешь записи и выручку?"}, "t89": {"en": "No fixed number of bookings or revenue is promised. My role is campaign management and improving the relevance of inquiries against agreed criteria. Bookings also depend on your administrator, pricing, availability and patient decisions.", "ru": "Фиксированное количество записей и выручку не обещаю. Моя зона работы — ведение рекламы и повышение качества обращений по согласованным критериям. Записи также зависят от администратора, цен, расписания и решений пациентов."}, "t90": {"en": "Can we start without a website or CRM?", "ru": "Можно начать без сайта и CRM?"}, "t91": {"en": "Yes. If appropriate for the clinic and market, ads can direct people to Instagram messages or WhatsApp. We choose the route during the audit. A new website is an optional, separately priced project.", "ru": "Да. Если это подходит клинике и рынку, рекламу можно вести в сообщения Instagram или WhatsApp. Путь выбираем на аудите. Новый сайт — дополнительный проект с отдельной стоимостью."}, "t92": {"en": "Who answers patient inquiries?", "ru": "Кто отвечает пациентам?"}, "t93": {"en": "Your administrator. I can provide a message script and review the handling of inquiries using the access we agree on. A bot is an optional separate service, not part of basic ad management.", "ru": "Ваш администратор. Я могу дать сценарий общения и проверить обработку обращений в рамках согласованных доступов. Бот — отдельная дополнительная услуга, а не часть базового ведения рекламы."}, "t94": {"en": "Who makes the ad images and videos?", "ru": "Кто делает изображения и видео для рекламы?"}, "t95": {"en": "Your designer, social media team or another specialist. I prepare the brief and review materials for the campaign. I do not provide graphic design or video editing as part of the ad service.", "ru": "Ваш дизайнер, SMM-команда или другой специалист. Я готовлю ТЗ и оцениваю материалы для кампании. Дизайн и монтаж видео в услугу рекламы не входят."}, "t96": {"en": "What happens if the test underperforms?", "ru": "Что будет, если тест не даст результата?"}, "t97": {"en": "I share the results openly and explain what was tested. We agree whether to stop or run another stage. Continuation requires a joint decision. Payment and stopping terms are agreed before launch; a break-even result is not guaranteed.", "ru": "Прозрачно показываю результат и объясняю, что тестировали. Вместе решаем, остановиться или провести следующий этап. Автоматического продления и обещания выхода в ноль нет; оплату и условия остановки согласовываем до запуска."}, "t98": {"en": "Who owns the accounts and campaign materials?", "ru": "Кому принадлежат аккаунты и материалы?"}, "t99": {"en": "We primarily work in your advertising accounts with the access needed for the project. At the end you retain your accounts, commissioned materials and agreed project assets. Any additional setup costs are agreed in advance.", "ru": "В основном работаем в ваших рекламных аккаунтах с необходимыми для проекта доступами. После завершения у вас остаются ваши аккаунты, оплаченные материалы и согласованные результаты проекта. Дополнительные расходы на настройку обсуждаем заранее."}, "t100": {"en": "Will these results apply to my market?", "ru": "Можно ожидать такие же результаты на моём рынке?"}, "t101": {"en": "The medical example uses KZT and comes from my previous work. It shows an approach and a recorded result. Outcomes depend on the local market, clinic and offer, so we test your campaign separately.", "ru": "Медицинский пример приведён в тенге и относится к моему прошлому опыту. Он показывает подход и зафиксированный результат. Итог зависит от рынка, клиники и предложения, поэтому вашу кампанию проверяем отдельным тестом."}, "t102": {"en": "Which medical projects do you take on?", "ru": "С какими медицинскими проектами ты работаешь?"}, "t103": {"en": "Medical and dental practices, rehabilitation and treatment-focused dermatology. I do not take projects promoting cosmetology services. We confirm the fit during the initial conversation.", "ru": "Медицинские клиники, стоматологии, реабилитация и лечебная дерматология. Не беру продвижение косметологии. Соответствие проекта обсуждаем при знакомстве."}, "t104": {"en": "Can I speak to a previous client?", "ru": "Можно поговорить с бывшим клиентом?"}, "t105": {"en": "The portfolio links to public project pages where available. A personal introduction can be considered after work begins and only with the former client’s permission. I do not share private contacts without consent.", "ru": "В портфолио есть ссылки на публичные страницы проектов, где они доступны. Личное знакомство можно обсудить после начала работы и только с разрешения бывшего клиента. Частные контакты без согласия не передаю."}, "t106": {"en": "Let’s look at<br>your clinic’s situation.", "ru": "Разберём ситуацию<br>вашей клиники."}, "t107": {"en": "Send your clinic’s page, location and the service you want to promote. I’ll outline what we can improve and whether we are a good fit.", "ru": "Пришлите страницу клиники, город и услугу для продвижения. Обозначу, что можно улучшить и подходим ли мы друг другу."}, "t108": {"en": "Request a free audit →", "ru": "Запросить бесплатный аудит →"}, "t109": {"en": "Browse case studies", "ru": "Кейсы в браузере"}, "t110": {"en": "Open the portfolio in Telegram", "ru": "Открыть портфолио в Telegram"}, "t111": {"en": "Agreed scope before launch", "ru": "Согласованный объём до запуска"}, "t112": {"en": "Paid test before ongoing work", "ru": "Платный тест перед продолжением"}, "t113": {"en": "Weekly reporting", "ru": "Еженедельная отчётность"}, "t114": {"en": "Medical advertising · Project inquiries only", "ru": "Реклама для медицины · Для обращений по проектам"}, "design115": {"en": "Selected month / DRC Bala", "ru": "Выбранный месяц / DRC Bala"}, "design116": {"en": "<strong>1,862</strong> inquiries", "ru": "<strong>1 862</strong> обращения"}, "design117": {"en": "<strong>458</strong> bookings", "ru": "<strong>458</strong> записей"}, "design118": {"en": "Read the case →", "ru": "Смотреть кейс →"}, "design119": {"en": "From an ad to an appointment", "ru": "От рекламы до записи"}, "design120": {"en": "A clear role at every step.", "ru": "На каждом этапе понятно, кто отвечает."}, "design121": {"en": "My role", "ru": "Моя работа"}, "design122": {"en": "Advertising", "ru": "Реклама"}, "design123": {"en": "Audience, offer and ad campaign.", "ru": "Аудитория, предложение и рекламная кампания."}, "design124": {"en": "Agreed inquiry criteria", "ru": "Согласованные критерии"}, "design125": {"en": "Patient inquiry", "ru": "Обращение"}, "design126": {"en": "A message via the website, Instagram or WhatsApp.", "ru": "Сообщение через сайт, Instagram или WhatsApp."}, "design127": {"en": "Your administrator", "ru": "Ваш администратор"}, "design128": {"en": "Conversation", "ru": "Общение"}, "design129": {"en": "Answers questions using the agreed script.", "ru": "Отвечает на вопросы по согласованному сценарию."}, "design130": {"en": "Your clinic", "ru": "Ваша клиника"}, "design131": {"en": "Appointment", "ru": "Запись"}, "design132": {"en": "Confirms the appointment and records the outcome.", "ru": "Подтверждает запись и фиксирует результат."}, "design133": {"en": "I manage the campaign and help with the response script. Your administrator handles patient conversations and bookings.", "ru": "Я веду рекламу и помогаю со сценарием ответа. Общение с пациентами и запись ведёт ваш администратор."}, "design134": {"en": "2–3 days", "ru": "2–3 дня"}, "design135": {"en": "Preparation with ready materials", "ru": "Подготовка при готовых материалах"}, "design136": {"en": "7 days", "ru": "7 дней"}, "design137": {"en": "Paid campaign test", "ru": "Платный тест рекламы"}, "design138": {"en": "Every week", "ru": "Каждую неделю"}, "design139": {"en": "Report included in the service", "ru": "Отчёт входит в услугу"}}; const PAGE_TITLES={en:'Muaz — advertising for medical practices',ru:'Муаз — реклама для медицины'};
-let lang = new URLSearchParams(location.search).get('lang') === 'ru' ? 'ru' : 'en';
-function setLanguage(next) {
-  lang = next;
-  document.documentElement.lang = next;
-  document.querySelectorAll('[data-i18n]').forEach(el => { const d = TEXT[el.dataset.i18n]; if(d) el.innerHTML = d[next]; });
-  document.querySelectorAll('[data-lang]').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.lang === next)));
-  document.title = next === 'ru' ? PAGE_TITLES.ru : PAGE_TITLES.en;
-  const url = new URL(location.href); url.searchParams.set('lang',next); history.replaceState(null,'',url);
-  document.querySelectorAll('[data-works-link], [data-main-link]').forEach(el => { let u = new URL(el.href); if(['localhost','127.0.0.1'].includes(location.hostname)){ const previous=u; u=new URL(el.hasAttribute('data-works-link')?'/mini-app/':'/website/',location.origin); u.search=previous.search; } u.searchParams.set('lang',next); el.href=u.href; });
-  if(typeof refreshCase === 'function') refreshCase();
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muaz — targeted advertising</title>
+<link rel="preload" as="image" href="video/poster.jpg">
+<meta name="description" content="Targeted advertising and websites that turn traffic into clients. Old roots, new traffic.">
+<meta name="theme-color" content="#0B0B0C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0C;--panel:rgba(14,14,16,.72);--card:#17171a;--card-2:#1e1e22;
+  --line:rgba(255,255,255,.12);--line-2:rgba(255,255,255,.24);
+  --ink:#F5F3EE;--soft:#B4B1AA;--accent:#FF5A2E;--gold:#E2AE4A;
+  --ease:cubic-bezier(.22,1,.36,1);
 }
-document.querySelectorAll('[data-lang]').forEach(el => el.addEventListener('click',()=>setLanguage(el.dataset.lang)));
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}button{font:inherit;color:inherit}
+h1,h2,h3{font-family:'Unbounded','Manrope',sans-serif;font-weight:500;letter-spacing:-.02em}
+.skip{position:absolute;top:-100px;left:16px;z-index:500;background:var(--ink);color:var(--bg);padding:12px 16px}.skip:focus{top:12px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* bold ornament (svg) */
+.orn{color:var(--gold)}
+.orn path,.orn circle{fill:none;stroke:currentColor;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.orn .fill{fill:currentColor;stroke:none}
+symbol path,symbol circle{fill:none;stroke:currentColor;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+symbol .fill{fill:currentColor!important;stroke:none!important}
+
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:1}
+.spacer{height:1300vh}
+.veil{position:fixed;inset:0;z-index:400;background:var(--bg);display:grid;place-items:center;transition:opacity 1s var(--ease),visibility 0s 1s}
+.veil .orn{width:110px;height:110px;animation:spin 6s linear infinite}
+.veil p{position:absolute;bottom:40px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+.ready .veil{opacity:0;visibility:hidden}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:22px 32px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;pointer-events:none}
+.nav>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:6px 16px 6px 6px}
+.brand .orn{width:34px;height:34px}
+.brand b{font-family:'Unbounded',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;display:block;line-height:1.15}
+.brand small{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.langs{display:flex;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:3px}
+.langs button{border:0;background:none;cursor:pointer;min-width:42px;min-height:38px;border-radius:999px;font-size:12px;font-weight:700;color:var(--soft)}
+.langs button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+
+/* chapters */
+.chapters{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:4px;list-style:none}
+.chapters button{display:flex;align-items:center;justify-content:flex-end;gap:12px;background:none;border:0;cursor:pointer;min-height:36px;color:var(--soft);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.chapters button span{opacity:0;transform:translateX(6px);transition:.3s var(--ease)}
+.chapters button:hover span,.chapters button.on span{opacity:1;transform:none}
+.chapters button i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink);background:rgba(0,0,0,.3);transition:.3s}
+.chapters button.on{color:var(--ink)}
+.chapters button.on i{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent)}
+
+/* BEATS */
+.beat{position:fixed;z-index:20;left:48px;top:50%;width:min(460px,calc(100vw - 48px));transform:translateY(calc(-50% + 24px));opacity:0;visibility:hidden;transition:opacity .6s var(--ease),transform .8s var(--ease),visibility 0s .6s;pointer-events:none}
+.beat.on{opacity:1;visibility:visible;transform:translateY(-50%);transition:opacity .6s var(--ease),transform .8s var(--ease);pointer-events:auto}
+.glass{background:var(--panel);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:20px;padding:30px;position:relative;overflow:hidden}
+.glass .corner{position:absolute;width:96px;height:96px;right:-26px;top:-26px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);display:flex;gap:12px;align-items:center;margin-bottom:16px}
+.kicker b{color:var(--accent)}
+.beat h2{font-size:clamp(22px,2.4vw,32px);line-height:1.18;padding-right:40px}
+.beat p{color:var(--soft);margin-top:14px;font-size:16px}
+.beat .list{margin-top:18px;border-top:1px solid var(--line)}
+.beat .list>div{display:grid;grid-template-columns:40px 1fr;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.beat .list b{color:var(--gold);font-family:'Unbounded',sans-serif;font-size:12px;font-weight:500;padding-top:3px}
+.beat .list h3{font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;letter-spacing:0}
+.beat .list p{margin-top:2px;font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tags span{font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;border:1px solid var(--line-2)}
+
+.beat.hero{left:0;right:0;width:auto;top:auto;bottom:0;transform:translateY(24px);padding:0 48px 60px;background:linear-gradient(0deg,rgba(11,11,12,.8),rgba(11,11,12,0))}
+.beat.hero.on{transform:none}
+.hero .eyebrow{display:inline-flex;gap:10px;align-items:center;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+.hero .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.hero h1{margin-top:18px;font-size:clamp(36px,6vw,92px);line-height:1;text-transform:uppercase;text-shadow:0 4px 40px rgba(0,0,0,.35)}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{margin-top:16px;max-width:46ch;font-size:17px;color:#eceae4}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;align-items:center}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px;border:1px solid transparent;cursor:pointer;transition:transform .25s var(--ease),background .25s,border-color .25s}
+.btn svg{width:19px;height:19px;flex-shrink:0}
+.btn-accent{background:var(--accent);color:#170904}.btn-accent:hover{transform:translateY(-2px);background:#ff7550}
+.btn-ghost{background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--line-2);color:var(--ink)}.btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:#1a1205}.btn-gold:hover{transform:translateY(-2px)}
+
+.hotspot{position:fixed;z-index:30;left:0;top:0;transform:translate(-50%,-50%);display:none;align-items:center;gap:10px;min-height:44px;padding:0 18px 0 12px;border-radius:999px;background:rgba(11,11,12,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line-2);cursor:pointer;font-size:13px;font-weight:700;white-space:nowrap}
+.hotspot i{width:12px;height:12px;border-radius:50%;background:var(--accent);animation:pulse 1.6s infinite}
+.hotspot.show{display:inline-flex}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,90,46,.7)}100%{box-shadow:0 0 0 16px rgba(255,90,46,0)}}
+
+.beat.final{left:auto;right:120px;width:min(470px,calc(100vw - 40px))}
+.final .btns{display:grid;gap:10px;margin-top:22px}
+.final .btns .btn{justify-content:flex-start;min-height:58px;font-size:16px}
+.final .btns .btn .ar{margin-left:auto}
+.final small{display:block;margin-top:16px;color:var(--soft);font-size:13px}
+.final small a,.final small button{text-underline-offset:4px;background:none;border:0;color:inherit;text-decoration:underline;cursor:pointer;font-size:13px}
+
+.reasons{display:grid;gap:12px;margin-top:20px}
+.reasons div{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:rgba(255,255,255,.03)}
+.reasons b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.reasons p{margin:0!important;color:var(--ink)!important;font-size:15px!important}
+.steps{display:grid;gap:10px;margin-top:20px;counter-reset:s}
+.steps div{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.steps div::before{counter-increment:s;content:"0" counter(s);font-family:'Unbounded',sans-serif;font-size:12px;color:var(--accent)}
+.steps strong{font-size:15px}
+.steps span{color:var(--soft);font-size:13px;margin-left:auto;text-align:right}
+
+.fab{position:fixed;right:20px;bottom:20px;z-index:120;display:flex;align-items:center;gap:10px;min-height:52px;padding:0 20px 0 16px;border-radius:999px;background:var(--accent);color:#170904;text-decoration:none;font-weight:700;box-shadow:0 10px 30px rgba(255,90,46,.35);transition:transform .5s var(--ease)}
+.fab svg{width:20px;height:20px}
+.fab.hide{transform:translateY(130px)}
+
+/* CASE (ad-account style) */
+.case{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(5,5,6,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.case.open{display:flex}
+.acct{width:min(1240px,100%);max-height:calc(100svh - 48px);overflow:auto;background:#0f0f12;border:1px solid var(--line);border-radius:16px;box-shadow:0 40px 140px rgba(0,0,0,.7);transform-origin:var(--ox,50%) var(--oy,50%);animation:zoomIn .7s var(--ease) both;position:relative}
+@keyframes zoomIn{from{transform:scale(.15);opacity:.2}to{transform:none;opacity:1}}
+.a-top{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;position:sticky;top:0;background:#0f0f12;z-index:3}
+.a-top .orn{width:28px;height:28px}
+.a-top .acc{display:flex;flex-direction:column;line-height:1.25}
+.a-top .acc b{font-size:14px}.a-top .acc span{font-size:12px;color:var(--soft)}
+.a-top .sp{flex:1}
+.a-chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;padding:7px 12px;border-radius:8px;background:var(--card-2);border:1px solid var(--line)}
+.a-chip.live{color:#86e3a9;border-color:rgba(80,200,130,.35)}
+.a-chip.live i{width:7px;height:7px;border-radius:50%;background:#55d68b;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.x{width:42px;height:42px;border-radius:10px;border:1px solid var(--line-2);background:var(--card-2);cursor:pointer;display:grid;place-items:center}
+.x svg{width:18px;height:18px}
+.a-body{display:grid;grid-template-columns:60px 1fr}
+.rail{border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 0}
+.rail span{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--soft)}
+.rail span.on{background:rgba(255,90,46,.14);color:var(--accent)}
+.rail svg{width:18px;height:18px}
+.a-main{padding:18px 20px 22px;min-width:0}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px;overflow-x:auto}
+.tabs>span{padding:10px 16px;font-size:14px;font-weight:700;color:var(--soft);border-bottom:2px solid transparent;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.tabs>span.on{color:var(--ink);border-color:var(--accent)}
+.tabs em{font-style:normal;font-size:11px;background:var(--card-2);border-radius:6px;padding:2px 7px}
+.tablebox{border:1px solid var(--line);border-radius:12px;overflow-x:auto;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:960px}
+th{text-align:right;font-weight:700;color:var(--soft);padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap;background:#141417;font-size:12.5px}
+th:nth-child(-n+3),td:nth-child(-n+3){text-align:left}
+td{padding:14px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+td small{display:block;font-size:11.5px;color:var(--soft);font-weight:500}
+tr.tot td{border-bottom:0;background:#141417;font-weight:800}
+.tg{width:36px;height:20px;border-radius:999px;background:var(--accent);position:relative;display:inline-block;vertical-align:middle}
+.tg::after{content:"";position:absolute;right:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#fff}
+.cname b{display:block;font-weight:800}
+.cname span{font-size:12px;color:var(--soft);font-weight:500}
+.deliv{display:inline-flex;gap:7px;align-items:center}
+.deliv i{width:8px;height:8px;border-radius:50%;background:#55d68b}
+td.hot{color:var(--accent)}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.k{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.k dt{font-size:12.5px;color:var(--soft);font-weight:700}
+.k dd{font-family:'Unbounded',sans-serif;font-size:clamp(20px,2.2vw,28px);font-weight:500;margin-top:6px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.k.hot{border-color:rgba(255,90,46,.5);background:linear-gradient(160deg,rgba(255,90,46,.14),var(--card) 65%)}
+.k.hot dd{color:var(--accent)}
+.panels{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;margin:12px 0}
+.pn{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;min-height:240px}
+.pn h4{font-size:13px;font-weight:700;color:var(--soft);display:flex;justify-content:space-between;gap:8px}
+.fb{margin-top:16px}
+.fb .lab{display:flex;justify-content:space-between;font-size:13px;color:var(--soft);margin-bottom:7px}
+.fb .lab b{color:var(--ink)}
+.trk{height:30px;border-radius:7px;background:#232327;overflow:hidden}
+.fil{height:100%;width:0;border-radius:7px;background:linear-gradient(90deg,#5a5a62,#9a9aa2);transition:width 1.6s var(--ease)}
+.fil.acc{background:linear-gradient(90deg,#c2401c,var(--accent))}
+.pn .foot{margin-top:auto;padding-top:12px;font-size:13px;color:var(--soft)}
+.pn .foot b{color:var(--ink)}
+.vb{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:40px;padding-top:14px}
+.vb>div{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;color:var(--soft)}
+.vb .c{width:56px;height:0;border-radius:7px 7px 2px 2px;background:#5a5a62;transition:height 1.6s var(--ease) .2s}
+.vb .c.acc{background:linear-gradient(0deg,#c2401c,var(--accent))}
+.vb b{color:var(--ink);font-size:13px}
+.gauge{flex:1;display:grid;place-items:center;position:relative}
+.gauge svg{width:150px;height:150px;transform:rotate(-90deg)}
+.gauge circle{fill:none;stroke-width:10}
+.gauge .bg{stroke:#2a2a2e}
+.gauge .fg{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.8s var(--ease) .3s}
+.case.live .gauge .fg{stroke-dashoffset:.035}
+.gauge .v{position:absolute;text-align:center}
+.gauge .v b{display:block;font-family:'Unbounded',sans-serif;font-size:28px;font-weight:500}
+.gauge .v small{font-size:12px;color:var(--soft)}
+.ai{background:linear-gradient(160deg,rgba(226,174,74,.13),var(--card) 55%);border:1px solid rgba(226,174,74,.38);border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.ai .orn{width:36px;height:36px}
+.ai h4{font-size:12px;font-weight:800;color:var(--gold);letter-spacing:.12em;text-transform:uppercase}
+.ai ul{list-style:none;margin-top:8px;display:grid;gap:6px;min-height:76px}
+.ai li{font-size:15px;font-weight:600}
+.ai li::before{content:"→ ";color:var(--gold)}
+.ai .cur{display:inline-block;width:8px;height:15px;background:var(--gold);vertical-align:-2px;animation:blink 1s infinite}
+.a-foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;margin-top:14px;font-size:12px;color:var(--soft)}
+.a-foot>span{max-width:62ch}
+.a-foot .row{margin:0}
+.a-foot .btn{min-height:44px;font-size:14px}
+
+
+.film{position:fixed;inset:0;z-index:1;background:#000;overflow:hidden}
+.film video{width:100%;height:100%;object-fit:cover;object-position:var(--ox,50%) 50%;display:block}
+.film .grade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%)}
+.film .grain{position:absolute;inset:-50%;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(1%,3%)}}
+.veil .bar{position:absolute;bottom:24px;left:50%;width:180px;height:2px;margin-left:-90px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden}
+.veil .bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.veil p b{color:var(--ink);font-weight:700}
+.scrollhint{position:fixed;z-index:25;left:50%;bottom:22px;transform:translateX(-50%);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .5s;pointer-events:none}
+.scrollhint i{width:1px;height:30px;background:linear-gradient(var(--ink),transparent);animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.flat .film{position:relative;height:56vw}
+
+/* fallback */
+.flat .spacer,.flat .chapters,.flat .hotspot{display:none!important}
+.flat .beat{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none!important;opacity:1;visibility:visible;margin:24px auto;width:min(560px,calc(100% - 32px));pointer-events:auto}
+.flat .beat.hero{padding:120px 16px 30px;width:auto;background:none}
+
+@media (max-width:860px){
+  .nav{padding:12px 12px}
+  .brand small{display:none}
+  .chapters{display:none}
+  .beat{left:12px;right:12px;width:auto;top:auto;bottom:84px;transform:translateY(24px)}
+  .beat.on{transform:none}
+  .beat.final{right:12px;left:12px;width:auto;bottom:16px}
+  .glass{padding:20px;border-radius:18px}
+  .glass .corner{width:70px;height:70px;right:-20px;top:-20px}
+  .beat h2{font-size:21px}
+  .beat p{font-size:15px;margin-top:10px}
+  .beat .list>div{padding:9px 0}
+  .beat .list p{display:none}
+  .beat.hero{bottom:0;padding:0 18px 90px}
+  .hero .sub{font-size:15px}
+  .grid4{grid-template-columns:1fr 1fr}
+  .panels{grid-template-columns:1fr}
+  .pn{min-height:0}
+  .vb{min-height:170px}
+  .a-body{grid-template-columns:1fr}.rail{display:none}
+  .a-main{padding:14px}
+  .case{padding:8px}
+  .acct{max-height:calc(100svh - 16px)}
+  .fab span{display:none}.fab{padding:0 16px}
+  .final .btns .btn{min-height:52px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#beat-final"><span data-i18n="skip">Skip to contacts</span></a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="horn" viewBox="0 0 100 100">
+    <path d="M50 97 V60"/>
+    <path d="M50 60 C50 38 34 26 21 32 C8 38 11 57 26 57 C35 57 37 47 31 43"/>
+    <path d="M50 60 C50 38 66 26 79 32 C92 38 89 57 74 57 C65 57 63 47 69 43"/>
+    <path class="fill" d="M50 64 C41 52 42 31 50 10 C58 31 59 52 50 64Z"/>
+    <path d="M50 86 C38 86 31 79 35 71 C38 66 44 68 43 73"/>
+    <path d="M50 86 C62 86 69 79 65 71 C62 66 56 68 57 73"/>
+  </symbol>
+  <symbol id="rosette" viewBox="-100 -100 200 200">
+    <circle r="92" style="stroke-width:6"/>
+    <circle class="fill" r="13"/>
+    <use href="#horn" x="-30" y="-88" width="60" height="60"/>
+    <use href="#horn" x="-30" y="-88" width="60" height="60" transform="rotate(90)"/>
+    <use href="#horn" x="-30" y="-88" width="60" height="60" transform="rotate(180)"/>
+    <use href="#horn" x="-30" y="-88" width="60" height="60" transform="rotate(270)"/>
+    <use href="#horn" x="-17" y="-50" width="34" height="34" transform="rotate(45)"/>
+    <use href="#horn" x="-17" y="-50" width="34" height="34" transform="rotate(135)"/>
+    <use href="#horn" x="-17" y="-50" width="34" height="34" transform="rotate(225)"/>
+    <use href="#horn" x="-17" y="-50" width="34" height="34" transform="rotate(315)"/>
+  </symbol>
+  <symbol id="ic-chat" viewBox="0 0 24 24"><path d="M4 18.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8l-4 3.5Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.5 9.5h7M8.5 12.5h4.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+  <symbol id="ic-send" viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="ic-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<div class="film" aria-hidden="true"><video id="film" muted playsinline preload="auto" poster="video/poster.jpg"></video><div class="grade"></div><div class="grain"></div></div>
+<div class="veil" aria-hidden="true"><svg class="orn" viewBox="-100 -100 200 200"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg><p><span data-i18n="load">Loading the steppe…</span> <b id="loadPct">0%</b></p><div class="bar"><i id="loadBar"></i></div></div>
+
+<header class="nav">
+  <a class="brand" href="#" data-go-t="0" aria-label="Muaz — to the start"><svg class="orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg><span><b>MUAZ</b><small data-i18n="tag">Traffic · Ads · Websites</small></span></a>
+  <div class="langs" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="ru" aria-pressed="false">RU</button></div>
+</header>
+
+<nav aria-label="Chapters"><ul class="chapters" id="chapters">
+  <li><button type="button" data-go-t="0"><span data-i18n="ch1">Steppe</span><i></i></button></li>
+  <li><button type="button" data-go-t="20"><span data-i18n="ch2">About</span><i></i></button></li>
+  <li><button type="button" data-go-t="40"><span data-i18n="ch3">Results</span><i></i></button></li>
+  <li><button type="button" data-go-t="50"><span data-i18n="ch4">How we work</span><i></i></button></li>
+  <li><button type="button" data-go-t="64"><span data-i18n="ch5">Contact</span><i></i></button></li>
+</ul></nav>
+
+<main>
+  <section class="beat hero" data-t0="0" data-t1="1.6" aria-labelledby="h1">
+    <span class="eyebrow"><i></i><span data-i18n="h0">Targeted ads · Social networks · Telegram</span></span>
+    <h1 id="h1"><span data-i18n="h1a">Old roots.</span><br><em data-i18n="h1b">New traffic.</em></h1>
+    <p class="sub" data-i18n="h2">I bring clients through targeted advertising — and build websites that turn clicks into sales.</p>
+    <div class="row">
+      <button type="button" class="btn btn-accent" data-go-t="20"><span data-i18n="h3">Step inside</span> ↓</button>
+      <a class="btn btn-ghost" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chat"/></svg>WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="beat" data-t0="18.5" data-t1="24.2" aria-labelledby="b2">
+    <div class="glass">
+      <svg class="corner orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg>
+      <p class="kicker"><b>01</b><span data-i18n="a0">About me</span></p>
+      <h2 id="b2" data-i18n="a1">I’m Muaz. I bring clients through ads.</h2>
+      <p data-i18n="a2">3.5 years in targeted advertising. I work directly with businesses in different countries.</p>
+      <div class="tags"><span data-i18n="tg1">Clinics</span><span data-i18n="tg2">Dentistry</span><span data-i18n="tg3">Rehabilitation</span><span data-i18n="tg4">Local business</span></div>
+    </div>
+  </section>
+
+  <section class="beat" data-t0="25" data-t1="32.5" aria-labelledby="b3">
+    <div class="glass">
+      <p class="kicker"><b>02</b><span data-i18n="s0">What I do</span></p>
+      <h2 id="b3" data-i18n="s00">From the first click to the sale.</h2>
+      <div class="list">
+        <div><b>01</b><div><h3 data-i18n="s1">Targeted ads</h3><p data-i18n="s1p">Social networks and Telegram: strategy, launch, daily optimisation.</p></div></div>
+        <div><b>02</b><div><h3 data-i18n="s2">Funnel to the sale</h3><p data-i18n="s2p">Offer, inquiry route and a script for the first reply.</p></div></div>
+        <div><b>03</b><div><h3 data-i18n="s3">Websites like this one</h3><p data-i18n="s3p">Pages built for ad traffic — so every click lands well.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beat" data-t0="38.6" data-t1="40.4" aria-labelledby="b4">
+    <div class="glass">
+      <p class="kicker"><b>03</b><span data-i18n="c0">Results</span></p>
+      <h2 id="b4" data-i18n="c1">Look over his shoulder.</h2>
+      <p data-i18n="c2">An ad account from my real case. Tap the laptop screen to open it.</p>
+      <div class="row"><button type="button" class="btn btn-accent" data-open-case><svg aria-hidden="true"><use href="#ic-chart"/></svg><span data-i18n="c3">Open the case</span></button></div>
+    </div>
+  </section>
+
+  <section class="beat" data-t0="48.5" data-t1="52.8" aria-labelledby="b5">
+    <div class="glass">
+      <p class="kicker"><b>04</b><span data-i18n="p0">How we start</span></p>
+      <h2 id="b5" data-i18n="p1">Small start. Clear numbers.</h2>
+      <div class="steps">
+        <div><strong data-i18n="p2">Free audit</strong><span data-i18n="p2s">your ads &amp; offer</span></div>
+        <div><strong data-i18n="p3">7-day paid test</strong><span data-i18n="p3s">first real data</span></div>
+        <div><strong data-i18n="p4">Weekly reports</strong><span data-i18n="p4s">and next steps</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beat" data-t0="53.2" data-t1="57.5" aria-labelledby="b6">
+    <div class="glass">
+      <svg class="corner orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg>
+      <p class="kicker"><b>05</b><span data-i18n="r0">Two reasons to write</span></p>
+      <h2 id="b6" data-i18n="r1">Old meets new — and it works.</h2>
+      <div class="reasons">
+        <div><b data-i18n="r2">Liked this website?</b><p data-i18n="r2p">I’ll build one for your business.</p></div>
+        <div><b data-i18n="r3">Liked the numbers?</b><p data-i18n="r3p">I’ll bring you clients with targeted ads.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beat final" id="beat-final" data-t0="62.6" data-t1="99" aria-labelledby="b7">
+    <div class="glass">
+      <p class="kicker"><b>06</b><span data-i18n="f0">Your move</span></p>
+      <h2 id="b7" data-i18n="f1">Ready for more clients?</h2>
+      <p data-i18n="f2">Write me — I’ll review your ads for free. Details on a call.</p>
+      <div class="btns">
+        <a class="btn btn-accent" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chat"/></svg>WhatsApp<span class="ar">→</span></a>
+        <a class="btn btn-ghost" href="https://t.me/abumuazmtaz" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-send"/></svg>Telegram<span class="ar">→</span></a>
+        <a class="btn btn-gold" data-works-link href="https://a66531136-arch.github.io/myworks/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chart"/></svg><span data-i18n="f3">More results</span><span class="ar">→</span></a>
+      </div>
+      <small><a href="https://t.me/trafficm123_bot/traffic" target="_blank" rel="noopener noreferrer" data-i18n="f4">Portfolio in Telegram</a> · <button type="button" data-open-case data-i18n="f5">Open the case again</button></small>
+    </div>
+  </section>
+</main>
+
+<button type="button" class="hotspot" id="hsDoor" data-go-t="20"><i></i><span data-i18n="hs1">Tap the door</span></button>
+<button type="button" class="hotspot" id="hsScreen" data-open-case><i></i><span data-i18n="hs2">Tap the screen</span></button>
+
+<a class="fab hide" id="fab" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#ic-chat"/></svg><span>WhatsApp</span></a>
+
+<div class="spacer" aria-hidden="true"></div>
+<div class="scrollhint" id="scrollhint" aria-hidden="true"><span data-i18n="sc">Scroll</span><i></i></div>
+
+<div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseTitle">
+  <div class="acct" id="acct">
+    <div class="a-top">
+      <svg class="orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg>
+      <div class="acc"><b id="caseTitle" data-i18n="m0">Ad account · DRC Bala</b><span data-i18n="m1">Rehabilitation center · 9-month project</span></div>
+      <div class="sp"></div>
+      <span class="a-chip" data-i18n="m2">Selected month</span>
+      <span class="a-chip live"><i></i><span data-i18n="m3">Campaign active</span></span>
+      <button type="button" class="x" id="caseClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="a-body">
+      <div class="rail" aria-hidden="true">
+        <span class="on"><svg><use href="#ic-chart"/></svg></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 4h18l-7 8v6l-4 2v-8Z"/></svg></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 3l14 9-6 1.5L10 20Z"/></svg></span>
+      </div>
+      <div class="a-main">
+        <div class="tabs" aria-hidden="true"><span class="on"><span data-i18n="t1">Campaigns</span><em>1</em></span><span data-i18n="t2">Ad sets</span><span data-i18n="t3">Ads</span></div>
+        <dl class="grid4">
+          <div class="k"><dt data-i18n="k1">Amount spent</dt><dd data-count="1056" data-pre="$">$0</dd></div>
+          <div class="k"><dt data-i18n="k2">Results · inquiries</dt><dd data-count="1862">0</dd></div>
+          <div class="k"><dt data-i18n="k3">Bookings</dt><dd data-count="458">0</dd></div>
+          <div class="k hot"><dt data-i18n="k4">Revenue</dt><dd data-count="40711" data-pre="$">$0</dd></div>
+        </dl>
+        <div class="tablebox">
+          <table>
+            <thead><tr><th scope="col"><span class="vh">On/off</span></th><th scope="col" data-i18n="c_name">Campaign</th><th scope="col" data-i18n="c_del">Delivery</th><th scope="col" data-i18n="c_res">Results</th><th scope="col" data-i18n="c_cpr">Cost per result</th><th scope="col" data-i18n="c_sp">Amount spent</th><th scope="col" data-i18n="c_bk">Bookings</th><th scope="col" data-i18n="c_cpb">Cost per booking</th><th scope="col" data-i18n="c_rev">Revenue</th><th scope="col">ROAS</th></tr></thead>
+            <tbody>
+              <tr><td><span class="tg" role="img" aria-label="On"></span></td><td class="cname"><b data-i18n="c_n1">Rehabilitation · Inquiries to WhatsApp</b><span data-i18n="c_n2">Goal: messages</span></td><td><span class="deliv"><i></i><span data-i18n="c_act">Active</span></span></td><td><span data-count="1862">0</span><small data-i18n="c_inq">Inquiries</small></td><td><span data-count="0.57" data-dec="2" data-pre="$">$0</span><small data-i18n="c_per">Per inquiry</small></td><td data-count="1056" data-pre="$">$0</td><td data-count="458">0</td><td data-count="2.30" data-dec="2" data-pre="$">$0</td><td class="hot" data-count="40711" data-pre="$">$0</td><td class="hot" data-count="38.6" data-dec="1" data-post="×">0×</td></tr>
+              <tr class="tot"><td></td><td data-i18n="c_tot">Results from 1 campaign</td><td></td><td data-count="1862">0</td><td data-count="0.57" data-dec="2" data-pre="$">$0</td><td data-count="1056" data-pre="$">$0</td><td data-count="458">0</td><td data-count="2.30" data-dec="2" data-pre="$">$0</td><td data-count="40711" data-pre="$">$0</td><td data-count="38.6" data-dec="1" data-post="×">0×</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panels">
+          <div class="pn">
+            <h4><span data-i18n="pn1">Funnel</span><span data-i18n="pn1b">Inquiry → booking</span></h4>
+            <div class="fb"><div class="lab"><span data-i18n="k2">Results · inquiries</span><b data-count="1862">0</b></div><div class="trk"><div class="fil" data-w="100"></div></div></div>
+            <div class="fb"><div class="lab"><span data-i18n="k3">Bookings</span><b data-count="458">0</b></div><div class="trk"><div class="fil acc" data-w="24.6"></div></div></div>
+            <p class="foot"><span data-i18n="pn1c">Every 4th inquiry became a booking</span> · <b data-count="24.6" data-dec="1" data-post="%">0%</b></p>
+          </div>
+          <div class="pn">
+            <h4><span data-i18n="pn2">Spend vs revenue</span></h4>
+            <div class="vb">
+              <div><b data-count="1056" data-pre="$">$0</b><div class="c" data-h="5"></div><span data-i18n="k1">Amount spent</span></div>
+              <div><b data-count="40711" data-pre="$">$0</b><div class="c acc" data-h="150"></div><span data-i18n="k4">Revenue</span></div>
+            </div>
+          </div>
+          <div class="pn">
+            <h4><span>ROAS</span><span data-i18n="pn3b">Revenue ÷ spend</span></h4>
+            <div class="gauge"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="50"/><circle class="fg" cx="60" cy="60" r="50" pathLength="1"/></svg><div class="v"><b data-count="38.6" data-dec="1" data-post="×">0×</b><small data-i18n="pn3">return on ad spend</small></div></div>
+          </div>
+        </div>
+        <div class="ai">
+          <svg class="orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg>
+          <div><h4 data-i18n="ai0">AI summary</h4><ul id="aiList" aria-live="polite"></ul></div>
+        </div>
+        <div class="a-foot">
+          <span data-i18n="fn">One selected month of a 9-month project, from my project records. Converted from tenge at ≈450 ₸ = $1. ROAS is revenue ÷ ad spend, not profit.</span>
+          <div class="row">
+            <a class="btn btn-ghost" data-works-link href="https://a66531136-arch.github.io/myworks/?case=bala" target="_blank" rel="noopener noreferrer" data-i18n="m4">Full case →</a>
+            <a class="btn btn-accent" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer" data-i18n="m5">I want this →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TEXT={
+skip:{en:"Skip to contacts",ru:"К контактам"},load:{en:"Loading the film…",ru:"Загружаем фильм…"},sc:{en:"Scroll",ru:"Листайте"},tag:{en:"Traffic · Ads · Websites",ru:"Трафик · Реклама · Сайты"},
+ch1:{en:"Steppe",ru:"Степь"},ch2:{en:"About",ru:"Обо мне"},ch3:{en:"Results",ru:"Результаты"},ch4:{en:"How we work",ru:"Как работаем"},ch5:{en:"Contact",ru:"Контакты"},
+h0:{en:"Targeted ads · Social networks · Telegram",ru:"Таргет · Соцсети · Telegram"},h1a:{en:"Old roots.",ru:"Старые корни."},h1b:{en:"New traffic.",ru:"Новый трафик."},
+h2:{en:"I bring clients through targeted advertising — and build websites that turn clicks into sales.",ru:"Привожу клиентов через таргетированную рекламу — и делаю сайты, которые превращают клики в продажи."},
+h3:{en:"Step inside",ru:"Войти внутрь"},
+a0:{en:"About me",ru:"Обо мне"},a1:{en:"I’m Muaz. I bring clients through ads.",ru:"Я Муаз. Привожу клиентов через рекламу."},
+a2:{en:"3.5 years in targeted advertising. I work directly with businesses in different countries.",ru:"3,5 года в таргетированной рекламе. Работаю напрямую с бизнесом из разных стран."},
+tg1:{en:"Clinics",ru:"Клиники"},tg2:{en:"Dentistry",ru:"Стоматология"},tg3:{en:"Rehabilitation",ru:"Реабилитация"},tg4:{en:"Local business",ru:"Локальный бизнес"},
+s0:{en:"What I do",ru:"Что я делаю"},s00:{en:"From the first click to the sale.",ru:"От первого клика до продажи."},
+s1:{en:"Targeted ads",ru:"Таргетированная реклама"},s1p:{en:"Social networks and Telegram: strategy, launch, daily optimisation.",ru:"Соцсети и Telegram: стратегия, запуск, ежедневная оптимизация."},
+s2:{en:"Funnel to the sale",ru:"Воронка до продажи"},s2p:{en:"Offer, inquiry route and a script for the first reply.",ru:"Оффер, путь заявки и скрипт первого ответа."},
+s3:{en:"Websites like this one",ru:"Сайты как этот"},s3p:{en:"Pages built for ad traffic — so every click lands well.",ru:"Сайты под рекламный трафик — чтобы каждому клику было куда прийти."},
+c0:{en:"Results",ru:"Результаты"},c1:{en:"Look over his shoulder.",ru:"Загляните ему через плечо."},c2:{en:"An ad account from my real case. Tap the laptop screen to open it.",ru:"Рекламный кабинет из моего реального кейса. Нажмите на экран ноутбука, чтобы открыть."},c3:{en:"Open the case",ru:"Открыть кейс"},
+p0:{en:"How we start",ru:"Как начинаем"},p1:{en:"Small start. Clear numbers.",ru:"Небольшой старт. Понятные цифры."},
+p2:{en:"Free audit",ru:"Бесплатный аудит"},p2s:{en:"your ads &amp; offer",ru:"реклама и оффер"},p3:{en:"7-day paid test",ru:"Платный тест 7 дней"},p3s:{en:"first real data",ru:"первые реальные данные"},p4:{en:"Weekly reports",ru:"Отчёты каждую неделю"},p4s:{en:"and next steps",ru:"и следующие шаги"},
+r0:{en:"Two reasons to write",ru:"Две причины написать"},r1:{en:"Old meets new — and it works.",ru:"Старое встречает новое — и это работает."},
+r2:{en:"Liked this website?",ru:"Понравился сайт?"},r2p:{en:"I’ll build one for your business.",ru:"Сделаю такой же для вашего бизнеса."},
+r3:{en:"Liked the numbers?",ru:"Понравились цифры?"},r3p:{en:"I’ll bring you clients with targeted ads.",ru:"Приведу вам клиентов через таргет."},
+f0:{en:"Your move",ru:"Ваш ход"},f1:{en:"Ready for more clients?",ru:"Готовы к новым клиентам?"},f2:{en:"Write me — I’ll review your ads for free. Details on a call.",ru:"Напишите — бесплатно разберу вашу рекламу. Подробности на созвоне."},
+f3:{en:"More results",ru:"Смотреть ещё результаты"},f4:{en:"Portfolio in Telegram",ru:"Портфолио в Telegram"},f5:{en:"Open the case again",ru:"Открыть кейс ещё раз"},
+hs1:{en:"Tap the door",ru:"Нажмите на дверь"},hs2:{en:"Tap the screen",ru:"Нажмите на экран"},
+m0:{en:"Ad account · DRC Bala",ru:"Рекламный кабинет · DRC Bala"},m1:{en:"Rehabilitation center · 9-month project",ru:"Реабилитационный центр · 9 месяцев работы"},m2:{en:"Selected month",ru:"Выбранный месяц"},m3:{en:"Campaign active",ru:"Кампания активна"},m4:{en:"Full case →",ru:"Кейс целиком →"},m5:{en:"I want this →",ru:"Хочу так же →"},
+t1:{en:"Campaigns",ru:"Кампании"},t2:{en:"Ad sets",ru:"Группы объявлений"},t3:{en:"Ads",ru:"Объявления"},
+k1:{en:"Amount spent",ru:"Потрачено"},k2:{en:"Results · inquiries",ru:"Результаты · обращения"},k3:{en:"Bookings",ru:"Записи"},k4:{en:"Revenue",ru:"Выручка"},
+c_name:{en:"Campaign",ru:"Кампания"},c_del:{en:"Delivery",ru:"Показ"},c_res:{en:"Results",ru:"Результаты"},c_cpr:{en:"Cost per result",ru:"Цена за результат"},c_sp:{en:"Amount spent",ru:"Потрачено"},c_bk:{en:"Bookings",ru:"Записи"},c_cpb:{en:"Cost per booking",ru:"Цена записи"},c_rev:{en:"Revenue",ru:"Выручка"},
+c_n1:{en:"Rehabilitation · Inquiries to WhatsApp",ru:"Реабилитация · Обращения в WhatsApp"},c_n2:{en:"Goal: messages",ru:"Цель: сообщения"},c_act:{en:"Active",ru:"Активна"},c_inq:{en:"Inquiries",ru:"Обращения"},c_per:{en:"Per inquiry",ru:"За обращение"},c_tot:{en:"Results from 1 campaign",ru:"Итого по 1 кампании"},
+pn1:{en:"Funnel",ru:"Воронка"},pn1b:{en:"Inquiry → booking",ru:"Обращение → запись"},pn1c:{en:"Every 4th inquiry became a booking",ru:"Каждое 4-е обращение стало записью"},pn2:{en:"Spend vs revenue",ru:"Бюджет и выручка"},pn3:{en:"return on ad spend",ru:"окупаемость рекламы"},pn3b:{en:"Revenue ÷ spend",ru:"Выручка ÷ бюджет"},
+ai0:{en:"AI summary",ru:"ИИ-сводка"},
+fn:{en:"One selected month of a 9-month project, from my project records. Converted from tenge at ≈450 ₸ = $1. ROAS is revenue ÷ ad spend, not profit.",ru:"Один выбранный месяц из 9 месяцев работы, по моим записям о проекте. Пересчёт из тенге по курсу ≈450 ₸ = $1. ROAS — выручка ÷ бюджет, а не прибыль."}
+};
+const AI={en:["Every $1 of ad spend returned $38.6 in revenue.","1 in 4 inquiries turned into a booking.","One booking cost $2.30."],
+ru:["Каждый $1 рекламы вернул $38,6 выручки.","Каждое 4-е обращение стало записью.","Одна запись стоила $2,30."]};
+const TITLES={en:"Muaz — targeted advertising",ru:"Муаз — таргетированная реклама"};
+let lang=new URLSearchParams(location.search).get('lang')==='ru'?'ru':'en';
+let counted=false;
+const fmt=(v,d)=>v.toLocaleString(lang==='ru'?'ru-RU':'en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const paint=(el,v)=>{el.textContent=(el.dataset.pre||'')+fmt(v,+(el.dataset.dec||0))+(el.dataset.post||'')};
+function setLanguage(next){
+  lang=next;document.documentElement.lang=next;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const d=TEXT[el.dataset.i18n];if(d)el.innerHTML=d[next]});
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===next)));
+  document.title=TITLES[next];
+  document.querySelectorAll('[data-works-link]').forEach(a=>{const u=new URL(a.href);u.searchParams.set('lang',next);a.href=u.href});
+  document.querySelectorAll('#case [data-count]').forEach(el=>paint(el,counted?+el.dataset.count:0));
+  if(counted)document.getElementById('aiList').innerHTML=AI[lang].map(s=>`<li>${s}</li>`).join('');
+  try{const u=new URL(location.href);u.searchParams.set('lang',next);history.replaceState(null,'',u)}catch(e){}
+}
+document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.lang)));
 setLanguage(lang);
-</script></body></html>
+
+const caseEl=document.getElementById('case'),acct=document.getElementById('acct');
+let lastFocus=null;
+window.openCase=function(ox,oy){
+  lastFocus=document.activeElement;
+  acct.style.setProperty('--ox',(ox??innerWidth/2)+'px');acct.style.setProperty('--oy',(oy??innerHeight/2)+'px');
+  caseEl.classList.add('open');document.body.style.overflow='hidden';
+  acct.style.animation='none';acct.offsetHeight;acct.style.animation='';
+  document.getElementById('caseClose').focus({preventScroll:true});
+  caseEl.classList.remove('live');
+  caseEl.querySelectorAll('.fil').forEach(f=>f.style.width='0');caseEl.querySelectorAll('.vb .c').forEach(c=>c.style.height='0');
+  const els=caseEl.querySelectorAll('[data-count]');els.forEach(el=>paint(el,0));
+  const ul=document.getElementById('aiList');ul.innerHTML='';
+  setTimeout(()=>{
+    caseEl.classList.add('live');
+    caseEl.querySelectorAll('.fil').forEach(f=>f.style.width=f.dataset.w+'%');
+    caseEl.querySelectorAll('.vb .c').forEach(c=>c.style.height=c.dataset.h+'px');
+    const t0=performance.now(),D=1900;counted=true;
+    (function step(now){const k=Math.min(1,(now-t0)/D),e=1-Math.pow(1-k,4);els.forEach(el=>paint(el,+el.dataset.count*e));if(k<1&&caseEl.classList.contains('open'))requestAnimationFrame(step);else els.forEach(el=>paint(el,+el.dataset.count))})(t0);
+    typeAI(ul);
+  },450);
+};
+function typeAI(ul){
+  const lines=AI[lang];let i=0,j=0;const li=[];
+  (function tick(){if(!caseEl.classList.contains('open'))return;
+    if(i>=lines.length)return;
+    if(!li[i]){li[i]=document.createElement('li');ul.appendChild(li[i])}
+    j++;li[i].innerHTML=lines[i].slice(0,j)+'<span class="cur"></span>';
+    if(j>=lines[i].length){li[i].textContent=lines[i];i++;j=0;setTimeout(tick,260)}else setTimeout(tick,22)})();
+}
+function closeCase(){caseEl.classList.remove('open');document.body.style.overflow='';lastFocus&&lastFocus.focus&&lastFocus.focus({preventScroll:true})}
+document.getElementById('caseClose').addEventListener('click',closeCase);
+caseEl.addEventListener('click',e=>{if(e.target===caseEl)closeCase()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&caseEl.classList.contains('open'))closeCase()});
+document.querySelectorAll('[data-open-case]').forEach(b=>b.addEventListener('click',()=>{const r=b.getBoundingClientRect();openCase(r.left+r.width/2,r.top+r.height/2)}));
+
+const maxScroll=()=>Math.max(1,document.documentElement.scrollHeight-innerHeight);
+window.goP=p=>scrollTo({top:p*maxScroll(),behavior:'smooth'});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();goP(+b.dataset.go)}));
+</script>
+
+<script>
+(function(){
+const video=document.getElementById('film');
+const DUR=64;
+// scroll units -> film time (holds keep the frame still while text is read)
+const SEG=[[0.5,0,0],[1.5,0,8],[1.2,8,16],[1.3,16,24],[1.5,24,32],[1.2,32,40],[0.8,40,40],[1.2,40,48],[1.6,48,56],[1.2,56,64],[0.8,64,64]];
+const TOTAL=SEG.reduce((a,s)=>a+s[0],0);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=t=>t*t*(3-2*t);
+function timeAt(p){let u=p*TOTAL;for(const s of SEG){if(u<=s[0]){const k=s[0]?u/s[0]:1;return s[1]+(s[2]-s[1])*(s[1]===s[2]?0:k)}u-=s[0]}return DUR}
+function pAt(t){let acc=0;for(const s of SEG){if(s[1]!==s[2]&&t>=s[1]&&t<=s[2])return (acc+(t-s[1])/(s[2]-s[1])*s[0])/TOTAL;if(s[1]===s[2]&&t===s[1])return (acc+s[0]*0.5)/TOTAL;acc+=s[0]}return 1}
+const maxS=()=>Math.max(1,document.documentElement.scrollHeight-innerHeight);
+const goT=t=>scrollTo({top:pAt(t)*maxS(),behavior:'smooth'});
+window.goT=goT;
+document.querySelectorAll('[data-go-t]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();goT(+b.dataset.goT)}));
+
+const portrait=()=>innerWidth<innerHeight;
+// object-position focus for portrait screens, by film time
+const FOCUS=[[0,50],[16,50],[24,50],[26,62],[38,55],[40,50],[56,50],[58,34],[61,16],[64,12]];
+function focusAt(t){for(let i=0;i<FOCUS.length-1;i++){const a=FOCUS[i],b=FOCUS[i+1];if(t>=a[0]&&t<=b[0])return a[1]+(b[1]-a[1])*ease((t-a[0])/(b[0]-a[0]||1))}return FOCUS[FOCUS.length-1][1]}
+
+// map a point in video coords (0..1) to screen px, honouring object-fit:cover
+function toScreen(x,y,ox){const vw=1920,vh=1080,W=innerWidth,H=innerHeight;const s=Math.max(W/vw,H/vh);const w=vw*s,h=vh*s;const offX=(W-w)*(ox/100),offY=(H-h)/2;return{x:offX+x*w,y:offY+y*h}}
+
+const beats=[...document.querySelectorAll('.beat')];
+const chapBtns=[...document.querySelectorAll('#chapters button')];
+const hsDoor=document.getElementById('hsDoor'),hsScreen=document.getElementById('hsScreen'),fab=document.getElementById('fab'),hint=document.getElementById('scrollhint');
+
+let target=0,cur=0,ready=false,seeking=false;
+const readScroll=()=>{target=timeAt(clamp(scrollY/maxS()))};
+addEventListener('scroll',readScroll,{passive:true});
+video.addEventListener('seeked',()=>{seeking=false});
+
+function ui(t){
+  beats.forEach(b=>b.classList.toggle('on',t>=+b.dataset.t0&&t<=+b.dataset.t1));
+  const ci=t<16?0:t<38?1:t<44?2:t<62?3:4;chapBtns.forEach((b,i)=>b.classList.toggle('on',i===ci));
+  const ox=portrait()?focusAt(t):50;video.style.setProperty('--ox',ox+'%');
+  if(t>5&&t<8.2){const p=toScreen(.5,.6,ox);hsDoor.style.left=p.x+'px';hsDoor.style.top=p.y+'px';hsDoor.classList.add('show')}else hsDoor.classList.remove('show');
+  if(t>38.6&&t<40.4){const p=toScreen(.55,.3,ox);hsScreen.style.left=p.x+'px';hsScreen.style.top=p.y+'px';hsScreen.classList.add('show')}else hsScreen.classList.remove('show');
+  fab.classList.toggle('hide',t<2||t>62);
+  hint.style.opacity=t<0.5?1:0;
+}
+function frame(){
+  cur+=(target-cur)*0.12;if(Math.abs(target-cur)<0.004)cur=target;
+  if(ready&&!seeking&&Math.abs(video.currentTime-cur)>1/48){seeking=true;try{video.currentTime=Math.min(cur,DUR-0.05)}catch(e){seeking=false}}
+  ui(cur);
+  requestAnimationFrame(frame);
+}
+// click on the laptop screen area opens the case
+document.querySelector('.film').style.pointerEvents='none';
+
+// load the film fully (smooth scrubbing needs the whole file)
+const src=(Math.min(screen.width,screen.height)<=820||innerWidth<900)?'video/film-720.mp4':'video/film-1080.mp4';
+const pct=document.getElementById('loadPct'),bar=document.getElementById('loadBar');
+function finish(url){video.src=url;video.addEventListener('loadeddata',()=>{ready=true;document.body.classList.add('ready')},{once:true});video.load()}
+(async()=>{
+  try{
+    const r=await fetch(src);if(!r.ok||!r.body)throw 0;
+    const len=+r.headers.get('content-length')||0;const rd=r.body.getReader();const parts=[];let got=0;
+    for(;;){const {done,value}=await rd.read();if(done)break;parts.push(value);got+=value.length;if(len){const k=Math.round(got/len*100);pct.textContent=k+'%';bar.style.width=k+'%'}}
+    finish(URL.createObjectURL(new Blob(parts,{type:'video/mp4'})));
+  }catch(e){finish(src)}
+})();
+setTimeout(()=>{if(!ready){document.body.classList.add('ready')}},25000);
+video.addEventListener('error',()=>{document.body.classList.add('flat','ready')});
+readScroll();cur=target;frame();
+})();
+
+</script>
+</body>
+</html>
