@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Muaz — targeted advertising</title>
-<link rel="preload" as="image" href="video/poster.jpg">
-<meta name="description" content="Targeted advertising and websites that turn traffic into clients. Old roots, new traffic.">
-<meta name="theme-color" content="#0B0B0C">
+<meta name="description" content="Targeted ads in social networks and Telegram, and websites that turn clicks into bookings.">
+<meta name="theme-color" content="#060607">
+<meta property="og:title" content="Muaz — ads that bring real clients">
+<meta property="og:image" content="v/d1.jpg">
+<link rel="preload" as="image" href="v/m1.jpg" media="(max-width: 899px)">
+<link rel="preload" as="image" href="v/d1.jpg" media="(min-width: 900px)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -248,11 +251,79 @@ td.hot{color:var(--accent)}
   .final .btns .btn{min-height:52px}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===== mobile-first film layout ===== */
+html{scroll-behavior:smooth}
+body{background:#060607}
+.sec{position:relative;display:flex;flex-direction:column;background:#060607}
+.media{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:#000;cursor:pointer}
+.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease}
+.media video.on{opacity:1}
+.media .pst{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media::after{content:"";position:absolute;left:0;right:0;bottom:0;height:28%;background:linear-gradient(0deg,#060607,rgba(6,6,7,0));pointer-events:none}
+.media .grain{position:absolute;inset:-50%;pointer-events:none;opacity:.06;z-index:2;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(1%,3%)}}
+.playbtn{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);display:none;align-items:center;gap:10px;min-height:48px;padding:0 20px;border-radius:999px;border:1px solid var(--line-2);background:rgba(6,6,7,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+.playbtn.show{display:inline-flex}
+.playbtn svg{width:16px;height:16px}
+.media .hot{position:absolute;z-index:3;left:50%;top:44%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px 0 12px;border-radius:999px;background:rgba(6,6,7,.82);border:1px solid var(--line-2);color:var(--ink);font-weight:700;font-size:14px;cursor:pointer;opacity:0;transition:opacity .4s}
+.media .hot i{width:12px;height:12px;border-radius:50%;background:var(--accent);animation:pulse 1.6s infinite}
+.sec.played .hot{opacity:1}
+.copy{position:relative;z-index:4;padding:6px 20px 44px;margin-top:-56px;opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .8s var(--ease)}
+.sec.in .copy{opacity:1;transform:none}
+.copy .kicker{margin-bottom:12px}
+.copy h1{font-size:clamp(34px,9.6vw,64px);line-height:1.02;text-transform:uppercase}
+.copy h1 em{font-style:normal;color:var(--accent);display:block}
+.copy h2{font-size:clamp(24px,6.6vw,38px);line-height:1.12}
+.copy p{color:var(--soft);font-size:16px;margin-top:12px;max-width:48ch}
+.copy .row{margin-top:20px}
+.chip2{display:inline-flex;gap:8px;align-items:center;margin-top:16px;padding:8px 12px;border-radius:10px;background:rgba(226,174,74,.12);border:1px solid rgba(226,174,74,.35);color:var(--gold);font-weight:700;font-size:13px}
+.band{display:block;width:100%;height:22px;color:var(--gold);opacity:.85;margin:0 0 18px}
+.band path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.copy .list{margin-top:16px;border-top:1px solid var(--line)}
+.copy .list>div{display:grid;grid-template-columns:36px 1fr;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.copy .list b{color:var(--gold);font-family:'Unbounded',sans-serif;font-size:12px;font-weight:500;padding-top:3px}
+.copy .list h3{font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;letter-spacing:0}
+.copy .list p{margin-top:2px;font-size:14px}
+.copy .tags span{font-size:12px}
+.next{display:flex;align-items:center;gap:8px;margin-top:22px;color:var(--soft);font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.08em;text-transform:uppercase}
+.next::after{content:"↓";color:var(--accent)}
+.final .btns{display:grid;gap:10px;margin-top:20px}
+.final .btns .btn{justify-content:flex-start;min-height:56px;font-size:16px}
+.final .btns .btn .ar{margin-left:auto}
+.final small{display:block;margin-top:14px;color:var(--soft);font-size:13px}
+.final small a,.final small button{text-underline-offset:4px;background:none;border:0;color:inherit;text-decoration:underline;cursor:pointer;font-size:13px}
+.reasons{margin-top:16px;grid-template-columns:1fr 1fr;display:grid;gap:10px}
+.reasons div{padding:12px 14px}
+.reasons p{font-size:14px!important}
+footer{padding:24px 20px 90px;color:var(--soft);font-size:12px;border-top:1px solid var(--line)}
+.nav{padding:12px}
+.brand small{display:none}
+
+#s1 .media{aspect-ratio:1/1}
+#s1 .copy h1{font-size:clamp(30px,8.6vw,64px)}
+#s1 .copy p{font-size:15px;margin-top:10px}
+#s1 .chip2{margin-top:12px}
+#s1 .row{margin-top:16px}
+@media (min-width:900px){
+  #s1 .media{aspect-ratio:auto}
+  .sec{height:100svh;min-height:640px;justify-content:center}
+  .media{position:absolute;inset:0;aspect-ratio:auto;height:100%}
+  .media::after{height:auto;inset:0;background:linear-gradient(90deg,rgba(6,6,7,.9) 0%,rgba(6,6,7,.55) 36%,rgba(6,6,7,0) 62%)}
+  .sec.right .media::after{background:linear-gradient(270deg,rgba(6,6,7,.9) 0%,rgba(6,6,7,.55) 36%,rgba(6,6,7,0) 62%)}
+  .copy{margin:0 0 0 56px;width:min(480px,40vw);padding:0}
+  .sec.right .copy{margin:0 56px 0 auto}
+  .copy h1{font-size:clamp(44px,5vw,78px)}
+  .media .hot{left:46%;top:40%}
+  .nav{padding:22px 32px}
+  .brand small{display:block}
+  footer{padding:24px 56px}
+}
+@media (prefers-reduced-motion:reduce){.media .grain{display:none}}
 </style>
 </head>
 <body>
-<a class="skip" href="#beat-final"><span data-i18n="skip">Skip to contacts</span></a>
-
+<a class="skip" href="#s6"><span data-i18n="skip">Skip to contacts</span></a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="horn" viewBox="0 0 100 100">
     <path d="M50 97 V60"/>
@@ -278,112 +349,114 @@ td.hot{color:var(--accent)}
   <symbol id="ic-send" viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/></symbol>
   <symbol id="ic-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
 </defs></svg>
-
-<div class="film" aria-hidden="true"><video id="film" muted playsinline preload="auto" poster="video/poster.jpg"></video><div class="grade"></div><div class="grain"></div></div>
-<div class="veil" aria-hidden="true"><svg class="orn" viewBox="-100 -100 200 200"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg><p><span data-i18n="load">Loading the steppe…</span> <b id="loadPct">0%</b></p><div class="bar"><i id="loadBar"></i></div></div>
-
 <header class="nav">
-  <a class="brand" href="#" data-go-t="0" aria-label="Muaz — to the start"><svg class="orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg><span><b>MUAZ</b><small data-i18n="tag">Traffic · Ads · Websites</small></span></a>
+  <a class="brand" href="#s1" aria-label="Muaz — to the start"><svg class="orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg><span><b>MUAZ</b><small data-i18n="tag">Traffic · Ads · Websites</small></span></a>
   <div class="langs" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="ru" aria-pressed="false">RU</button></div>
 </header>
-
-<nav aria-label="Chapters"><ul class="chapters" id="chapters">
-  <li><button type="button" data-go-t="0"><span data-i18n="ch1">Steppe</span><i></i></button></li>
-  <li><button type="button" data-go-t="20"><span data-i18n="ch2">About</span><i></i></button></li>
-  <li><button type="button" data-go-t="40"><span data-i18n="ch3">Results</span><i></i></button></li>
-  <li><button type="button" data-go-t="50"><span data-i18n="ch4">How we work</span><i></i></button></li>
-  <li><button type="button" data-go-t="64"><span data-i18n="ch5">Contact</span><i></i></button></li>
-</ul></nav>
-
 <main>
-  <section class="beat hero" data-t0="0" data-t1="1.6" aria-labelledby="h1">
-    <span class="eyebrow"><i></i><span data-i18n="h0">Targeted ads · Social networks · Telegram</span></span>
-    <h1 id="h1"><span data-i18n="h1a">Old roots.</span><br><em data-i18n="h1b">New traffic.</em></h1>
-    <p class="sub" data-i18n="h2">I bring clients through targeted advertising — and build websites that turn clicks into sales.</p>
-    <div class="row">
-      <button type="button" class="btn btn-accent" data-go-t="20"><span data-i18n="h3">Step inside</span> ↓</button>
-      <a class="btn btn-ghost" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chat"/></svg>WhatsApp</a>
-    </div>
-  </section>
-
-  <section class="beat" data-t0="18.5" data-t1="24.2" aria-labelledby="b2">
-    <div class="glass">
-      <svg class="corner orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg>
-      <p class="kicker"><b>01</b><span data-i18n="a0">About me</span></p>
-      <h2 id="b2" data-i18n="a1">I’m Muaz. I bring clients through ads.</h2>
-      <p data-i18n="a2">3.5 years in targeted advertising. I work directly with businesses in different countries.</p>
-      <div class="tags"><span data-i18n="tg1">Clinics</span><span data-i18n="tg2">Dentistry</span><span data-i18n="tg3">Rehabilitation</span><span data-i18n="tg4">Local business</span></div>
-    </div>
-  </section>
-
-  <section class="beat" data-t0="25" data-t1="32.5" aria-labelledby="b3">
-    <div class="glass">
-      <p class="kicker"><b>02</b><span data-i18n="s0">What I do</span></p>
-      <h2 id="b3" data-i18n="s00">From the first click to the sale.</h2>
-      <div class="list">
-        <div><b>01</b><div><h3 data-i18n="s1">Targeted ads</h3><p data-i18n="s1p">Social networks and Telegram: strategy, launch, daily optimisation.</p></div></div>
-        <div><b>02</b><div><h3 data-i18n="s2">Funnel to the sale</h3><p data-i18n="s2p">Offer, inquiry route and a script for the first reply.</p></div></div>
-        <div><b>03</b><div><h3 data-i18n="s3">Websites like this one</h3><p data-i18n="s3p">Pages built for ad traffic — so every click lands well.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="beat" data-t0="38.6" data-t1="40.4" aria-labelledby="b4">
-    <div class="glass">
-      <p class="kicker"><b>03</b><span data-i18n="c0">Results</span></p>
-      <h2 id="b4" data-i18n="c1">Look over his shoulder.</h2>
-      <p data-i18n="c2">An ad account from my real case. Tap the laptop screen to open it.</p>
-      <div class="row"><button type="button" class="btn btn-accent" data-open-case><svg aria-hidden="true"><use href="#ic-chart"/></svg><span data-i18n="c3">Open the case</span></button></div>
-    </div>
-  </section>
-
-  <section class="beat" data-t0="48.5" data-t1="52.8" aria-labelledby="b5">
-    <div class="glass">
-      <p class="kicker"><b>04</b><span data-i18n="p0">How we start</span></p>
-      <h2 id="b5" data-i18n="p1">Small start. Clear numbers.</h2>
-      <div class="steps">
-        <div><strong data-i18n="p2">Free audit</strong><span data-i18n="p2s">your ads &amp; offer</span></div>
-        <div><strong data-i18n="p3">7-day paid test</strong><span data-i18n="p3s">first real data</span></div>
-        <div><strong data-i18n="p4">Weekly reports</strong><span data-i18n="p4s">and next steps</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="beat" data-t0="53.2" data-t1="57.5" aria-labelledby="b6">
-    <div class="glass">
-      <svg class="corner orn" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#rosette" x="-100" y="-100" width="200" height="200"/></svg>
-      <p class="kicker"><b>05</b><span data-i18n="r0">Two reasons to write</span></p>
-      <h2 id="b6" data-i18n="r1">Old meets new — and it works.</h2>
-      <div class="reasons">
-        <div><b data-i18n="r2">Liked this website?</b><p data-i18n="r2p">I’ll build one for your business.</p></div>
-        <div><b data-i18n="r3">Liked the numbers?</b><p data-i18n="r3p">I’ll bring you clients with targeted ads.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="beat final" id="beat-final" data-t0="62.6" data-t1="99" aria-labelledby="b7">
-    <div class="glass">
-      <p class="kicker"><b>06</b><span data-i18n="f0">Your move</span></p>
-      <h2 id="b7" data-i18n="f1">Ready for more clients?</h2>
-      <p data-i18n="f2">Write me — I’ll review your ads for free. Details on a call.</p>
-      <div class="btns">
-        <a class="btn btn-accent" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chat"/></svg>WhatsApp<span class="ar">→</span></a>
-        <a class="btn btn-ghost" href="https://t.me/abumuazmtaz" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-send"/></svg>Telegram<span class="ar">→</span></a>
-        <a class="btn btn-gold" data-works-link href="https://a66531136-arch.github.io/myworks/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chart"/></svg><span data-i18n="f3">More results</span><span class="ar">→</span></a>
-      </div>
-      <small><a href="https://t.me/trafficm123_bot/traffic" target="_blank" rel="noopener noreferrer" data-i18n="f4">Portfolio in Telegram</a> · <button type="button" data-open-case data-i18n="f5">Open the case again</button></small>
-    </div>
-  </section>
+<section class="sec " id="s1" data-clips="1">
+  <div class="media" data-replay>
+    <img class="pst" alt="" data-pst="1">
+    <div class="grain"></div>
+    <button type="button" class="playbtn" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="currentColor"/></svg><span data-i18n="tap">Tap to play</span></button>
+    
+  </div>
+  <div class="copy"><svg class="band" viewBox="0 0 360 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 11H360"/><path d="M18 11c0-6 6-9 9-6s0 7-3 5M18 11c0-6-6-9-9-6s0 7 3 5"/><path d="M54 11c0-6 6-9 9-6s0 7-3 5M54 11c0-6-6-9-9-6s0 7 3 5"/><path d="M90 11c0-6 6-9 9-6s0 7-3 5M90 11c0-6-6-9-9-6s0 7 3 5"/><path d="M126 11c0-6 6-9 9-6s0 7-3 5M126 11c0-6-6-9-9-6s0 7 3 5"/><path d="M162 11c0-6 6-9 9-6s0 7-3 5M162 11c0-6-6-9-9-6s0 7 3 5"/><path d="M198 11c0-6 6-9 9-6s0 7-3 5M198 11c0-6-6-9-9-6s0 7 3 5"/><path d="M234 11c0-6 6-9 9-6s0 7-3 5M234 11c0-6-6-9-9-6s0 7 3 5"/><path d="M270 11c0-6 6-9 9-6s0 7-3 5M270 11c0-6-6-9-9-6s0 7 3 5"/><path d="M306 11c0-6 6-9 9-6s0 7-3 5M306 11c0-6-6-9-9-6s0 7 3 5"/><path d="M342 11c0-6 6-9 9-6s0 7-3 5M342 11c0-6-6-9-9-6s0 7 3 5"/></svg>
+  <p class="kicker"><b>●</b><span data-i18n="h0">Targeted ads · Social networks · Telegram</span></p>
+  <h1><span data-i18n="h1a">Ads that bring</span><em data-i18n="h1b">real clients.</em></h1>
+  <p data-i18n="h2">I set up targeted ads in social networks and Telegram — and build websites that turn clicks into bookings.</p>
+  <span class="chip2" data-i18n="chip">Case: $1 of ads → $38.6 in revenue</span>
+  <div class="row">
+    <a class="btn btn-accent" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chat"/></svg><span data-i18n="h3">Free audit</span></a>
+    <button type="button" class="btn btn-ghost" data-open-case><svg aria-hidden="true"><use href="#ic-chart"/></svg><span data-i18n="c3">Open the case</span></button>
+  </div>
+  <a class="next" href="#s2" data-i18n="nx">Next</a></div>
+</section>
+<section class="sec right" id="s2" data-clips="2,3">
+  <div class="media" data-replay>
+    <img class="pst" alt="" data-pst="2">
+    <div class="grain"></div>
+    <button type="button" class="playbtn" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="currentColor"/></svg><span data-i18n="tap">Tap to play</span></button>
+    
+  </div>
+  <div class="copy"><svg class="band" viewBox="0 0 360 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 11H360"/><path d="M18 11c0-6 6-9 9-6s0 7-3 5M18 11c0-6-6-9-9-6s0 7 3 5"/><path d="M54 11c0-6 6-9 9-6s0 7-3 5M54 11c0-6-6-9-9-6s0 7 3 5"/><path d="M90 11c0-6 6-9 9-6s0 7-3 5M90 11c0-6-6-9-9-6s0 7 3 5"/><path d="M126 11c0-6 6-9 9-6s0 7-3 5M126 11c0-6-6-9-9-6s0 7 3 5"/><path d="M162 11c0-6 6-9 9-6s0 7-3 5M162 11c0-6-6-9-9-6s0 7 3 5"/><path d="M198 11c0-6 6-9 9-6s0 7-3 5M198 11c0-6-6-9-9-6s0 7 3 5"/><path d="M234 11c0-6 6-9 9-6s0 7-3 5M234 11c0-6-6-9-9-6s0 7 3 5"/><path d="M270 11c0-6 6-9 9-6s0 7-3 5M270 11c0-6-6-9-9-6s0 7 3 5"/><path d="M306 11c0-6 6-9 9-6s0 7-3 5M306 11c0-6-6-9-9-6s0 7 3 5"/><path d="M342 11c0-6 6-9 9-6s0 7-3 5M342 11c0-6-6-9-9-6s0 7 3 5"/></svg>
+  <p class="kicker"><b>01</b><span data-i18n="a0">About me</span></p>
+  <h2 data-i18n="a1">I’m Muaz. I bring clients through ads.</h2>
+  <p data-i18n="a2">3.5 years in targeted advertising. I work directly with businesses in different countries.</p>
+  <div class="tags"><span data-i18n="tg1">Clinics</span><span data-i18n="tg2">Dentistry</span><span data-i18n="tg3">Rehabilitation</span><span data-i18n="tg4">Local business</span></div></div>
+</section>
+<section class="sec " id="s3" data-clips="4">
+  <div class="media" data-replay>
+    <img class="pst" alt="" data-pst="4">
+    <div class="grain"></div>
+    <button type="button" class="playbtn" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="currentColor"/></svg><span data-i18n="tap">Tap to play</span></button>
+    
+  </div>
+  <div class="copy"><svg class="band" viewBox="0 0 360 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 11H360"/><path d="M18 11c0-6 6-9 9-6s0 7-3 5M18 11c0-6-6-9-9-6s0 7 3 5"/><path d="M54 11c0-6 6-9 9-6s0 7-3 5M54 11c0-6-6-9-9-6s0 7 3 5"/><path d="M90 11c0-6 6-9 9-6s0 7-3 5M90 11c0-6-6-9-9-6s0 7 3 5"/><path d="M126 11c0-6 6-9 9-6s0 7-3 5M126 11c0-6-6-9-9-6s0 7 3 5"/><path d="M162 11c0-6 6-9 9-6s0 7-3 5M162 11c0-6-6-9-9-6s0 7 3 5"/><path d="M198 11c0-6 6-9 9-6s0 7-3 5M198 11c0-6-6-9-9-6s0 7 3 5"/><path d="M234 11c0-6 6-9 9-6s0 7-3 5M234 11c0-6-6-9-9-6s0 7 3 5"/><path d="M270 11c0-6 6-9 9-6s0 7-3 5M270 11c0-6-6-9-9-6s0 7 3 5"/><path d="M306 11c0-6 6-9 9-6s0 7-3 5M306 11c0-6-6-9-9-6s0 7 3 5"/><path d="M342 11c0-6 6-9 9-6s0 7-3 5M342 11c0-6-6-9-9-6s0 7 3 5"/></svg>
+  <p class="kicker"><b>02</b><span data-i18n="s0">What I do</span></p>
+  <h2 data-i18n="s00">From the first click to the sale.</h2>
+  <div class="list">
+    <div><b>01</b><div><h3 data-i18n="s1">Targeted ads</h3><p data-i18n="s1p">Social networks and Telegram: strategy, launch, daily optimisation.</p></div></div>
+    <div><b>02</b><div><h3 data-i18n="s2">Funnel to the sale</h3><p data-i18n="s2p">Offer, inquiry route and a script for the first reply.</p></div></div>
+    <div><b>03</b><div><h3 data-i18n="s3">Websites like this one</h3><p data-i18n="s3p">Pages built for ad traffic — so every click lands well.</p></div></div>
+  </div></div>
+</section>
+<section class="sec right" id="s4" data-clips="5">
+  <div class="media" data-open-case>
+    <img class="pst" alt="" data-pst="5">
+    <div class="grain"></div>
+    <button type="button" class="playbtn" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="currentColor"/></svg><span data-i18n="tap">Tap to play</span></button>
+    <button type="button" class="hot" data-open-case><i></i><span data-i18n="hs2">Tap the screen</span></button>
+  </div>
+  <div class="copy"><svg class="band" viewBox="0 0 360 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 11H360"/><path d="M18 11c0-6 6-9 9-6s0 7-3 5M18 11c0-6-6-9-9-6s0 7 3 5"/><path d="M54 11c0-6 6-9 9-6s0 7-3 5M54 11c0-6-6-9-9-6s0 7 3 5"/><path d="M90 11c0-6 6-9 9-6s0 7-3 5M90 11c0-6-6-9-9-6s0 7 3 5"/><path d="M126 11c0-6 6-9 9-6s0 7-3 5M126 11c0-6-6-9-9-6s0 7 3 5"/><path d="M162 11c0-6 6-9 9-6s0 7-3 5M162 11c0-6-6-9-9-6s0 7 3 5"/><path d="M198 11c0-6 6-9 9-6s0 7-3 5M198 11c0-6-6-9-9-6s0 7 3 5"/><path d="M234 11c0-6 6-9 9-6s0 7-3 5M234 11c0-6-6-9-9-6s0 7 3 5"/><path d="M270 11c0-6 6-9 9-6s0 7-3 5M270 11c0-6-6-9-9-6s0 7 3 5"/><path d="M306 11c0-6 6-9 9-6s0 7-3 5M306 11c0-6-6-9-9-6s0 7 3 5"/><path d="M342 11c0-6 6-9 9-6s0 7-3 5M342 11c0-6-6-9-9-6s0 7 3 5"/></svg>
+  <p class="kicker"><b>03</b><span data-i18n="c0">Results</span></p>
+  <h2 data-i18n="c1">Real numbers from my ad account.</h2>
+  <p data-i18n="c2">Rehabilitation center, one month: $1,056 of ads → $40,711 in revenue.</p>
+  <div class="row"><button type="button" class="btn btn-accent" data-open-case><svg aria-hidden="true"><use href="#ic-chart"/></svg><span data-i18n="c3">Open the case</span></button></div></div>
+</section>
+<section class="sec " id="s5" data-clips="6,7">
+  <div class="media" data-replay>
+    <img class="pst" alt="" data-pst="6">
+    <div class="grain"></div>
+    <button type="button" class="playbtn" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="currentColor"/></svg><span data-i18n="tap">Tap to play</span></button>
+    
+  </div>
+  <div class="copy"><svg class="band" viewBox="0 0 360 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 11H360"/><path d="M18 11c0-6 6-9 9-6s0 7-3 5M18 11c0-6-6-9-9-6s0 7 3 5"/><path d="M54 11c0-6 6-9 9-6s0 7-3 5M54 11c0-6-6-9-9-6s0 7 3 5"/><path d="M90 11c0-6 6-9 9-6s0 7-3 5M90 11c0-6-6-9-9-6s0 7 3 5"/><path d="M126 11c0-6 6-9 9-6s0 7-3 5M126 11c0-6-6-9-9-6s0 7 3 5"/><path d="M162 11c0-6 6-9 9-6s0 7-3 5M162 11c0-6-6-9-9-6s0 7 3 5"/><path d="M198 11c0-6 6-9 9-6s0 7-3 5M198 11c0-6-6-9-9-6s0 7 3 5"/><path d="M234 11c0-6 6-9 9-6s0 7-3 5M234 11c0-6-6-9-9-6s0 7 3 5"/><path d="M270 11c0-6 6-9 9-6s0 7-3 5M270 11c0-6-6-9-9-6s0 7 3 5"/><path d="M306 11c0-6 6-9 9-6s0 7-3 5M306 11c0-6-6-9-9-6s0 7 3 5"/><path d="M342 11c0-6 6-9 9-6s0 7-3 5M342 11c0-6-6-9-9-6s0 7 3 5"/></svg>
+  <p class="kicker"><b>04</b><span data-i18n="p0">How we start</span></p>
+  <h2 data-i18n="p1">Small start. Clear numbers.</h2>
+  <div class="steps">
+    <div><strong data-i18n="p2">Free audit</strong><span data-i18n="p2s">your ads &amp; offer</span></div>
+    <div><strong data-i18n="p3">7-day paid test</strong><span data-i18n="p3s">first real data</span></div>
+    <div><strong data-i18n="p4">Weekly reports</strong><span data-i18n="p4s">and next steps</span></div>
+  </div></div>
+</section>
+<section class="sec right" id="s6" data-clips="8">
+  <div class="media" data-replay>
+    <img class="pst" alt="" data-pst="8">
+    <div class="grain"></div>
+    <button type="button" class="playbtn" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="currentColor"/></svg><span data-i18n="tap">Tap to play</span></button>
+    
+  </div>
+  <div class="copy"><svg class="band" viewBox="0 0 360 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 11H360"/><path d="M18 11c0-6 6-9 9-6s0 7-3 5M18 11c0-6-6-9-9-6s0 7 3 5"/><path d="M54 11c0-6 6-9 9-6s0 7-3 5M54 11c0-6-6-9-9-6s0 7 3 5"/><path d="M90 11c0-6 6-9 9-6s0 7-3 5M90 11c0-6-6-9-9-6s0 7 3 5"/><path d="M126 11c0-6 6-9 9-6s0 7-3 5M126 11c0-6-6-9-9-6s0 7 3 5"/><path d="M162 11c0-6 6-9 9-6s0 7-3 5M162 11c0-6-6-9-9-6s0 7 3 5"/><path d="M198 11c0-6 6-9 9-6s0 7-3 5M198 11c0-6-6-9-9-6s0 7 3 5"/><path d="M234 11c0-6 6-9 9-6s0 7-3 5M234 11c0-6-6-9-9-6s0 7 3 5"/><path d="M270 11c0-6 6-9 9-6s0 7-3 5M270 11c0-6-6-9-9-6s0 7 3 5"/><path d="M306 11c0-6 6-9 9-6s0 7-3 5M306 11c0-6-6-9-9-6s0 7 3 5"/><path d="M342 11c0-6 6-9 9-6s0 7-3 5M342 11c0-6-6-9-9-6s0 7 3 5"/></svg>
+  <div class="final">
+  <p class="kicker"><b>05</b><span data-i18n="f0">Your move</span></p>
+  <h2 data-i18n="f1">Ready for more clients?</h2>
+  <p data-i18n="f2">Write me — I’ll review your ads for free. Details on a call.</p>
+  <div class="reasons">
+    <div><b data-i18n="r2">Liked this website?</b><p data-i18n="r2p">I’ll build one for your business.</p></div>
+    <div><b data-i18n="r3">Liked the numbers?</b><p data-i18n="r3p">I’ll bring you clients with targeted ads.</p></div>
+  </div>
+  <div class="btns">
+    <a class="btn btn-accent" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chat"/></svg>WhatsApp<span class="ar">→</span></a>
+    <a class="btn btn-ghost" href="https://t.me/abumuazmtaz" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-send"/></svg>Telegram<span class="ar">→</span></a>
+    <a class="btn btn-gold" data-works-link href="https://a66531136-arch.github.io/myworks/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ic-chart"/></svg><span data-i18n="f3">More results</span><span class="ar">→</span></a>
+  </div>
+  <small><a href="https://t.me/trafficm123_bot/traffic" target="_blank" rel="noopener noreferrer" data-i18n="f4">Portfolio in Telegram</a></small>
+  </div></div>
+</section>
 </main>
-
-<button type="button" class="hotspot" id="hsDoor" data-go-t="20"><i></i><span data-i18n="hs1">Tap the door</span></button>
-<button type="button" class="hotspot" id="hsScreen" data-open-case><i></i><span data-i18n="hs2">Tap the screen</span></button>
-
+<footer>© 2026 Muaz · <span data-i18n="tag">Traffic · Ads · Websites</span></footer>
 <a class="fab hide" id="fab" href="https://wa.me/201274334692" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#ic-chat"/></svg><span>WhatsApp</span></a>
-
-<div class="spacer" aria-hidden="true"></div>
-<div class="scrollhint" id="scrollhint" aria-hidden="true"><span data-i18n="sc">Scroll</span><i></i></div>
-
 <div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseTitle">
   <div class="acct" id="acct">
     <div class="a-top">
@@ -453,13 +526,14 @@ td.hot{color:var(--accent)}
   </div>
 </div>
 
+
 <script>
 const TEXT={
 skip:{en:"Skip to contacts",ru:"К контактам"},load:{en:"Loading the film…",ru:"Загружаем фильм…"},sc:{en:"Scroll",ru:"Листайте"},tag:{en:"Traffic · Ads · Websites",ru:"Трафик · Реклама · Сайты"},
 ch1:{en:"Steppe",ru:"Степь"},ch2:{en:"About",ru:"Обо мне"},ch3:{en:"Results",ru:"Результаты"},ch4:{en:"How we work",ru:"Как работаем"},ch5:{en:"Contact",ru:"Контакты"},
-h0:{en:"Targeted ads · Social networks · Telegram",ru:"Таргет · Соцсети · Telegram"},h1a:{en:"Old roots.",ru:"Старые корни."},h1b:{en:"New traffic.",ru:"Новый трафик."},
-h2:{en:"I bring clients through targeted advertising — and build websites that turn clicks into sales.",ru:"Привожу клиентов через таргетированную рекламу — и делаю сайты, которые превращают клики в продажи."},
-h3:{en:"Step inside",ru:"Войти внутрь"},
+h0:{en:"Targeted ads · Social networks · Telegram",ru:"Таргет · Соцсети · Telegram"},h1a:{en:"Ads that bring",ru:"Реклама, которая"},h1b:{en:"real clients.",ru:"приводит клиентов."},chip:{en:"Case: $1 of ads → $38.6 in revenue",ru:"Кейс: $1 рекламы → $38,6 выручки"},tap:{en:"Tap to play",ru:"Нажмите, чтобы смотреть"},nx:{en:"Next",ru:"Дальше"},
+h2:{en:"I set up targeted ads in social networks and Telegram — and build websites that turn clicks into bookings.",ru:"Настраиваю таргет в соцсетях и Telegram и делаю сайты, которые превращают клики в заявки."},
+h3:{en:"Free audit",ru:"Бесплатный аудит"},
 a0:{en:"About me",ru:"Обо мне"},a1:{en:"I’m Muaz. I bring clients through ads.",ru:"Я Муаз. Привожу клиентов через рекламу."},
 a2:{en:"3.5 years in targeted advertising. I work directly with businesses in different countries.",ru:"3,5 года в таргетированной рекламе. Работаю напрямую с бизнесом из разных стран."},
 tg1:{en:"Clinics",ru:"Клиники"},tg2:{en:"Dentistry",ru:"Стоматология"},tg3:{en:"Rehabilitation",ru:"Реабилитация"},tg4:{en:"Local business",ru:"Локальный бизнес"},
@@ -467,7 +541,7 @@ s0:{en:"What I do",ru:"Что я делаю"},s00:{en:"From the first click to t
 s1:{en:"Targeted ads",ru:"Таргетированная реклама"},s1p:{en:"Social networks and Telegram: strategy, launch, daily optimisation.",ru:"Соцсети и Telegram: стратегия, запуск, ежедневная оптимизация."},
 s2:{en:"Funnel to the sale",ru:"Воронка до продажи"},s2p:{en:"Offer, inquiry route and a script for the first reply.",ru:"Оффер, путь заявки и скрипт первого ответа."},
 s3:{en:"Websites like this one",ru:"Сайты как этот"},s3p:{en:"Pages built for ad traffic — so every click lands well.",ru:"Сайты под рекламный трафик — чтобы каждому клику было куда прийти."},
-c0:{en:"Results",ru:"Результаты"},c1:{en:"Look over his shoulder.",ru:"Загляните ему через плечо."},c2:{en:"An ad account from my real case. Tap the laptop screen to open it.",ru:"Рекламный кабинет из моего реального кейса. Нажмите на экран ноутбука, чтобы открыть."},c3:{en:"Open the case",ru:"Открыть кейс"},
+c0:{en:"Results",ru:"Результаты"},c1:{en:"Real numbers from my ad account.",ru:"Реальные цифры из моего кабинета."},c2:{en:"Rehabilitation center, one month: $1,056 of ads → $40,711 in revenue.",ru:"Реабилитационный центр, один месяц: $1 056 на рекламу → $40 711 выручки."},c3:{en:"Open the case",ru:"Открыть кейс"},
 p0:{en:"How we start",ru:"Как начинаем"},p1:{en:"Small start. Clear numbers.",ru:"Небольшой старт. Понятные цифры."},
 p2:{en:"Free audit",ru:"Бесплатный аудит"},p2s:{en:"your ads &amp; offer",ru:"реклама и оффер"},p3:{en:"7-day paid test",ru:"Платный тест 7 дней"},p3s:{en:"first real data",ru:"первые реальные данные"},p4:{en:"Weekly reports",ru:"Отчёты каждую неделю"},p4s:{en:"and next steps",ru:"и следующие шаги"},
 r0:{en:"Two reasons to write",ru:"Две причины написать"},r1:{en:"Old meets new — and it works.",ru:"Старое встречает новое — и это работает."},
@@ -540,77 +614,43 @@ caseEl.addEventListener('click',e=>{if(e.target===caseEl)closeCase()});
 addEventListener('keydown',e=>{if(e.key==='Escape'&&caseEl.classList.contains('open'))closeCase()});
 document.querySelectorAll('[data-open-case]').forEach(b=>b.addEventListener('click',()=>{const r=b.getBoundingClientRect();openCase(r.left+r.width/2,r.top+r.height/2)}));
 
-const maxScroll=()=>Math.max(1,document.documentElement.scrollHeight-innerHeight);
-window.goP=p=>scrollTo({top:p*maxScroll(),behavior:'smooth'});
-document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();goP(+b.dataset.go)}));
-</script>
 
-<script>
+
 (function(){
-const video=document.getElementById('film');
-const DUR=64;
-// scroll units -> film time (holds keep the frame still while text is read)
-const SEG=[[0.5,0,0],[1.5,0,8],[1.2,8,16],[1.3,16,24],[1.5,24,32],[1.2,32,40],[0.8,40,40],[1.2,40,48],[1.6,48,56],[1.2,56,64],[0.8,64,64]];
-const TOTAL=SEG.reduce((a,s)=>a+s[0],0);
-const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
-const ease=t=>t*t*(3-2*t);
-function timeAt(p){let u=p*TOTAL;for(const s of SEG){if(u<=s[0]){const k=s[0]?u/s[0]:1;return s[1]+(s[2]-s[1])*(s[1]===s[2]?0:k)}u-=s[0]}return DUR}
-function pAt(t){let acc=0;for(const s of SEG){if(s[1]!==s[2]&&t>=s[1]&&t<=s[2])return (acc+(t-s[1])/(s[2]-s[1])*s[0])/TOTAL;if(s[1]===s[2]&&t===s[1])return (acc+s[0]*0.5)/TOTAL;acc+=s[0]}return 1}
-const maxS=()=>Math.max(1,document.documentElement.scrollHeight-innerHeight);
-const goT=t=>scrollTo({top:pAt(t)*maxS(),behavior:'smooth'});
-window.goT=goT;
-document.querySelectorAll('[data-go-t]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();goT(+b.dataset.goT)}));
-
-const portrait=()=>innerWidth<innerHeight;
-// object-position focus for portrait screens, by film time
-const FOCUS=[[0,50],[16,50],[24,50],[26,62],[38,55],[40,50],[56,50],[58,34],[61,16],[64,12]];
-function focusAt(t){for(let i=0;i<FOCUS.length-1;i++){const a=FOCUS[i],b=FOCUS[i+1];if(t>=a[0]&&t<=b[0])return a[1]+(b[1]-a[1])*ease((t-a[0])/(b[0]-a[0]||1))}return FOCUS[FOCUS.length-1][1]}
-
-// map a point in video coords (0..1) to screen px, honouring object-fit:cover
-function toScreen(x,y,ox){const vw=1920,vh=1080,W=innerWidth,H=innerHeight;const s=Math.max(W/vw,H/vh);const w=vw*s,h=vh*s;const offX=(W-w)*(ox/100),offY=(H-h)/2;return{x:offX+x*w,y:offY+y*h}}
-
-const beats=[...document.querySelectorAll('.beat')];
-const chapBtns=[...document.querySelectorAll('#chapters button')];
-const hsDoor=document.getElementById('hsDoor'),hsScreen=document.getElementById('hsScreen'),fab=document.getElementById('fab'),hint=document.getElementById('scrollhint');
-
-let target=0,cur=0,ready=false,seeking=false;
-const readScroll=()=>{target=timeAt(clamp(scrollY/maxS()))};
-addEventListener('scroll',readScroll,{passive:true});
-video.addEventListener('seeked',()=>{seeking=false});
-
-function ui(t){
-  beats.forEach(b=>b.classList.toggle('on',t>=+b.dataset.t0&&t<=+b.dataset.t1));
-  const ci=t<16?0:t<38?1:t<44?2:t<62?3:4;chapBtns.forEach((b,i)=>b.classList.toggle('on',i===ci));
-  const ox=portrait()?focusAt(t):50;video.style.setProperty('--ox',ox+'%');
-  if(t>5&&t<8.2){const p=toScreen(.5,.6,ox);hsDoor.style.left=p.x+'px';hsDoor.style.top=p.y+'px';hsDoor.classList.add('show')}else hsDoor.classList.remove('show');
-  if(t>38.6&&t<40.4){const p=toScreen(.55,.3,ox);hsScreen.style.left=p.x+'px';hsScreen.style.top=p.y+'px';hsScreen.classList.add('show')}else hsScreen.classList.remove('show');
-  fab.classList.toggle('hide',t<2||t>62);
-  hint.style.opacity=t<0.5?1:0;
+const mob=matchMedia('(max-width: 899px)');
+const pre=()=>mob.matches?'m':'d';
+const secs=[...document.querySelectorAll('.sec')];
+const fab=document.getElementById('fab');
+function setup(sec){
+  const media=sec.querySelector('.media');
+  const clips=sec.dataset.clips.split(',');
+  const pst=media.querySelector('.pst');
+  pst.src='v/'+pre()+clips[0]+'.jpg';
+  sec._vids=clips.map((c,i)=>{const v=document.createElement('video');v.muted=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('muted','');v.preload='none';v.dataset.clip=c;media.insertBefore(v,media.querySelector('.grain'));return v});
 }
-function frame(){
-  cur+=(target-cur)*0.12;if(Math.abs(target-cur)<0.004)cur=target;
-  if(ready&&!seeking&&Math.abs(video.currentTime-cur)>1/48){seeking=true;try{video.currentTime=Math.min(cur,DUR-0.05)}catch(e){seeking=false}}
-  ui(cur);
-  requestAnimationFrame(frame);
+function load(sec){if(sec._loaded)return;sec._loaded=true;sec._vids.forEach(v=>{v.src='v/'+pre()+v.dataset.clip+'.mp4';v.preload='auto';v.load()})}
+function playFrom(sec,i){
+  const vids=sec._vids,btn=sec.querySelector('.playbtn');
+  if(i>=vids.length){sec.classList.add('played');return}
+  const v=vids[i];
+  v.currentTime=0;
+  const p=v.play();
+  const show=()=>{vids.forEach((x,k)=>x.classList.toggle('on',k===i))};
+  if(p&&p.then){p.then(()=>{btn.classList.remove('show');if(v.readyState>=2)show();else v.addEventListener('playing',show,{once:true})}).catch(()=>{btn.classList.add('show')})}else show();
+  v.onended=()=>{if(i+1<vids.length){playFrom(sec,i+1)}else sec.classList.add('played')};
 }
-// click on the laptop screen area opens the case
-document.querySelector('.film').style.pointerEvents='none';
-
-// load the film fully (smooth scrubbing needs the whole file)
-const src=(Math.min(screen.width,screen.height)<=820||innerWidth<900)?'video/film-720.mp4':'video/film-1080.mp4';
-const pct=document.getElementById('loadPct'),bar=document.getElementById('loadBar');
-function finish(url){video.src=url;video.addEventListener('loadeddata',()=>{ready=true;document.body.classList.add('ready')},{once:true});video.load()}
-(async()=>{
-  try{
-    const r=await fetch(src);if(!r.ok||!r.body)throw 0;
-    const len=+r.headers.get('content-length')||0;const rd=r.body.getReader();const parts=[];let got=0;
-    for(;;){const {done,value}=await rd.read();if(done)break;parts.push(value);got+=value.length;if(len){const k=Math.round(got/len*100);pct.textContent=k+'%';bar.style.width=k+'%'}}
-    finish(URL.createObjectURL(new Blob(parts,{type:'video/mp4'})));
-  }catch(e){finish(src)}
-})();
-setTimeout(()=>{if(!ready){document.body.classList.add('ready')}},25000);
-video.addEventListener('error',()=>{document.body.classList.add('flat','ready')});
-readScroll();cur=target;frame();
+function start(sec){if(sec._started)return;sec._started=true;load(sec);playFrom(sec,0)}
+secs.forEach(setup);
+const near=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)load(e.target)}),{rootMargin:'120% 0px'});
+const seen=new IntersectionObserver(es=>es.forEach(e=>{const s=e.target;if(e.isIntersecting){s.classList.add('in');start(s);fab.classList.toggle('hide',s.id==='s1'||s.id==='s6')}}),{threshold:.45});
+secs.forEach(s=>{near.observe(s);seen.observe(s)});
+load(secs[0]);if(secs[1])load(secs[1]);
+secs.forEach(s=>{
+  s.querySelector('.playbtn').addEventListener('click',e=>{e.stopPropagation();s._started=true;load(s);playFrom(s,0)});
+  const m=s.querySelector('.media');
+  if(m.hasAttribute('data-replay'))m.addEventListener('click',e=>{if(e.target.closest('button'))return;s.classList.remove('played');playFrom(s,0)});
+});
+document.querySelectorAll('[data-open-case]').forEach(b=>{if(b.classList.contains('media'))b.addEventListener('click',e=>{if(e.target.closest('.hot'))return;const r=b.getBoundingClientRect();openCase(r.left+r.width/2,r.top+r.height/2)})});
 })();
 
 </script>
