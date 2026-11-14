@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy — Muaz</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230B7A75'/%3E%3Cpath d='M17 46V19l15 16 15-16v27' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+body{margin:0;background:#F6F9FA;color:#0E1B2B;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.6}
+main{width:min(760px,calc(100% - 40px));margin:0 auto;padding:40px 0 80px}
+a{color:#0B7A75}
+h1{font-size:30px;line-height:1.15;margin:18px 0 6px}
+h2{font-size:18px;margin:28px 0 6px}
+p,li{color:#3d4a5c}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.langs a{margin-left:10px;font-weight:700;text-decoration:none}
+.langs a.on{color:#0E1B2B;text-decoration:underline}
+small{color:#8A97A8}
+[data-l]{display:none}
+html[lang=en] [data-l=en],html[lang=ru] [data-l=ru]{display:block}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><a href="index.html" id="back">← Muaz</a><span class="langs"><a href="?lang=en" data-set="en">EN</a><a href="?lang=ru" data-set="ru">RU</a></span></div>
+
+  <section data-l="en">
+    <h1>Privacy policy</h1>
+    <small>Last updated: 14 November 2026</small>
+    <h2>Who is responsible</h2>
+    <p>This website belongs to Muaz, a freelance advertising specialist. Contact: WhatsApp +20 127 433 4692, Telegram @abumuazmtaz.</p>
+    <h2>What data is collected</h2>
+    <ul>
+      <li><b>Request form.</b> The name, business, city, phone and message you enter are not stored on this website. When you press “Send”, they are put into a WhatsApp message that you send yourself.</li>
+      <li><b>Messages.</b> If you write via WhatsApp or Telegram, I receive what you send there.</li>
+      <li><b>Meta Pixel.</b> This site may use the Meta Pixel (Meta Platforms) to measure ad results: page views, clicks on contact buttons and form submissions. Meta may use cookies and device data for this. You can control ad settings in your Facebook/Instagram account and block cookies in your browser.</li>
+    </ul>
+    <h2>Why</h2>
+    <p>Only to reply to your request, prepare an audit and measure how well my own ads work. I don’t sell your data and don’t share it with anyone except the services named above.</p>
+    <h2>How long</h2>
+    <p>Correspondence is kept as long as we are in contact or as long as needed for our work. You can ask me to delete it at any time.</p>
+    <h2>Your rights</h2>
+    <p>You can ask what data I have about you, ask to correct it or delete it — just write to me via the contacts above.</p>
+  </section>
+
+  <section data-l="ru">
+    <h1>Политика конфиденциальности</h1>
+    <small>Обновлено: 14 ноября 2026</small>
+    <h2>Кто отвечает за данные</h2>
+    <p>Этот сайт принадлежит Муазу, частному специалисту по рекламе. Контакты: WhatsApp +20 127 433 4692, Telegram @abumuazmtaz.</p>
+    <h2>Какие данные собираются</h2>
+    <ul>
+      <li><b>Форма заявки.</b> Имя, название бизнеса, город, телефон и сообщение не сохраняются на сайте. После нажатия «Отправить» они подставляются в сообщение WhatsApp, которое вы отправляете сами.</li>
+      <li><b>Сообщения.</b> Если вы пишете в WhatsApp или Telegram, я получаю то, что вы отправили.</li>
+      <li><b>Пиксель Meta.</b> Сайт может использовать пиксель Meta (Meta Platforms) для оценки результатов рекламы: просмотры страницы, нажатия на кнопки связи и отправку формы. Для этого Meta может использовать cookie и данные устройства. Настройки рекламы можно изменить в аккаунте Facebook/Instagram, а cookie — заблокировать в браузере.</li>
+    </ul>
+    <h2>Зачем</h2>
+    <p>Только чтобы ответить на вашу заявку, подготовить аудит и понимать, насколько хорошо работает моя собственная реклама. Я не продаю данные и не передаю их никому, кроме названных выше сервисов.</p>
+    <h2>Как долго</h2>
+    <p>Переписка хранится, пока мы на связи или пока это нужно для работы. Вы можете в любой момент попросить её удалить.</p>
+    <h2>Ваши права</h2>
+    <p>Вы можете узнать, какие данные о вас у меня есть, попросить исправить или удалить их — просто напишите мне по контактам выше.</p>
+  </section>
+</main>
+<script>
+const q=new URLSearchParams(location.search).get('lang');
+const l=q==='ru'||q==='en'?q:((navigator.language||'').toLowerCase().startsWith('ru')?'ru':'en');
+document.documentElement.lang=l;
+document.title=l==='ru'?'Политика конфиденциальности — Муаз':'Privacy policy — Muaz';
+document.getElementById('back').href='index.html?lang='+l;
+document.querySelectorAll('[data-set]').forEach(a=>a.classList.toggle('on',a.dataset.set===l));
+</script>
+</body>
+</html>
